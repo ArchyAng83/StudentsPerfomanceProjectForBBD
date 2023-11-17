@@ -46,5 +46,8 @@
   <ItemGroup>
     <Content Include="DataBase\SetupCourseProjectBD.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="DataBase\KursovayaZapiskaBBD.docx" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
