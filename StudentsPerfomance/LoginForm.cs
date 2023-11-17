@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
+using StudentsPerformance.Logic.DataAccess;
+using StudentsPerformance.Logic.Models;
 
-namespace StudentsPerfomance
+namespace StudentsPerformance
 {
     public partial class LoginForm : Form
     {
         private int roleId;
         private int userId;
+        private UserModel model;
+        private RoleModel role;
 
         public LoginForm()
         {
@@ -26,43 +30,48 @@ namespace StudentsPerfomance
         {
             string login = loginTextBox.Text;
             string password = passwordTextBox.Text;
-            ValidateEnter(login, password);
-            switch (roleId)
+
+            model = SqlConnector.GetUserLogin(role, login, password);
+            if (ValidateEnter(login, password))
             {
-                case 2:
-                    HeadTeacherForm headTeacherForm = new HeadTeacherForm();
-                    this.Hide();
-                    headTeacherForm.ShowDialog();
-                    break;
-                case 3:
-                    TeachersForm teachers = new TeachersForm(userId, false);
-                    this.Hide();
-                    teachers.ShowDialog();
-                    break;
-                case 4:
-                    StudentInfoForm studentInfoForm = new StudentInfoForm(userId);
-                    this.Hide();
-                    studentInfoForm.ShowDialog();
-                    break;
-                case 5:
-                    StaffForm staffForm = new StaffForm();
-                    this.Hide();
-                    staffForm.ShowDialog();
-                    break;
-                case 6:
-                    TeachersForm classTeachers = new TeachersForm(userId, true);
-                    this.Hide();
-                    classTeachers.ShowDialog();
-                    break;
-                default:
-                    MessageBox.Show($"Неверный логин или пароль");
-                    break;
+                switch (role.Id)
+                {
+                    case 2:
+                        HeadTeacherForm headTeacherForm = new HeadTeacherForm();
+                        this.Hide();
+                        headTeacherForm.ShowDialog();
+                        break;
+                    case 3:
+                        TeachersForm teachers = new TeachersForm(userId, false);
+                        this.Hide();
+                        teachers.ShowDialog();
+                        break;
+                    case 4:
+                        StudentInfoForm studentInfoForm = new StudentInfoForm(userId);
+                        this.Hide();
+                        studentInfoForm.ShowDialog();
+                        break;
+                    case 5:
+                        StaffForm staffForm = new StaffForm();
+                        this.Hide();
+                        staffForm.ShowDialog();
+                        break;
+                    case 6:
+                        TeachersForm classTeachers = new TeachersForm(userId, true);
+                        this.Hide();
+                        classTeachers.ShowDialog();
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Неверный логин или пароль");
             }
         }
 
         //WHERE Users.login = N'З1' and Users.password = '111111'
 
-        private void ValidateEnter(string login, string password)
+        private bool ValidateEnter(string login, string password)
         {
             string sqlExpresion = "spUsers_GetLoginAndPassword";
             using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
@@ -79,11 +88,14 @@ namespace StudentsPerfomance
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read()) 
+                    if (reader.Read()) 
                     {
                         roleId = reader.GetInt32(3);
                         userId = reader.GetInt32(0);
+                        return true;
                     }
+
+                    return false;
                 }
             }
         }

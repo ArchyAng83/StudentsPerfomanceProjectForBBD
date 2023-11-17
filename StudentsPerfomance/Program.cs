@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StudentsPerfomance
+namespace StudentsPerformance
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace StudentsPerfomance
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TeachersForm(100003, true));
+            Application.Run(new LoginForm());
         }
     }
 }

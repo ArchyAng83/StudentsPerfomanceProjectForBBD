@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32802.440
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsPerfomance", "StudentsPerfomance\StudentsPerfomance.csproj", "{6C1D47E1-ADE8-4D4B-9C00-A6CEF93DCBC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsPerformance", "StudentsPerfomance\StudentsPerformance.csproj", "{6C1D47E1-ADE8-4D4B-9C00-A6CEF93DCBC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsPerformance.Logic", "StudentsPerformance.Logic\StudentsPerformance.Logic.csproj", "{0C7D30AD-1E5B-4A0F-86FB-ED5B254C6DB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6C1D47E1-ADE8-4D4B-9C00-A6CEF93DCBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C1D47E1-ADE8-4D4B-9C00-A6CEF93DCBC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C1D47E1-ADE8-4D4B-9C00-A6CEF93DCBC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C7D30AD-1E5B-4A0F-86FB-ED5B254C6DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C7D30AD-1E5B-4A0F-86FB-ED5B254C6DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C7D30AD-1E5B-4A0F-86FB-ED5B254C6DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C7D30AD-1E5B-4A0F-86FB-ED5B254C6DB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
