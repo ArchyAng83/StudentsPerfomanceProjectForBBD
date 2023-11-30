@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentsPerfomanceLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace StudentsPerfomance
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TeachersForm(100003, true));
+            GlobalConfig.InitializeConnection(DataType.Sql);
+            Application.Run(new LoginForm());
         }
     }
 }

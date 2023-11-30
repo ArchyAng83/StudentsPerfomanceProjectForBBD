@@ -218,7 +218,6 @@
       <DependentUpon>AddSubjectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DataBank.cs" />
-    <Compile Include="GlobalConfig.cs" />
     <Compile Include="GuardiansInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -360,6 +359,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StudentsPerfomanceLogic\StudentsPerfomanceLogic.csproj">
+      <Project>{9a5e6c9c-d184-440a-90ea-f0a0e1d3b15d}</Project>
+      <Name>StudentsPerfomanceLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.5.0.1\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.0.1\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />

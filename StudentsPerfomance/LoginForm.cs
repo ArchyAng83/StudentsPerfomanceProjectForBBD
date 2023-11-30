@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
+using StudentsPerfomanceLogic;
 
 namespace StudentsPerfomance
 {
@@ -65,7 +66,7 @@ namespace StudentsPerfomance
         private void ValidateEnter(string login, string password)
         {
             string sqlExpresion = "spUsers_GetLoginAndPassword";
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 connection.Open();
 
@@ -79,7 +80,7 @@ namespace StudentsPerfomance
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read()) 
+                    while (reader.Read())
                     {
                         roleId = reader.GetInt32(3);
                         userId = reader.GetInt32(0);
