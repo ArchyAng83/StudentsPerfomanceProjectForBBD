@@ -32,7 +32,7 @@ namespace StudentsPerfomanceLogic.DataAccess
                 {
                     while (reader.Read())
                     {
-                        user.Id = reader.GetInt32(0);
+                        user.userId = reader.GetInt32(2);
                         user.RoleId = reader.GetInt32(3);
                     }
                 }

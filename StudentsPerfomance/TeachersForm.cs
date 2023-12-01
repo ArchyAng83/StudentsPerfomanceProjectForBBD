@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using StudentsPerfomanceLogic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,7 +54,7 @@ namespace StudentsPerfomance
 
         private void LoadData(int classId, DataGridView dataGridView)
         {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 connection.Open();
 
@@ -78,7 +79,7 @@ namespace StudentsPerfomance
 
         private void LoadData(int classId)
         {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 connection.Open();
 
@@ -102,7 +103,7 @@ namespace StudentsPerfomance
 
         private void AddCmbBoxData(string sqlExpresion, ComboBox comboBox)
         {
-            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 sqlConnection.Open();
 
@@ -118,7 +119,7 @@ namespace StudentsPerfomance
 
         private void GetFullNameTeacherAndSubject()
         {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 connection.Open();
 
@@ -144,7 +145,7 @@ namespace StudentsPerfomance
         {
             foreach (DataGridViewRow row in lessonDataGridView.SelectedRows)
             {
-                using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
                 {
                     sqlConnection.Open();
 
@@ -167,7 +168,7 @@ namespace StudentsPerfomance
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
+                using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
                 {
                     connection.Open();
                     adapter = new SqlDataAdapter("spStudentsMarks_GetMarksForSubject", connection);

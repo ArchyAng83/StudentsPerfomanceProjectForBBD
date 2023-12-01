@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using StudentsPerfomanceLogic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +39,7 @@ namespace StudentsPerfomance
 
         private void AddCmbBoxData(string sqlExpresion, ComboBox comboBox)
         {
-            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 sqlConnection.Open();
 
@@ -54,7 +55,7 @@ namespace StudentsPerfomance
 
         private void InsertTeacher()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 sqlConnection.Open();
 

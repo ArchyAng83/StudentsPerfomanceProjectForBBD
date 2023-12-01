@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StudentsPerfomanceLogic;
 
 namespace StudentsPerfomance
 {
@@ -34,7 +35,7 @@ namespace StudentsPerfomance
 
         private void AddCmbBoxData(string sqlExpresion, ComboBox comboBox)
         {
-            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 sqlConnection.Open();
 
@@ -50,7 +51,7 @@ namespace StudentsPerfomance
 
         private void saveTeacherBtn_Click(object sender, EventArgs e)
         {
-            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 sqlConnection.Open();
 

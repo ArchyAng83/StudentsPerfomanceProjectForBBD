@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using StudentsPerfomanceLogic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace StudentsPerfomance
 
         private void LoadData()
         {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 connection.Open();
 
@@ -53,7 +54,7 @@ namespace StudentsPerfomance
         {
             int output = 0;
 
-            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
             {
                 sqlConnection.Open();
 
@@ -75,7 +76,7 @@ namespace StudentsPerfomance
         {
             foreach (DataGridViewRow row in staffDataGridView.SelectedRows)
             {
-                using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
                 {
                     sqlConnection.Open();
 

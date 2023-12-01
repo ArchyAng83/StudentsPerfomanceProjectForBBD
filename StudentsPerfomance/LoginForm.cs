@@ -34,12 +34,12 @@ namespace StudentsPerfomance
                         headTeacherForm.ShowDialog();
                         break;
                     case 3:
-                        TeachersForm teachers = new TeachersForm(user.Id, false);
+                        TeachersForm teachers = new TeachersForm(user.userId, false);
                         this.Hide();
                         teachers.ShowDialog();
                         break;
                     case 4:
-                        StudentInfoForm studentInfoForm = new StudentInfoForm(user.Id);
+                        StudentInfoForm studentInfoForm = new StudentInfoForm(user.userId);
                         this.Hide();
                         studentInfoForm.ShowDialog();
                         break;
@@ -49,7 +49,7 @@ namespace StudentsPerfomance
                         staffForm.ShowDialog();
                         break;
                     case 6:
-                        TeachersForm classTeachers = new TeachersForm(user.Id, true);
+                        TeachersForm classTeachers = new TeachersForm(user.userId, true);
                         this.Hide();
                         classTeachers.ShowDialog();
                         break;
