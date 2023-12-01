@@ -11,9 +11,9 @@ namespace StudentsPerfomanceLogic.DataAccess
 {
     public class SqlConnector : IDataConnection
     {
-        private User user;
+        private readonly User user;
 
-        public bool ValidateEnter(string login, string password)
+        public User GetUserByLoginAndPassword(string login, string password)
         {
             string sqlExpresion = "spUsers_GetLoginAndPassword";
             using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
@@ -36,6 +36,8 @@ namespace StudentsPerfomanceLogic.DataAccess
                         user.RoleId = reader.GetInt32(3);
                     }
                 }
+
+                return user;
             }
         }
     }

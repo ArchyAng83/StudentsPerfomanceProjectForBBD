@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentsPerfomanceLogic.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace StudentsPerfomanceLogic.DataAccess
 {
     public interface IDataConnection
     {
-        bool ValidateEnter(string login, string password);
+        User GetUserByLoginAndPassword(string login, string password);
     }
 }
