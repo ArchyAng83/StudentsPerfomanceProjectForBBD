@@ -11,5 +11,12 @@ namespace StudentsPerfomanceLogic.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Student> Students { get; set; }
+
+        public SchoolClass(int id, string name)
+        {
+            Id = id;
+            Name = name;
+            Students = new List<Student>();
+        }
     }
 }

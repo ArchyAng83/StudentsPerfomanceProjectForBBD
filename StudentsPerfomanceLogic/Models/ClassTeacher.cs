@@ -8,6 +8,19 @@ namespace StudentsPerfomanceLogic.Models
 {
     public class ClassTeacher : Teacher
     {
-        public SchoolClass Class { get; set; }
+        public SchoolClass SchoolClass { get; set; }
+
+        public ClassTeacher(int id,
+           string firstName,
+           string middleName,
+           string lastName,
+           string address,
+           DateTime birthDate,
+           Subject subject,
+           SchoolClass schoolClass,
+           string cellPhone) : base(id, firstName, middleName, lastName, address, birthDate, subject, cellPhone)
+        {
+            SchoolClass = schoolClass;
+        }
     }
 }
