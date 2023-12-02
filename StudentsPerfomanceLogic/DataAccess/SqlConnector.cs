@@ -1,5 +1,4 @@
-﻿// Ignore Spelling: Perfomance
-
+﻿
 using StudentsPerfomanceLogic.Models;
 using System;
 using System.Collections.Generic;
@@ -8,38 +7,28 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace StudentsPerfomanceLogic.DataAccess
 {
     public class SqlConnector : IDataConnection
     {
+        private const string db = "StudentsPerformanceForPAS";
+
         public User GetUserByLoginAndPassword(string login, string password)
         {
-            User user = new User();
+            User user;
 
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformanceForPAS")))
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.GetConnection(db)))
             {
-                connection.Open();
+                var p = new DynamicParameters();
 
-                SqlCommand command = new SqlCommand("spUsers_GetUserByLoginAndPassword", connection);
-
-                SqlParameter loginParam = new SqlParameter("@login", login);
-                SqlParameter passwordParam = new SqlParameter("@password", password);
-                command.Parameters.Add(loginParam);
-                command.Parameters.Add(passwordParam);
-                command.CommandType = CommandType.StoredProcedure;
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        user.UserId = reader.GetInt32(2);
-                        user.RoleId = reader.GetInt32(3);
-                    }
-                }
-
-                return user;
+                p.Add("@login", login);
+                p.Add("@password", password);
+                user = connection.Query<User>("spUsers_GetUserByLoginAndPassword",p, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
+
+            return user;
         }
     }
 }
