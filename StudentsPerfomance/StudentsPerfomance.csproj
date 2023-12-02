@@ -367,9 +367,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StudentsPerfomanceLogic\StudentsPerfomanceLogic.csproj">
+    <ProjectReference Include="..\StudentsPerfomanceLogic\StudentsPerformanceLogic.csproj">
       <Project>{9a5e6c9c-d184-440a-90ea-f0a0e1d3b15d}</Project>
-      <Name>StudentsPerfomanceLogic</Name>
+      <Name>StudentsPerformanceLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

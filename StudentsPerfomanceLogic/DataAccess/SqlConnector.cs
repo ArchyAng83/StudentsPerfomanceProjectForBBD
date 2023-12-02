@@ -1,5 +1,5 @@
 ﻿
-using StudentsPerfomanceLogic.Models;
+using StudentsPerformanceLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 
-namespace StudentsPerfomanceLogic.DataAccess
+namespace StudentsPerformanceLogic.DataAccess
 {
     public class SqlConnector : IDataConnection
     {

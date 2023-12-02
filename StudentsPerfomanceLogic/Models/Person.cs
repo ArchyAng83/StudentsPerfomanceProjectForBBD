@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentsPerfomanceLogic.Models
+namespace StudentsPerformanceLogic.Models
 {
     public abstract class Person
     {

@@ -1,4 +1,4 @@
-﻿namespace StudentsPerfomanceLogic.Models
+﻿namespace StudentsPerformanceLogic.Models
 {
     public class Subject
     {

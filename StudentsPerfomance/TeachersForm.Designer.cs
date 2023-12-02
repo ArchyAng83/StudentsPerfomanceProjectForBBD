@@ -1,5 +1,5 @@
 ﻿
-namespace StudentsPerfomance
+namespace StudentsPerformance
 {
     partial class TeachersForm
     {

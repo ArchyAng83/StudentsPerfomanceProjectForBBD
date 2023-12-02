@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace StudentsPerfomanceLogic.Models
+namespace StudentsPerformanceLogic.Models
 {
     public class Student : Person
     {        

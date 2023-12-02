@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StudentsPerfomance.Properties {
+namespace StudentsPerformance.Properties {
     using System;
     
     

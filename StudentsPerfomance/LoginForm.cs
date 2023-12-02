@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
-using StudentsPerfomanceLogic;
+using StudentsPerformanceLogic;
 
-namespace StudentsPerfomance
+namespace StudentsPerformance
 {
     public partial class LoginForm : Form
     {

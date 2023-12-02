@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
-using StudentsPerfomanceLogic.DataAccess;
+using StudentsPerformanceLogic.DataAccess;
 
-namespace StudentsPerfomanceLogic
+namespace StudentsPerformanceLogic
 {
     public static class GlobalConfig
     {
