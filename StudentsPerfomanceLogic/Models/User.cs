@@ -10,7 +10,7 @@ namespace StudentsPerfomanceLogic.Models
     {
         public string Login { get; set; }
         public string Password { get; set; }        
-        public int userId { get; set; }
+        public int UserId { get; set; }
         public int RoleId { get; set; }
     }
 }

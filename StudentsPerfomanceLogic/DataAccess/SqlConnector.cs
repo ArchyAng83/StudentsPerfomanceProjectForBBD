@@ -1,4 +1,6 @@
-﻿using StudentsPerfomanceLogic.Models;
+﻿// Ignore Spelling: Perfomance
+
+using StudentsPerfomanceLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,16 +13,15 @@ namespace StudentsPerfomanceLogic.DataAccess
 {
     public class SqlConnector : IDataConnection
     {
-        private readonly User user;
-
         public User GetUserByLoginAndPassword(string login, string password)
         {
-            string sqlExpresion = "spUsers_GetLoginAndPassword";
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
+            User user = new User();
+
+            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformanceForPAS")))
             {
                 connection.Open();
 
-                SqlCommand command = new SqlCommand(sqlExpresion, connection);
+                SqlCommand command = new SqlCommand("spUsers_GetUserByLoginAndPassword", connection);
 
                 SqlParameter loginParam = new SqlParameter("@login", login);
                 SqlParameter passwordParam = new SqlParameter("@password", password);
@@ -32,7 +33,7 @@ namespace StudentsPerfomanceLogic.DataAccess
                 {
                     while (reader.Read())
                     {
-                        user.userId = reader.GetInt32(2);
+                        user.UserId = reader.GetInt32(2);
                         user.RoleId = reader.GetInt32(3);
                     }
                 }

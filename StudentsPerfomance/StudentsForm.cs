@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿// Ignore Spelling: Perfomance
+
+using Microsoft.Data.SqlClient;
 using StudentsPerfomanceLogic;
 using System;
 using System.Collections.Generic;

@@ -34,12 +34,12 @@ namespace StudentsPerfomance
                         headTeacherForm.ShowDialog();
                         break;
                     case 3:
-                        TeachersForm teachers = new TeachersForm(user.userId, false);
+                        TeachersForm teachers = new TeachersForm(user.UserId, false);
                         this.Hide();
                         teachers.ShowDialog();
                         break;
                     case 4:
-                        StudentInfoForm studentInfoForm = new StudentInfoForm(user.userId);
+                        StudentInfoForm studentInfoForm = new StudentInfoForm(user.UserId);
                         this.Hide();
                         studentInfoForm.ShowDialog();
                         break;
@@ -49,9 +49,12 @@ namespace StudentsPerfomance
                         staffForm.ShowDialog();
                         break;
                     case 6:
-                        TeachersForm classTeachers = new TeachersForm(user.userId, true);
+                        TeachersForm classTeachers = new TeachersForm(user.UserId, true);
                         this.Hide();
                         classTeachers.ShowDialog();
+                        break;
+                    default:
+                        MessageBox.Show("Роль не определена.", "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
                 } 
             }
