@@ -34,9 +34,7 @@ namespace StudentsPerformance
                 classJournalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 classJournalDataGridView.AllowUserToAddRows = false;
                 AddCmbBoxData("SELECT * FROM Classes ORDER BY className", classLessonCmbBox);
-                AddCmbBoxData($"SELECT Classes.id, Classes.className FROM Classes INNER JOIN Teachers ON Classes.classTeacherId = Teachers.id WHERE Teachers.id = {teacherId}", classJournalCmbBox);
                 LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
-                LoadData((int)classJournalCmbBox.SelectedValue);
                 this.Text = "Журнал классного руководителя";
             }
             else
@@ -218,11 +216,6 @@ namespace StudentsPerformance
             LoginForm loginForm = new LoginForm();
             this.Hide();
             loginForm.ShowDialog();
-        }
-
-        private void classJournalBtn_Click(object sender, EventArgs e)
-        {
-            LoadData((int)classJournalCmbBox.SelectedValue);
         }
     }
 }

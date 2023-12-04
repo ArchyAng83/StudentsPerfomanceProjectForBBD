@@ -33,7 +33,6 @@ namespace StudentsPerformance
             this.lessonTabPage = new System.Windows.Forms.TabPage();
             this.addLessonBtn = new System.Windows.Forms.Button();
             this.deleteLessonBtn = new System.Windows.Forms.Button();
-            this.updateLessonBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.classLessonCmbBox = new System.Windows.Forms.ComboBox();
             this.subjectNameLabel = new System.Windows.Forms.Label();
@@ -43,10 +42,12 @@ namespace StudentsPerformance
             this.saveLessonBtn = new System.Windows.Forms.Button();
             this.lessonDataGridView = new System.Windows.Forms.DataGridView();
             this.classJournalTabPage = new System.Windows.Forms.TabPage();
-            this.classJournalBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.classJournalCmbBox = new System.Windows.Forms.ComboBox();
             this.classJournalDataGridView = new System.Windows.Forms.DataGridView();
+            this.classValueLabel = new System.Windows.Forms.Label();
+            this.classTeacherFullNameValueLabel = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.printStudentAVGBallBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.lessonTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lessonDataGridView)).BeginInit();
@@ -69,7 +70,6 @@ namespace StudentsPerformance
             // 
             this.lessonTabPage.Controls.Add(this.addLessonBtn);
             this.lessonTabPage.Controls.Add(this.deleteLessonBtn);
-            this.lessonTabPage.Controls.Add(this.updateLessonBtn);
             this.lessonTabPage.Controls.Add(this.label5);
             this.lessonTabPage.Controls.Add(this.classLessonCmbBox);
             this.lessonTabPage.Controls.Add(this.subjectNameLabel);
@@ -108,22 +108,11 @@ namespace StudentsPerformance
             this.deleteLessonBtn.UseVisualStyleBackColor = true;
             this.deleteLessonBtn.Click += new System.EventHandler(this.deleteLessonBtn_Click);
             // 
-            // updateLessonBtn
-            // 
-            this.updateLessonBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.updateLessonBtn.Location = new System.Drawing.Point(650, 98);
-            this.updateLessonBtn.Name = "updateLessonBtn";
-            this.updateLessonBtn.Size = new System.Drawing.Size(109, 23);
-            this.updateLessonBtn.TabIndex = 21;
-            this.updateLessonBtn.Text = "Обновить";
-            this.updateLessonBtn.UseVisualStyleBackColor = true;
-            this.updateLessonBtn.Click += new System.EventHandler(this.updateLessonBtn_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(628, 46);
+            this.label5.Location = new System.Drawing.Point(653, 13);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(58, 20);
             this.label5.TabIndex = 20;
@@ -134,7 +123,7 @@ namespace StudentsPerformance
             this.classLessonCmbBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.classLessonCmbBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.classLessonCmbBox.FormattingEnabled = true;
-            this.classLessonCmbBox.Location = new System.Drawing.Point(703, 42);
+            this.classLessonCmbBox.Location = new System.Drawing.Point(728, 9);
             this.classLessonCmbBox.Name = "classLessonCmbBox";
             this.classLessonCmbBox.Size = new System.Drawing.Size(56, 28);
             this.classLessonCmbBox.TabIndex = 19;
@@ -145,7 +134,7 @@ namespace StudentsPerformance
             this.subjectNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.subjectNameLabel.Location = new System.Drawing.Point(386, 43);
             this.subjectNameLabel.Name = "subjectNameLabel";
-            this.subjectNameLabel.Size = new System.Drawing.Size(58, 16);
+            this.subjectNameLabel.Size = new System.Drawing.Size(57, 16);
             this.subjectNameLabel.TabIndex = 18;
             this.subjectNameLabel.Text = "<none>";
             // 
@@ -155,7 +144,7 @@ namespace StudentsPerformance
             this.teacherFullNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.teacherFullNameLabel.Location = new System.Drawing.Point(386, 15);
             this.teacherFullNameLabel.Name = "teacherFullNameLabel";
-            this.teacherFullNameLabel.Size = new System.Drawing.Size(58, 16);
+            this.teacherFullNameLabel.Size = new System.Drawing.Size(57, 16);
             this.teacherFullNameLabel.TabIndex = 17;
             this.teacherFullNameLabel.Text = "<none>";
             // 
@@ -165,7 +154,7 @@ namespace StudentsPerformance
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(246, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 16);
+            this.label2.Size = new System.Drawing.Size(68, 16);
             this.label2.TabIndex = 16;
             this.label2.Text = "Предмет:";
             // 
@@ -175,7 +164,7 @@ namespace StudentsPerformance
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(246, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 16);
+            this.label1.Size = new System.Drawing.Size(114, 16);
             this.label1.TabIndex = 15;
             this.label1.Text = "Преподаватель:";
             // 
@@ -203,9 +192,11 @@ namespace StudentsPerformance
             // 
             // classJournalTabPage
             // 
-            this.classJournalTabPage.Controls.Add(this.classJournalBtn);
+            this.classJournalTabPage.Controls.Add(this.printStudentAVGBallBtn);
+            this.classJournalTabPage.Controls.Add(this.classTeacherFullNameValueLabel);
+            this.classJournalTabPage.Controls.Add(this.label6);
+            this.classJournalTabPage.Controls.Add(this.classValueLabel);
             this.classJournalTabPage.Controls.Add(this.label3);
-            this.classJournalTabPage.Controls.Add(this.classJournalCmbBox);
             this.classJournalTabPage.Controls.Add(this.classJournalDataGridView);
             this.classJournalTabPage.Location = new System.Drawing.Point(4, 22);
             this.classJournalTabPage.Name = "classJournalTabPage";
@@ -215,36 +206,15 @@ namespace StudentsPerformance
             this.classJournalTabPage.Text = "Журнал";
             this.classJournalTabPage.UseVisualStyleBackColor = true;
             // 
-            // classJournalBtn
-            // 
-            this.classJournalBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.classJournalBtn.Location = new System.Drawing.Point(669, 67);
-            this.classJournalBtn.Name = "classJournalBtn";
-            this.classJournalBtn.Size = new System.Drawing.Size(109, 23);
-            this.classJournalBtn.TabIndex = 24;
-            this.classJournalBtn.Text = "Обновить";
-            this.classJournalBtn.UseVisualStyleBackColor = true;
-            this.classJournalBtn.Click += new System.EventHandler(this.classJournalBtn_Click);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(647, 15);
+            this.label3.Location = new System.Drawing.Point(8, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 20);
             this.label3.TabIndex = 23;
             this.label3.Text = "Класс:";
-            // 
-            // classJournalCmbBox
-            // 
-            this.classJournalCmbBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.classJournalCmbBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.classJournalCmbBox.FormattingEnabled = true;
-            this.classJournalCmbBox.Location = new System.Drawing.Point(722, 11);
-            this.classJournalCmbBox.Name = "classJournalCmbBox";
-            this.classJournalCmbBox.Size = new System.Drawing.Size(56, 28);
-            this.classJournalCmbBox.TabIndex = 22;
             // 
             // classJournalDataGridView
             // 
@@ -254,6 +224,45 @@ namespace StudentsPerformance
             this.classJournalDataGridView.Name = "classJournalDataGridView";
             this.classJournalDataGridView.Size = new System.Drawing.Size(792, 349);
             this.classJournalDataGridView.TabIndex = 0;
+            // 
+            // classValueLabel
+            // 
+            this.classValueLabel.AutoSize = true;
+            this.classValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.classValueLabel.Location = new System.Drawing.Point(81, 14);
+            this.classValueLabel.Name = "classValueLabel";
+            this.classValueLabel.Size = new System.Drawing.Size(63, 20);
+            this.classValueLabel.TabIndex = 24;
+            this.classValueLabel.Text = "<none>";
+            // 
+            // classTeacherFullNameValueLabel
+            // 
+            this.classTeacherFullNameValueLabel.AutoSize = true;
+            this.classTeacherFullNameValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.classTeacherFullNameValueLabel.Location = new System.Drawing.Point(210, 46);
+            this.classTeacherFullNameValueLabel.Name = "classTeacherFullNameValueLabel";
+            this.classTeacherFullNameValueLabel.Size = new System.Drawing.Size(63, 20);
+            this.classTeacherFullNameValueLabel.TabIndex = 26;
+            this.classTeacherFullNameValueLabel.Text = "<none>";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(8, 46);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(199, 20);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "Классный руководитель:";
+            // 
+            // printStudentAVGBallBtn
+            // 
+            this.printStudentAVGBallBtn.Location = new System.Drawing.Point(709, 79);
+            this.printStudentAVGBallBtn.Name = "printStudentAVGBallBtn";
+            this.printStudentAVGBallBtn.Size = new System.Drawing.Size(75, 23);
+            this.printStudentAVGBallBtn.TabIndex = 82;
+            this.printStudentAVGBallBtn.Text = "Печать";
+            this.printStudentAVGBallBtn.UseVisualStyleBackColor = true;
             // 
             // TeachersForm
             // 
@@ -282,7 +291,6 @@ namespace StudentsPerformance
         private System.Windows.Forms.TabPage classJournalTabPage;
         private System.Windows.Forms.Button addLessonBtn;
         private System.Windows.Forms.Button deleteLessonBtn;
-        private System.Windows.Forms.Button updateLessonBtn;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox classLessonCmbBox;
         private System.Windows.Forms.Label subjectNameLabel;
@@ -292,8 +300,10 @@ namespace StudentsPerformance
         private System.Windows.Forms.Button saveLessonBtn;
         private System.Windows.Forms.DataGridView lessonDataGridView;
         private System.Windows.Forms.DataGridView classJournalDataGridView;
-        private System.Windows.Forms.Button classJournalBtn;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox classJournalCmbBox;
+        private System.Windows.Forms.Label classTeacherFullNameValueLabel;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label classValueLabel;
+        private System.Windows.Forms.Button printStudentAVGBallBtn;
     }
 }

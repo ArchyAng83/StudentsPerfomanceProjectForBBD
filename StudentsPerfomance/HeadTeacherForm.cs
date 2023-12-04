@@ -12,16 +12,10 @@ namespace StudentsPerformance
 {
     public partial class HeadTeacherForm : Form
     {
+        //Todo: Add guardians for student
         public HeadTeacherForm()
         {
             InitializeComponent();
-        }
-
-        private void workWithStudentsBtn_Click(object sender, EventArgs e)
-        {
-            StudentsForm studentsForm = new StudentsForm();
-            this.Hide();
-            studentsForm.ShowDialog();
         }
 
         private void HeadTeacherForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -29,12 +23,6 @@ namespace StudentsPerformance
             LoginForm loginForm = new LoginForm();
             this.Hide();
             loginForm.ShowDialog();
-        }
-
-        private void reportsBtn_Click(object sender, EventArgs e)
-        {
-            ReportsForm reportsForm = new ReportsForm();
-            reportsForm.ShowDialog();
         }
     }
 }

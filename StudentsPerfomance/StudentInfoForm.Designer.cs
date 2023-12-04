@@ -101,6 +101,7 @@ namespace StudentsPerformance
             // subjectNameComboBox
             // 
             this.subjectNameComboBox.AllowDrop = true;
+            this.subjectNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.subjectNameComboBox.FormattingEnabled = true;
             this.subjectNameComboBox.Location = new System.Drawing.Point(388, 11);
             this.subjectNameComboBox.Name = "subjectNameComboBox";

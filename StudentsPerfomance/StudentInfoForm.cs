@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using StudentsPerfomance;
 using StudentsPerformanceLogic;
 using StudentsPerformanceLogic.Models;
 using System;
@@ -12,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace StudentsPerformance
 {
@@ -112,7 +110,7 @@ namespace StudentsPerformance
                 p.Add("@classId", student.ClassId);
 
                 studentInfoLabel.Text = $"{student.LastName} {student.FirstName}";
-                var schoolClass = connection.QueryFirst<SchoolClass>("Select className from Classes where Classes.id = @classId", p);
+                var schoolClass = connection.Query<SchoolClass>("Select className from Classes where Classes.id = @classId").FirstOrDefault();
                 classStudentInfoLabel.Text = schoolClass.Name;
             }
         }
