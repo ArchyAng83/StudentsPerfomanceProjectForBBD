@@ -18,7 +18,7 @@ namespace StudentsPerformance
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             GlobalConfig.InitializeConnection(DataType.Sql);
-            Application.Run(new LoginForm());
+            Application.Run(new StudentInfoForm(100014));
         }
     }
 }
