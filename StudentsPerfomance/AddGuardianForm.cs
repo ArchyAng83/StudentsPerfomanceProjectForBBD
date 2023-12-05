@@ -46,8 +46,8 @@ namespace StudentsPerformance
                 SqlCommand sqlCommand = new SqlCommand("spGuardians_InsertGuardian", sqlConnection);
 
                 sqlCommand.Parameters.Add(new SqlParameter("@studentId", studentId));
-                sqlCommand.Parameters.Add(new SqlParameter("@guardianFullName", fullNameGuardianTextBox.Text));
-                sqlCommand.Parameters.Add(new SqlParameter("@phone", phoneGuardianTextBox.Text));
+                sqlCommand.Parameters.Add(new SqlParameter("@guardianFullName", lastNameGuardianTextBox.Text));
+                sqlCommand.Parameters.Add(new SqlParameter("@phone", cellPhoneGuardianTextBox.Text)); 
 
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -59,12 +59,12 @@ namespace StudentsPerformance
         {
             bool output = true;
 
-            if (fullNameGuardianTextBox.Text.Length < 2)
+            if (lastNameGuardianTextBox.Text.Length < 2)
             {
                 output = false;
             }
 
-            if (phoneGuardianTextBox.Text.Length < 5)
+            if (cellPhoneGuardianTextBox.Text.Length < 5)
             {
                 output = false;
             }

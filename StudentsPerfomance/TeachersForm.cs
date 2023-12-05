@@ -195,15 +195,15 @@ namespace StudentsPerformance
 
         private void addLessonBtn_Click(object sender, EventArgs e)
         {
-            LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
-            DataRow row = dataSet.Tables[0].NewRow();
-            dataSet.Tables[0].Rows.Add(row);
-            AddStudentToClassJournal addStudentTo = new AddStudentToClassJournal((int)classLessonCmbBox.SelectedValue);
-            addStudentTo.ShowDialog();
-            row[0] = DataBank.Id;
-            row[1] = DataBank.LastName;
-            row[2] = DataBank.FirstName;
-            row[5] = subjectId;
+            //LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
+            //DataRow row = dataSet.Tables[0].NewRow();
+            //dataSet.Tables[0].Rows.Add(row);
+            //AddStudentToClassJournal addStudentTo = new AddStudentToClassJournal((int)classLessonCmbBox.SelectedValue);
+            //addStudentTo.ShowDialog();
+            //row[0] = DataBank.Id;
+            //row[1] = DataBank.LastName;
+            //row[2] = DataBank.FirstName;
+            //row[5] = subjectId;
         }
 
         private void updateLessonBtn_Click(object sender, EventArgs e)

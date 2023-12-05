@@ -5,7 +5,7 @@ namespace StudentsPerformanceLogic.Models
 {
     public class Student : Person
     {        
-        public List<Guardian> Guardians { get; set; }
+        public Guardian[] Guardians { get; set; } 
 
         public Student(int id,
            string firstName,
@@ -15,7 +15,7 @@ namespace StudentsPerformanceLogic.Models
            DateTime birthDate,
            string cellPhone) : base(id, firstName, middleName, lastName, address, birthDate, cellPhone)
         {
-            Guardians = new List<Guardian>();
+            Guardians = new Guardian[2];
         }
     }
 }

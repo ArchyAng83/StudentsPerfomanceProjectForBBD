@@ -12,7 +12,6 @@ namespace StudentsPerformance
 {
     public partial class HeadTeacherForm : Form
     {
-        //Todo: Add guardians for student
         public HeadTeacherForm()
         {
             InitializeComponent();

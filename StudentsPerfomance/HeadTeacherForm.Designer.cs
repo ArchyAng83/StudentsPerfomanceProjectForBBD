@@ -32,6 +32,10 @@ namespace StudentsPerformance
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeadTeacherForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.editGuardiansLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.addNewClassLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.printStudentBtn = new System.Windows.Forms.Button();
             this.cellPhoneTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.studentsDataGridView = new System.Windows.Forms.DataGridView();
@@ -51,6 +55,9 @@ namespace StudentsPerformance
             this.lastNameStudentTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.printTeacherBtn = new System.Windows.Forms.Button();
             this.quantityOfStaffLbl = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.staffDataGridView = new System.Windows.Forms.DataGridView();
@@ -65,7 +72,7 @@ namespace StudentsPerformance
             this.label15 = new System.Windows.Forms.Label();
             this.phoneTeacherTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.addNewSubjectLinkLabel = new System.Windows.Forms.LinkLabel();
             this.subjectCmbBox = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.middleNameTeacherTextBox = new System.Windows.Forms.TextBox();
@@ -75,6 +82,7 @@ namespace StudentsPerformance
             this.lastNameTeacherTextBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.printReportBtn = new System.Windows.Forms.Button();
             this.avgMarkClassBtn = new System.Windows.Forms.Button();
             this.avgMarkSubjectBtn = new System.Windows.Forms.Button();
             this.resultReportDataGridView = new System.Windows.Forms.DataGridView();
@@ -82,11 +90,11 @@ namespace StudentsPerformance
             this.label16 = new System.Windows.Forms.Label();
             this.quantityOfStudentsLbl = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.printStudentBtn = new System.Windows.Forms.Button();
-            this.printTeacherBtn = new System.Windows.Forms.Button();
-            this.printReportBtn = new System.Windows.Forms.Button();
+            this.guardiansListBox = new System.Windows.Forms.ListBox();
+            this.removeGuardianBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.studentsDataGridView)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.staffDataGridView)).BeginInit();
@@ -108,6 +116,9 @@ namespace StudentsPerformance
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.editGuardiansLinkLabel);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.addNewClassLinkLabel);
             this.tabPage1.Controls.Add(this.printStudentBtn);
             this.tabPage1.Controls.Add(this.cellPhoneTextBox);
             this.tabPage1.Controls.Add(this.label5);
@@ -134,6 +145,49 @@ namespace StudentsPerformance
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Учащиеся";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // editGuardiansLinkLabel
+            // 
+            this.editGuardiansLinkLabel.AutoSize = true;
+            this.editGuardiansLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.editGuardiansLinkLabel.Location = new System.Drawing.Point(738, 176);
+            this.editGuardiansLinkLabel.Name = "editGuardiansLinkLabel";
+            this.editGuardiansLinkLabel.Size = new System.Drawing.Size(65, 16);
+            this.editGuardiansLinkLabel.TabIndex = 84;
+            this.editGuardiansLinkLabel.TabStop = true;
+            this.editGuardiansLinkLabel.Text = "Опекуны";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.removeGuardianBtn);
+            this.groupBox1.Controls.Add(this.guardiansListBox);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox1.Location = new System.Drawing.Point(415, 67);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(391, 106);
+            this.groupBox1.TabIndex = 83;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Опекуны";
+            // 
+            // addNewClassLinkLabel
+            // 
+            this.addNewClassLinkLabel.AutoSize = true;
+            this.addNewClassLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.addNewClassLinkLabel.Location = new System.Drawing.Point(693, 47);
+            this.addNewClassLinkLabel.Name = "addNewClassLinkLabel";
+            this.addNewClassLinkLabel.Size = new System.Drawing.Size(110, 16);
+            this.addNewClassLinkLabel.TabIndex = 82;
+            this.addNewClassLinkLabel.TabStop = true;
+            this.addNewClassLinkLabel.Text = "Добавить класс";
+            // 
+            // printStudentBtn
+            // 
+            this.printStudentBtn.Location = new System.Drawing.Point(877, 181);
+            this.printStudentBtn.Name = "printStudentBtn";
+            this.printStudentBtn.Size = new System.Drawing.Size(75, 23);
+            this.printStudentBtn.TabIndex = 81;
+            this.printStudentBtn.Text = "Печать";
+            this.printStudentBtn.UseVisualStyleBackColor = true;
             // 
             // cellPhoneTextBox
             // 
@@ -216,7 +270,7 @@ namespace StudentsPerformance
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(411, 11);
+            this.label7.Location = new System.Drawing.Point(418, 11);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(62, 24);
             this.label7.TabIndex = 72;
@@ -306,6 +360,8 @@ namespace StudentsPerformance
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBox1);
+            this.tabPage2.Controls.Add(this.comboBox1);
             this.tabPage2.Controls.Add(this.printTeacherBtn);
             this.tabPage2.Controls.Add(this.quantityOfStaffLbl);
             this.tabPage2.Controls.Add(this.label18);
@@ -321,7 +377,7 @@ namespace StudentsPerformance
             this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.phoneTeacherTextBox);
             this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.linkLabel1);
+            this.tabPage2.Controls.Add(this.addNewSubjectLinkLabel);
             this.tabPage2.Controls.Add(this.subjectCmbBox);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.middleNameTeacherTextBox);
@@ -337,6 +393,36 @@ namespace StudentsPerformance
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Преподаватели";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox1.Location = new System.Drawing.Point(427, 155);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(248, 28);
+            this.checkBox1.TabIndex = 96;
+            this.checkBox1.Text = "Классный руководитель";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(696, 153);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(80, 32);
+            this.comboBox1.TabIndex = 95;
+            // 
+            // printTeacherBtn
+            // 
+            this.printTeacherBtn.Location = new System.Drawing.Point(879, 162);
+            this.printTeacherBtn.Name = "printTeacherBtn";
+            this.printTeacherBtn.Size = new System.Drawing.Size(75, 23);
+            this.printTeacherBtn.TabIndex = 93;
+            this.printTeacherBtn.Text = "Печать";
+            this.printTeacherBtn.UseVisualStyleBackColor = true;
             // 
             // quantityOfStaffLbl
             // 
@@ -471,16 +557,16 @@ namespace StudentsPerformance
             this.label8.TabIndex = 58;
             this.label8.Text = "Телефон";
             // 
-            // linkLabel1
+            // addNewSubjectLinkLabel
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.linkLabel1.Location = new System.Drawing.Point(646, 123);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(129, 16);
-            this.linkLabel1.TabIndex = 57;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Добавить предмет";
+            this.addNewSubjectLinkLabel.AutoSize = true;
+            this.addNewSubjectLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.addNewSubjectLinkLabel.Location = new System.Drawing.Point(646, 123);
+            this.addNewSubjectLinkLabel.Name = "addNewSubjectLinkLabel";
+            this.addNewSubjectLinkLabel.Size = new System.Drawing.Size(129, 16);
+            this.addNewSubjectLinkLabel.TabIndex = 57;
+            this.addNewSubjectLinkLabel.TabStop = true;
+            this.addNewSubjectLinkLabel.Text = "Добавить предмет";
             // 
             // subjectCmbBox
             // 
@@ -573,6 +659,15 @@ namespace StudentsPerformance
             this.tabPage3.Text = "Отчеты";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // printReportBtn
+            // 
+            this.printReportBtn.Location = new System.Drawing.Point(666, 159);
+            this.printReportBtn.Name = "printReportBtn";
+            this.printReportBtn.Size = new System.Drawing.Size(75, 23);
+            this.printReportBtn.TabIndex = 82;
+            this.printReportBtn.Text = "Печать";
+            this.printReportBtn.UseVisualStyleBackColor = true;
+            // 
             // avgMarkClassBtn
             // 
             this.avgMarkClassBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -643,32 +738,24 @@ namespace StudentsPerformance
             this.label17.TabIndex = 9;
             this.label17.Text = "Количество учащихся:";
             // 
-            // printStudentBtn
+            // guardiansListBox
             // 
-            this.printStudentBtn.Location = new System.Drawing.Point(877, 181);
-            this.printStudentBtn.Name = "printStudentBtn";
-            this.printStudentBtn.Size = new System.Drawing.Size(75, 23);
-            this.printStudentBtn.TabIndex = 81;
-            this.printStudentBtn.Text = "Печать";
-            this.printStudentBtn.UseVisualStyleBackColor = true;
+            this.guardiansListBox.FormattingEnabled = true;
+            this.guardiansListBox.ItemHeight = 24;
+            this.guardiansListBox.Location = new System.Drawing.Point(8, 24);
+            this.guardiansListBox.Name = "guardiansListBox";
+            this.guardiansListBox.Size = new System.Drawing.Size(335, 76);
+            this.guardiansListBox.TabIndex = 0;
             // 
-            // printTeacherBtn
+            // removeGuardianBtn
             // 
-            this.printTeacherBtn.Location = new System.Drawing.Point(879, 162);
-            this.printTeacherBtn.Name = "printTeacherBtn";
-            this.printTeacherBtn.Size = new System.Drawing.Size(75, 23);
-            this.printTeacherBtn.TabIndex = 93;
-            this.printTeacherBtn.Text = "Печать";
-            this.printTeacherBtn.UseVisualStyleBackColor = true;
-            // 
-            // printReportBtn
-            // 
-            this.printReportBtn.Location = new System.Drawing.Point(666, 159);
-            this.printReportBtn.Name = "printReportBtn";
-            this.printReportBtn.Size = new System.Drawing.Size(75, 23);
-            this.printReportBtn.TabIndex = 82;
-            this.printReportBtn.Text = "Печать";
-            this.printReportBtn.UseVisualStyleBackColor = true;
+            this.removeGuardianBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.removeGuardianBtn.Location = new System.Drawing.Point(351, 41);
+            this.removeGuardianBtn.Name = "removeGuardianBtn";
+            this.removeGuardianBtn.Size = new System.Drawing.Size(31, 30);
+            this.removeGuardianBtn.TabIndex = 85;
+            this.removeGuardianBtn.Text = "X";
+            this.removeGuardianBtn.UseVisualStyleBackColor = true;
             // 
             // HeadTeacherForm
             // 
@@ -684,6 +771,7 @@ namespace StudentsPerformance
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.studentsDataGridView)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -721,7 +809,7 @@ namespace StudentsPerformance
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox phoneTeacherTextBox;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel addNewSubjectLinkLabel;
         private System.Windows.Forms.ComboBox subjectCmbBox;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox middleNameTeacherTextBox;
@@ -752,5 +840,12 @@ namespace StudentsPerformance
         private System.Windows.Forms.Button printStudentBtn;
         private System.Windows.Forms.Button printTeacherBtn;
         private System.Windows.Forms.Button printReportBtn;
+        private System.Windows.Forms.LinkLabel addNewClassLinkLabel;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.LinkLabel editGuardiansLinkLabel;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button removeGuardianBtn;
+        private System.Windows.Forms.ListBox guardiansListBox;
     }
 }
