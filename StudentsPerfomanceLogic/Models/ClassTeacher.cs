@@ -11,14 +11,14 @@ namespace StudentsPerformanceLogic.Models
         public SchoolClass SchoolClass { get; set; }
 
         public ClassTeacher(int id,
+           string lastName,
            string firstName,
            string middleName,
-           string lastName,
            string address,
            DateTime birthDate,
            Subject subject,
            SchoolClass schoolClass,
-           string cellPhone) : base(id, firstName, middleName, lastName, address, birthDate, subject, cellPhone)
+           string cellPhone) : base(id, lastName, firstName, middleName, address, birthDate, subject, cellPhone)
         {
             SchoolClass = schoolClass;
         }

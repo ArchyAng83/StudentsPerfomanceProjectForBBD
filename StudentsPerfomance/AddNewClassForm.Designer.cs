@@ -1,4 +1,4 @@
-﻿namespace StudentsPerfomance
+﻿namespace StudentsPerformance
 {
     partial class AddNewClassForm
     {
@@ -60,6 +60,7 @@
             this.saveNewClassBtn.TabIndex = 3;
             this.saveNewClassBtn.Text = "Сохранить";
             this.saveNewClassBtn.UseVisualStyleBackColor = true;
+            this.saveNewClassBtn.Click += new System.EventHandler(this.saveNewClassBtn_Click);
             // 
             // AddNewClassForm
             // 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using StudentsPerformanceLogic;
+using StudentsPerformanceLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,62 +15,125 @@ namespace StudentsPerformance
 {
     public partial class AddGuardianForm : Form
     {
-        private int studentId;
+        List<Guardian> availableGuardians = GlobalConfig.Connection.GetAllGuardians();
 
-        public AddGuardianForm(int studentId)
+        public AddGuardianForm()
         {
             InitializeComponent();
-            this.studentId = studentId;
+            guardiansDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            guardiansDataGridView.AllowUserToAddRows = false;
+
+            WireUpLists();
         }
 
-        private void saveGuardianDataBtn_Click(object sender, EventArgs e)
+        private void WireUpLists()
         {
-            if (ValidateForm())
-            {
-                InsertGuardian();
-            }
-            else
-            {
-                MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            this.Hide();
+            guardiansDataGridView.DataSource = null;
+            guardiansDataGridView.DataSource = availableGuardians.GetRange(0, availableGuardians.Count);
+            guardiansDataGridView.Columns["id"].Visible = false;
         }
 
-        private void InsertGuardian()
+        private void ClearSetup()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
-            {
-                sqlConnection.Open();
-
-                SqlCommand sqlCommand = new SqlCommand("spGuardians_InsertGuardian", sqlConnection);
-
-                sqlCommand.Parameters.Add(new SqlParameter("@studentId", studentId));
-                sqlCommand.Parameters.Add(new SqlParameter("@guardianFullName", lastNameGuardianTextBox.Text));
-                sqlCommand.Parameters.Add(new SqlParameter("@phone", cellPhoneGuardianTextBox.Text)); 
-
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-
-                sqlCommand.ExecuteNonQuery();
-            }
+            lastNameGuardianTextBox.Text = string.Empty;
+            firstNameGuardianTextBox.Text = string.Empty;
+            middleNameGuardianTextBox.Text = string.Empty;
+            addressGuardianTextBox.Text = string.Empty;
+            dateOfBirthGuardianTimePicker.Value = DateTime.UtcNow;
+            cellPhoneGuardianTextBox.Text = string.Empty;
         }
 
         private bool ValidateForm()
         {
             bool output = true;
 
-            if (lastNameGuardianTextBox.Text.Length < 2)
+            if (lastNameGuardianTextBox.Text.Length == 0)
+            { 
+                output = false;
+            }
+
+            if (firstNameGuardianTextBox.Text.Length == 0)
             {
                 output = false;
             }
 
-            if (cellPhoneGuardianTextBox.Text.Length < 5)
+            if (middleNameGuardianTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (addressGuardianTextBox.Text.Length == 0)
             {
                 output = false;
             }
 
             return output;
+        }
+
+        private void guardiansDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (availableGuardians.Count > 0)
+            {
+                Guardian guardian = (Guardian)guardiansDataGridView.SelectedRows[0].DataBoundItem;
+
+                lastNameGuardianTextBox.Text = guardian.LastName.ToString();
+                firstNameGuardianTextBox.Text = guardian.FirstName.ToString();
+                middleNameGuardianTextBox.Text = guardian.MiddleName.ToString();
+                addressGuardianTextBox.Text = guardian.Address.ToString();
+                dateOfBirthGuardianTimePicker.Text = guardian.BirthDate.ToString();
+                cellPhoneGuardianTextBox.Text = guardian.CellPhone?.ToString();
+            }
+        }
+
+        private void addGuardianBtn_Click(object sender, EventArgs e)
+        {
+            if (ValidateForm())
+            {
+                string cellPhoneNumber = cellPhoneGuardianTextBox.Text == string.Empty ? null : cellPhoneGuardianTextBox.Text;
+                Guardian guardian = new Guardian(0, lastNameGuardianTextBox.Text, firstNameGuardianTextBox.Text, middleNameGuardianTextBox.Text, 
+                                                    addressGuardianTextBox.Text, dateOfBirthGuardianTimePicker.Value, cellPhoneNumber);
+                guardian = GlobalConfig.Connection.AddGuardian(guardian);                
+                availableGuardians.Add(guardian);
+                ClearSetup();
+                WireUpLists();
+               
+            }
+            else
+            {
+                MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void updateGuardianBtn_Click(object sender, EventArgs e)
+        {
+            if (availableGuardians.Count > 0)
+            {
+                Guardian guardian = (Guardian)guardiansDataGridView.SelectedRows[0].DataBoundItem;
+                string cellPhoneNumber = cellPhoneGuardianTextBox.Text == string.Empty ? null : cellPhoneGuardianTextBox.Text;
+                Guardian newGuardian = new Guardian(guardian.Id, lastNameGuardianTextBox.Text, firstNameGuardianTextBox.Text, middleNameGuardianTextBox.Text,
+                                                    addressGuardianTextBox.Text, dateOfBirthGuardianTimePicker.Value, cellPhoneNumber);
+                
+                GlobalConfig.Connection.UpdateGuardian(newGuardian);
+
+                int index = availableGuardians.FindIndex(x => x.Id == newGuardian.Id);                
+                availableGuardians[index] = newGuardian;                
+            }
+
+            WireUpLists();
+        }
+
+        private void deleteGuardianBtn_Click(object sender, EventArgs e)
+        {
+            
+            if (availableGuardians.Count > 0)
+            {
+                Guardian guardian = (Guardian)guardiansDataGridView.SelectedRows[0].DataBoundItem;
+                GlobalConfig.Connection.DeleteGuardian(guardian.Id);
+                availableGuardians.Remove(guardian);
+                ClearSetup();
+            }
+
+            WireUpLists();
         }
     }
 }

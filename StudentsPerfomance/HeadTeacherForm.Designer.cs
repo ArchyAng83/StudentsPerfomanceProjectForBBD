@@ -30,10 +30,12 @@ namespace StudentsPerformance
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeadTeacherForm));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.headteacherTabControl = new System.Windows.Forms.TabControl();
+            this.studentsEditTabPage = new System.Windows.Forms.TabPage();
             this.editGuardiansLinkLabel = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.removeGuardianBtn = new System.Windows.Forms.Button();
+            this.guardiansListBox = new System.Windows.Forms.ListBox();
             this.addNewClassLinkLabel = new System.Windows.Forms.LinkLabel();
             this.printStudentBtn = new System.Windows.Forms.Button();
             this.cellPhoneTextBox = new System.Windows.Forms.TextBox();
@@ -54,7 +56,7 @@ namespace StudentsPerformance
             this.label2 = new System.Windows.Forms.Label();
             this.lastNameStudentTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.teachersEditTabPage = new System.Windows.Forms.TabPage();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.printTeacherBtn = new System.Windows.Forms.Button();
@@ -81,7 +83,7 @@ namespace StudentsPerformance
             this.label12 = new System.Windows.Forms.Label();
             this.lastNameTeacherTextBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.reportsTabPage = new System.Windows.Forms.TabPage();
             this.printReportBtn = new System.Windows.Forms.Button();
             this.avgMarkClassBtn = new System.Windows.Forms.Button();
             this.avgMarkSubjectBtn = new System.Windows.Forms.Button();
@@ -90,61 +92,59 @@ namespace StudentsPerformance
             this.label16 = new System.Windows.Forms.Label();
             this.quantityOfStudentsLbl = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.guardiansListBox = new System.Windows.Forms.ListBox();
-            this.removeGuardianBtn = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.headteacherTabControl.SuspendLayout();
+            this.studentsEditTabPage.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.studentsDataGridView)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.teachersEditTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.staffDataGridView)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.reportsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultReportDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // headteacherTabControl
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(968, 522);
-            this.tabControl1.TabIndex = 0;
+            this.headteacherTabControl.Controls.Add(this.studentsEditTabPage);
+            this.headteacherTabControl.Controls.Add(this.teachersEditTabPage);
+            this.headteacherTabControl.Controls.Add(this.reportsTabPage);
+            this.headteacherTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.headteacherTabControl.Location = new System.Drawing.Point(0, 0);
+            this.headteacherTabControl.Name = "headteacherTabControl";
+            this.headteacherTabControl.SelectedIndex = 0;
+            this.headteacherTabControl.Size = new System.Drawing.Size(968, 522);
+            this.headteacherTabControl.TabIndex = 0;
             // 
-            // tabPage1
+            // studentsEditTabPage
             // 
-            this.tabPage1.Controls.Add(this.editGuardiansLinkLabel);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.addNewClassLinkLabel);
-            this.tabPage1.Controls.Add(this.printStudentBtn);
-            this.tabPage1.Controls.Add(this.cellPhoneTextBox);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.studentsDataGridView);
-            this.tabPage1.Controls.Add(this.deleteStudentBtn);
-            this.tabPage1.Controls.Add(this.updateStudentBtn);
-            this.tabPage1.Controls.Add(this.addStudentBtn);
-            this.tabPage1.Controls.Add(this.dateOfBirthTimePicker);
-            this.tabPage1.Controls.Add(this.classStudentCmbBox);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.adressTextBox);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.middleNameStudentTextBox);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.firstNameStudentTextBox);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.lastNameStudentTextBox);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(960, 496);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Учащиеся";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.studentsEditTabPage.Controls.Add(this.editGuardiansLinkLabel);
+            this.studentsEditTabPage.Controls.Add(this.groupBox1);
+            this.studentsEditTabPage.Controls.Add(this.addNewClassLinkLabel);
+            this.studentsEditTabPage.Controls.Add(this.printStudentBtn);
+            this.studentsEditTabPage.Controls.Add(this.cellPhoneTextBox);
+            this.studentsEditTabPage.Controls.Add(this.label5);
+            this.studentsEditTabPage.Controls.Add(this.studentsDataGridView);
+            this.studentsEditTabPage.Controls.Add(this.deleteStudentBtn);
+            this.studentsEditTabPage.Controls.Add(this.updateStudentBtn);
+            this.studentsEditTabPage.Controls.Add(this.addStudentBtn);
+            this.studentsEditTabPage.Controls.Add(this.dateOfBirthTimePicker);
+            this.studentsEditTabPage.Controls.Add(this.classStudentCmbBox);
+            this.studentsEditTabPage.Controls.Add(this.label7);
+            this.studentsEditTabPage.Controls.Add(this.adressTextBox);
+            this.studentsEditTabPage.Controls.Add(this.label6);
+            this.studentsEditTabPage.Controls.Add(this.label4);
+            this.studentsEditTabPage.Controls.Add(this.middleNameStudentTextBox);
+            this.studentsEditTabPage.Controls.Add(this.label3);
+            this.studentsEditTabPage.Controls.Add(this.firstNameStudentTextBox);
+            this.studentsEditTabPage.Controls.Add(this.label2);
+            this.studentsEditTabPage.Controls.Add(this.lastNameStudentTextBox);
+            this.studentsEditTabPage.Controls.Add(this.label1);
+            this.studentsEditTabPage.Location = new System.Drawing.Point(4, 22);
+            this.studentsEditTabPage.Name = "studentsEditTabPage";
+            this.studentsEditTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.studentsEditTabPage.Size = new System.Drawing.Size(960, 496);
+            this.studentsEditTabPage.TabIndex = 0;
+            this.studentsEditTabPage.Text = "Учащиеся";
+            this.studentsEditTabPage.UseVisualStyleBackColor = true;
             // 
             // editGuardiansLinkLabel
             // 
@@ -156,6 +156,7 @@ namespace StudentsPerformance
             this.editGuardiansLinkLabel.TabIndex = 84;
             this.editGuardiansLinkLabel.TabStop = true;
             this.editGuardiansLinkLabel.Text = "Опекуны";
+            this.editGuardiansLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.editGuardiansLinkLabel_LinkClicked);
             // 
             // groupBox1
             // 
@@ -169,6 +170,25 @@ namespace StudentsPerformance
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Опекуны";
             // 
+            // removeGuardianBtn
+            // 
+            this.removeGuardianBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.removeGuardianBtn.Location = new System.Drawing.Point(351, 41);
+            this.removeGuardianBtn.Name = "removeGuardianBtn";
+            this.removeGuardianBtn.Size = new System.Drawing.Size(31, 30);
+            this.removeGuardianBtn.TabIndex = 85;
+            this.removeGuardianBtn.Text = "X";
+            this.removeGuardianBtn.UseVisualStyleBackColor = true;
+            // 
+            // guardiansListBox
+            // 
+            this.guardiansListBox.FormattingEnabled = true;
+            this.guardiansListBox.ItemHeight = 24;
+            this.guardiansListBox.Location = new System.Drawing.Point(8, 24);
+            this.guardiansListBox.Name = "guardiansListBox";
+            this.guardiansListBox.Size = new System.Drawing.Size(335, 76);
+            this.guardiansListBox.TabIndex = 0;
+            // 
             // addNewClassLinkLabel
             // 
             this.addNewClassLinkLabel.AutoSize = true;
@@ -179,6 +199,7 @@ namespace StudentsPerformance
             this.addNewClassLinkLabel.TabIndex = 82;
             this.addNewClassLinkLabel.TabStop = true;
             this.addNewClassLinkLabel.Text = "Добавить класс";
+            this.addNewClassLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.addNewClassLinkLabel_LinkClicked);
             // 
             // printStudentBtn
             // 
@@ -261,9 +282,9 @@ namespace StudentsPerformance
             this.classStudentCmbBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.classStudentCmbBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.classStudentCmbBox.FormattingEnabled = true;
-            this.classStudentCmbBox.Location = new System.Drawing.Point(582, 9);
+            this.classStudentCmbBox.Location = new System.Drawing.Point(727, 9);
             this.classStudentCmbBox.Name = "classStudentCmbBox";
-            this.classStudentCmbBox.Size = new System.Drawing.Size(224, 32);
+            this.classStudentCmbBox.Size = new System.Drawing.Size(79, 32);
             this.classStudentCmbBox.TabIndex = 73;
             // 
             // label7
@@ -358,41 +379,41 @@ namespace StudentsPerformance
             this.label1.TabIndex = 63;
             this.label1.Text = "Фамилия";
             // 
-            // tabPage2
+            // teachersEditTabPage
             // 
-            this.tabPage2.Controls.Add(this.checkBox1);
-            this.tabPage2.Controls.Add(this.comboBox1);
-            this.tabPage2.Controls.Add(this.printTeacherBtn);
-            this.tabPage2.Controls.Add(this.quantityOfStaffLbl);
-            this.tabPage2.Controls.Add(this.label18);
-            this.tabPage2.Controls.Add(this.staffDataGridView);
-            this.tabPage2.Controls.Add(this.deleteTeacherBtn);
-            this.tabPage2.Controls.Add(this.updateTeacherBtn);
-            this.tabPage2.Controls.Add(this.addTeacherBtn);
-            this.tabPage2.Controls.Add(this.textBox1);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.dateTimePicker1);
-            this.tabPage2.Controls.Add(this.textBox2);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.phoneTeacherTextBox);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.addNewSubjectLinkLabel);
-            this.tabPage2.Controls.Add(this.subjectCmbBox);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.middleNameTeacherTextBox);
-            this.tabPage2.Controls.Add(this.label11);
-            this.tabPage2.Controls.Add(this.firstNameTeacherTextBox);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.lastNameTeacherTextBox);
-            this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(960, 496);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Преподаватели";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.teachersEditTabPage.Controls.Add(this.checkBox1);
+            this.teachersEditTabPage.Controls.Add(this.comboBox1);
+            this.teachersEditTabPage.Controls.Add(this.printTeacherBtn);
+            this.teachersEditTabPage.Controls.Add(this.quantityOfStaffLbl);
+            this.teachersEditTabPage.Controls.Add(this.label18);
+            this.teachersEditTabPage.Controls.Add(this.staffDataGridView);
+            this.teachersEditTabPage.Controls.Add(this.deleteTeacherBtn);
+            this.teachersEditTabPage.Controls.Add(this.updateTeacherBtn);
+            this.teachersEditTabPage.Controls.Add(this.addTeacherBtn);
+            this.teachersEditTabPage.Controls.Add(this.textBox1);
+            this.teachersEditTabPage.Controls.Add(this.label9);
+            this.teachersEditTabPage.Controls.Add(this.dateTimePicker1);
+            this.teachersEditTabPage.Controls.Add(this.textBox2);
+            this.teachersEditTabPage.Controls.Add(this.label14);
+            this.teachersEditTabPage.Controls.Add(this.label15);
+            this.teachersEditTabPage.Controls.Add(this.phoneTeacherTextBox);
+            this.teachersEditTabPage.Controls.Add(this.label8);
+            this.teachersEditTabPage.Controls.Add(this.addNewSubjectLinkLabel);
+            this.teachersEditTabPage.Controls.Add(this.subjectCmbBox);
+            this.teachersEditTabPage.Controls.Add(this.label10);
+            this.teachersEditTabPage.Controls.Add(this.middleNameTeacherTextBox);
+            this.teachersEditTabPage.Controls.Add(this.label11);
+            this.teachersEditTabPage.Controls.Add(this.firstNameTeacherTextBox);
+            this.teachersEditTabPage.Controls.Add(this.label12);
+            this.teachersEditTabPage.Controls.Add(this.lastNameTeacherTextBox);
+            this.teachersEditTabPage.Controls.Add(this.label13);
+            this.teachersEditTabPage.Location = new System.Drawing.Point(4, 22);
+            this.teachersEditTabPage.Name = "teachersEditTabPage";
+            this.teachersEditTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.teachersEditTabPage.Size = new System.Drawing.Size(960, 496);
+            this.teachersEditTabPage.TabIndex = 1;
+            this.teachersEditTabPage.Text = "Преподаватели";
+            this.teachersEditTabPage.UseVisualStyleBackColor = true;
             // 
             // checkBox1
             // 
@@ -642,22 +663,22 @@ namespace StudentsPerformance
             this.label13.TabIndex = 47;
             this.label13.Text = "Фамилия";
             // 
-            // tabPage3
+            // reportsTabPage
             // 
-            this.tabPage3.Controls.Add(this.printReportBtn);
-            this.tabPage3.Controls.Add(this.avgMarkClassBtn);
-            this.tabPage3.Controls.Add(this.avgMarkSubjectBtn);
-            this.tabPage3.Controls.Add(this.resultReportDataGridView);
-            this.tabPage3.Controls.Add(this.avgSchoolLbl);
-            this.tabPage3.Controls.Add(this.label16);
-            this.tabPage3.Controls.Add(this.quantityOfStudentsLbl);
-            this.tabPage3.Controls.Add(this.label17);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(960, 496);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Отчеты";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.reportsTabPage.Controls.Add(this.printReportBtn);
+            this.reportsTabPage.Controls.Add(this.avgMarkClassBtn);
+            this.reportsTabPage.Controls.Add(this.avgMarkSubjectBtn);
+            this.reportsTabPage.Controls.Add(this.resultReportDataGridView);
+            this.reportsTabPage.Controls.Add(this.avgSchoolLbl);
+            this.reportsTabPage.Controls.Add(this.label16);
+            this.reportsTabPage.Controls.Add(this.quantityOfStudentsLbl);
+            this.reportsTabPage.Controls.Add(this.label17);
+            this.reportsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.reportsTabPage.Name = "reportsTabPage";
+            this.reportsTabPage.Size = new System.Drawing.Size(960, 496);
+            this.reportsTabPage.TabIndex = 2;
+            this.reportsTabPage.Text = "Отчеты";
+            this.reportsTabPage.UseVisualStyleBackColor = true;
             // 
             // printReportBtn
             // 
@@ -738,46 +759,27 @@ namespace StudentsPerformance
             this.label17.TabIndex = 9;
             this.label17.Text = "Количество учащихся:";
             // 
-            // guardiansListBox
-            // 
-            this.guardiansListBox.FormattingEnabled = true;
-            this.guardiansListBox.ItemHeight = 24;
-            this.guardiansListBox.Location = new System.Drawing.Point(8, 24);
-            this.guardiansListBox.Name = "guardiansListBox";
-            this.guardiansListBox.Size = new System.Drawing.Size(335, 76);
-            this.guardiansListBox.TabIndex = 0;
-            // 
-            // removeGuardianBtn
-            // 
-            this.removeGuardianBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.removeGuardianBtn.Location = new System.Drawing.Point(351, 41);
-            this.removeGuardianBtn.Name = "removeGuardianBtn";
-            this.removeGuardianBtn.Size = new System.Drawing.Size(31, 30);
-            this.removeGuardianBtn.TabIndex = 85;
-            this.removeGuardianBtn.Text = "X";
-            this.removeGuardianBtn.UseVisualStyleBackColor = true;
-            // 
             // HeadTeacherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(968, 522);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.headteacherTabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HeadTeacherForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Завуч";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HeadTeacherForm_FormClosing);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.headteacherTabControl.ResumeLayout(false);
+            this.studentsEditTabPage.ResumeLayout(false);
+            this.studentsEditTabPage.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.studentsDataGridView)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.teachersEditTabPage.ResumeLayout(false);
+            this.teachersEditTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.staffDataGridView)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.reportsTabPage.ResumeLayout(false);
+            this.reportsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultReportDataGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -785,10 +787,10 @@ namespace StudentsPerformance
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabControl headteacherTabControl;
+        private System.Windows.Forms.TabPage studentsEditTabPage;
+        private System.Windows.Forms.TabPage teachersEditTabPage;
+        private System.Windows.Forms.TabPage reportsTabPage;
         private System.Windows.Forms.DateTimePicker dateOfBirthTimePicker;
         private System.Windows.Forms.ComboBox classStudentCmbBox;
         private System.Windows.Forms.Label label7;

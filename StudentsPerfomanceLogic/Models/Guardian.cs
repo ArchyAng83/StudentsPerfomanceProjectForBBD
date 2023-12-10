@@ -5,11 +5,11 @@ namespace StudentsPerformanceLogic.Models
     public class Guardian : Person
     {
         public Guardian(int id,
+            string lastName,
            string firstName,
-           string middleName,
-           string lastName,
+           string middleName,           
            string address,
            DateTime birthDate,
-           string cellPhone) : base(id, firstName, middleName, lastName, address, birthDate, cellPhone) { }
+           string cellPhone) : base(id, lastName, firstName, middleName, address, birthDate, cellPhone) { }
     }
 }

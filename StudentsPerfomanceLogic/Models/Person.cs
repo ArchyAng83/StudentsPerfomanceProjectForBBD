@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,15 +10,22 @@ namespace StudentsPerformanceLogic.Models
 {
     public abstract class Person
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string Address { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string CellPhone { get; set; }
+        [DisplayName("Номер")]
+        public int Id { get; }
+        [DisplayName("Фамилия")]
+        public string LastName { get; }
+        [DisplayName("Имя")]
+        public string FirstName { get; }
+        [DisplayName("Отчество")]
+        public string MiddleName { get; } 
+        [DisplayName("Адрес проживания")]
+        public string Address { get; }
+        [DisplayName("Дата рождения")]
+        public DateTime BirthDate { get; }
+        [DisplayName("Телефон")]
+        public string CellPhone { get; }
 
-        protected Person(int id, string firstName, string middleName, string lastName, string address, DateTime birthDate, string cellPhone)
+        protected Person(int id, string lastName, string firstName, string middleName,  string address, DateTime birthDate, string cellPhone)
         {
             Id = id;
             FirstName = firstName;

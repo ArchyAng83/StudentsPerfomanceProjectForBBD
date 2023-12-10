@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6C1D47E1-ADE8-4D4B-9C00-A6CEF93DCBC1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>StudentsPerfomance</RootNamespace>
-    <AssemblyName>StudentsPerfomance</AssemblyName>
+    <RootNamespace>StudentsPerformance</RootNamespace>
+    <AssemblyName>StudentsPerformance</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -207,13 +207,13 @@
     <Compile Include="AddSubjectForm.Designer.cs">
       <DependentUpon>AddSubjectForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataBank.cs" />
     <Compile Include="GuardiansInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GuardiansInfoForm.Designer.cs">
       <DependentUpon>GuardiansInfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IClassRequest.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

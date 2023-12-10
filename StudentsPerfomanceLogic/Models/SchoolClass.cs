@@ -8,9 +8,9 @@ namespace StudentsPerformanceLogic.Models
 {
     public class SchoolClass
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<Student> Students { get; set; }
+        public int Id { get; }
+        public string Name { get; }
+        public List<Student> Students { get; }
 
         public SchoolClass(int id, string name)
         {
@@ -18,5 +18,7 @@ namespace StudentsPerformanceLogic.Models
             Name = name;
             Students = new List<Student>();
         }
+
+        //public SchoolClass() { }
     }
 }

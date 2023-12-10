@@ -33,7 +33,7 @@ namespace StudentsPerformance
             this.cellPhoneGuardianTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dateOfBirthGuardianTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.adressGuardianTextBox = new System.Windows.Forms.TextBox();
+            this.addressGuardianTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.middleNameGuardianTextBox = new System.Windows.Forms.TextBox();
@@ -43,10 +43,10 @@ namespace StudentsPerformance
             this.lastNameGuardianTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.guardiansDataGridView = new System.Windows.Forms.DataGridView();
-            this.deleteStudentBtn = new System.Windows.Forms.Button();
-            this.updateStudentBtn = new System.Windows.Forms.Button();
-            this.addStudentBtn = new System.Windows.Forms.Button();
-            this.addToStudentBtn = new System.Windows.Forms.Button();
+            this.deleteGuardianBtn = new System.Windows.Forms.Button();
+            this.updateGuardianBtn = new System.Windows.Forms.Button();
+            this.addGuardianBtn = new System.Windows.Forms.Button();
+            this.addGuardianToStudentBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.guardiansDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,24 +72,24 @@ namespace StudentsPerformance
             // 
             this.dateOfBirthGuardianTimePicker.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dateOfBirthGuardianTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateOfBirthGuardianTimePicker.Location = new System.Drawing.Point(180, 117);
+            this.dateOfBirthGuardianTimePicker.Location = new System.Drawing.Point(180, 155);
             this.dateOfBirthGuardianTimePicker.Name = "dateOfBirthGuardianTimePicker";
             this.dateOfBirthGuardianTimePicker.Size = new System.Drawing.Size(222, 20);
             this.dateOfBirthGuardianTimePicker.TabIndex = 90;
             // 
-            // adressGuardianTextBox
+            // addressGuardianTextBox
             // 
-            this.adressGuardianTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.adressGuardianTextBox.Location = new System.Drawing.Point(180, 143);
-            this.adressGuardianTextBox.Name = "adressGuardianTextBox";
-            this.adressGuardianTextBox.Size = new System.Drawing.Size(223, 29);
-            this.adressGuardianTextBox.TabIndex = 89;
+            this.addressGuardianTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.addressGuardianTextBox.Location = new System.Drawing.Point(179, 117);
+            this.addressGuardianTextBox.Name = "addressGuardianTextBox";
+            this.addressGuardianTextBox.Size = new System.Drawing.Size(223, 29);
+            this.addressGuardianTextBox.TabIndex = 89;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(8, 147);
+            this.label6.Location = new System.Drawing.Point(7, 118);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 24);
             this.label6.TabIndex = 88;
@@ -99,7 +99,7 @@ namespace StudentsPerformance
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(8, 114);
+            this.label4.Location = new System.Drawing.Point(8, 152);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(150, 24);
             this.label4.TabIndex = 87;
@@ -168,61 +168,65 @@ namespace StudentsPerformance
             this.guardiansDataGridView.Name = "guardiansDataGridView";
             this.guardiansDataGridView.Size = new System.Drawing.Size(701, 147);
             this.guardiansDataGridView.TabIndex = 93;
+            this.guardiansDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.guardiansDataGridView_CellClick);
             // 
-            // deleteStudentBtn
+            // deleteGuardianBtn
             // 
-            this.deleteStudentBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.deleteStudentBtn.Location = new System.Drawing.Point(549, 127);
-            this.deleteStudentBtn.Name = "deleteStudentBtn";
-            this.deleteStudentBtn.Size = new System.Drawing.Size(140, 43);
-            this.deleteStudentBtn.TabIndex = 96;
-            this.deleteStudentBtn.Text = "Удалить";
-            this.deleteStudentBtn.UseVisualStyleBackColor = true;
+            this.deleteGuardianBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.deleteGuardianBtn.Location = new System.Drawing.Point(549, 127);
+            this.deleteGuardianBtn.Name = "deleteGuardianBtn";
+            this.deleteGuardianBtn.Size = new System.Drawing.Size(140, 43);
+            this.deleteGuardianBtn.TabIndex = 96;
+            this.deleteGuardianBtn.Text = "Удалить";
+            this.deleteGuardianBtn.UseVisualStyleBackColor = true;
+            this.deleteGuardianBtn.Click += new System.EventHandler(this.deleteGuardianBtn_Click);
             // 
-            // updateStudentBtn
+            // updateGuardianBtn
             // 
-            this.updateStudentBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.updateStudentBtn.Location = new System.Drawing.Point(549, 70);
-            this.updateStudentBtn.Name = "updateStudentBtn";
-            this.updateStudentBtn.Size = new System.Drawing.Size(140, 43);
-            this.updateStudentBtn.TabIndex = 95;
-            this.updateStudentBtn.Text = "Изменить";
-            this.updateStudentBtn.UseVisualStyleBackColor = true;
+            this.updateGuardianBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.updateGuardianBtn.Location = new System.Drawing.Point(549, 70);
+            this.updateGuardianBtn.Name = "updateGuardianBtn";
+            this.updateGuardianBtn.Size = new System.Drawing.Size(140, 43);
+            this.updateGuardianBtn.TabIndex = 95;
+            this.updateGuardianBtn.Text = "Изменить";
+            this.updateGuardianBtn.UseVisualStyleBackColor = true;
+            this.updateGuardianBtn.Click += new System.EventHandler(this.updateGuardianBtn_Click);
             // 
-            // addStudentBtn
+            // addGuardianBtn
             // 
-            this.addStudentBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addStudentBtn.Location = new System.Drawing.Point(549, 12);
-            this.addStudentBtn.Name = "addStudentBtn";
-            this.addStudentBtn.Size = new System.Drawing.Size(140, 43);
-            this.addStudentBtn.TabIndex = 94;
-            this.addStudentBtn.Text = "Добавить";
-            this.addStudentBtn.UseVisualStyleBackColor = true;
+            this.addGuardianBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.addGuardianBtn.Location = new System.Drawing.Point(549, 12);
+            this.addGuardianBtn.Name = "addGuardianBtn";
+            this.addGuardianBtn.Size = new System.Drawing.Size(140, 43);
+            this.addGuardianBtn.TabIndex = 94;
+            this.addGuardianBtn.Text = "Добавить";
+            this.addGuardianBtn.UseVisualStyleBackColor = true;
+            this.addGuardianBtn.Click += new System.EventHandler(this.addGuardianBtn_Click);
             // 
-            // addToStudentBtn
+            // addGuardianToStudentBtn
             // 
-            this.addToStudentBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addToStudentBtn.Location = new System.Drawing.Point(660, 177);
-            this.addToStudentBtn.Name = "addToStudentBtn";
-            this.addToStudentBtn.Size = new System.Drawing.Size(29, 33);
-            this.addToStudentBtn.TabIndex = 97;
-            this.addToStudentBtn.Text = "+";
-            this.addToStudentBtn.UseVisualStyleBackColor = true;
+            this.addGuardianToStudentBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.addGuardianToStudentBtn.Location = new System.Drawing.Point(660, 177);
+            this.addGuardianToStudentBtn.Name = "addGuardianToStudentBtn";
+            this.addGuardianToStudentBtn.Size = new System.Drawing.Size(29, 33);
+            this.addGuardianToStudentBtn.TabIndex = 97;
+            this.addGuardianToStudentBtn.Text = "+";
+            this.addGuardianToStudentBtn.UseVisualStyleBackColor = true;
             // 
             // AddGuardianForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(701, 363);
-            this.Controls.Add(this.addToStudentBtn);
-            this.Controls.Add(this.deleteStudentBtn);
-            this.Controls.Add(this.updateStudentBtn);
-            this.Controls.Add(this.addStudentBtn);
+            this.Controls.Add(this.addGuardianToStudentBtn);
+            this.Controls.Add(this.deleteGuardianBtn);
+            this.Controls.Add(this.updateGuardianBtn);
+            this.Controls.Add(this.addGuardianBtn);
             this.Controls.Add(this.guardiansDataGridView);
             this.Controls.Add(this.cellPhoneGuardianTextBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dateOfBirthGuardianTimePicker);
-            this.Controls.Add(this.adressGuardianTextBox);
+            this.Controls.Add(this.addressGuardianTextBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.middleNameGuardianTextBox);
@@ -245,7 +249,7 @@ namespace StudentsPerformance
         private System.Windows.Forms.TextBox cellPhoneGuardianTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateOfBirthGuardianTimePicker;
-        private System.Windows.Forms.TextBox adressGuardianTextBox;
+        private System.Windows.Forms.TextBox addressGuardianTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox middleNameGuardianTextBox;
@@ -255,9 +259,9 @@ namespace StudentsPerformance
         private System.Windows.Forms.TextBox lastNameGuardianTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView guardiansDataGridView;
-        private System.Windows.Forms.Button deleteStudentBtn;
-        private System.Windows.Forms.Button updateStudentBtn;
-        private System.Windows.Forms.Button addStudentBtn;
-        private System.Windows.Forms.Button addToStudentBtn;
+        private System.Windows.Forms.Button deleteGuardianBtn;
+        private System.Windows.Forms.Button updateGuardianBtn;
+        private System.Windows.Forms.Button addGuardianBtn;
+        private System.Windows.Forms.Button addGuardianToStudentBtn;
     }
 }

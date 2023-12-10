@@ -8,12 +8,12 @@ namespace StudentsPerformanceLogic.Models
         public Guardian[] Guardians { get; set; } 
 
         public Student(int id,
+           string lastName,
            string firstName,
            string middleName,
-           string lastName,
            string address,
            DateTime birthDate,
-           string cellPhone) : base(id, firstName, middleName, lastName, address, birthDate, cellPhone)
+           string cellPhone) : base(id, lastName, firstName, middleName, address, birthDate, cellPhone)
         {
             Guardians = new Guardian[2];
         }
