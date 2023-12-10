@@ -212,6 +212,7 @@ namespace StudentsPerformance
             this.addGuardianToStudentBtn.TabIndex = 97;
             this.addGuardianToStudentBtn.Text = "+";
             this.addGuardianToStudentBtn.UseVisualStyleBackColor = true;
+            this.addGuardianToStudentBtn.Click += new System.EventHandler(this.addGuardianToStudentBtn_Click);
             // 
             // AddGuardianForm
             // 

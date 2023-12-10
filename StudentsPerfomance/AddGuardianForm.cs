@@ -16,14 +16,16 @@ namespace StudentsPerformance
     public partial class AddGuardianForm : Form
     {
         List<Guardian> availableGuardians = GlobalConfig.Connection.GetAllGuardians();
+        IGuardianRequest caller;
 
-        public AddGuardianForm()
+        public AddGuardianForm(IGuardianRequest caller)
         {
             InitializeComponent();
             guardiansDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             guardiansDataGridView.AllowUserToAddRows = false;
 
             WireUpLists();
+            this.caller = caller;
         }
 
         private void WireUpLists()
@@ -31,6 +33,7 @@ namespace StudentsPerformance
             guardiansDataGridView.DataSource = null;
             guardiansDataGridView.DataSource = availableGuardians.GetRange(0, availableGuardians.Count);
             guardiansDataGridView.Columns["id"].Visible = false;
+            guardiansDataGridView.Columns["FullName"].Visible = false;
         }
 
         private void ClearSetup()
@@ -106,20 +109,27 @@ namespace StudentsPerformance
 
         private void updateGuardianBtn_Click(object sender, EventArgs e)
         {
-            if (availableGuardians.Count > 0)
+            if (ValidateForm())
             {
-                Guardian guardian = (Guardian)guardiansDataGridView.SelectedRows[0].DataBoundItem;
-                string cellPhoneNumber = cellPhoneGuardianTextBox.Text == string.Empty ? null : cellPhoneGuardianTextBox.Text;
-                Guardian newGuardian = new Guardian(guardian.Id, lastNameGuardianTextBox.Text, firstNameGuardianTextBox.Text, middleNameGuardianTextBox.Text,
-                                                    addressGuardianTextBox.Text, dateOfBirthGuardianTimePicker.Value, cellPhoneNumber);
-                
-                GlobalConfig.Connection.UpdateGuardian(newGuardian);
+                if (availableGuardians.Count > 0)
+                {
+                    Guardian guardian = (Guardian)guardiansDataGridView.SelectedRows[0].DataBoundItem;
+                    string cellPhoneNumber = cellPhoneGuardianTextBox.Text == string.Empty ? null : cellPhoneGuardianTextBox.Text;
+                    Guardian newGuardian = new Guardian(guardian.Id, lastNameGuardianTextBox.Text, firstNameGuardianTextBox.Text, middleNameGuardianTextBox.Text,
+                                                        addressGuardianTextBox.Text, dateOfBirthGuardianTimePicker.Value, cellPhoneNumber);
 
-                int index = availableGuardians.FindIndex(x => x.Id == newGuardian.Id);                
-                availableGuardians[index] = newGuardian;                
+                    GlobalConfig.Connection.UpdateGuardian(newGuardian);
+
+                    int index = availableGuardians.FindIndex(x => x.Id == newGuardian.Id);
+                    availableGuardians[index] = newGuardian;
+                }
+
+                WireUpLists();
             }
-
-            WireUpLists();
+            else
+            {
+                MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void deleteGuardianBtn_Click(object sender, EventArgs e)
@@ -134,6 +144,13 @@ namespace StudentsPerformance
             }
 
             WireUpLists();
+        }
+
+        private void addGuardianToStudentBtn_Click(object sender, EventArgs e)
+        {
+            Guardian guardian = (Guardian)guardiansDataGridView.SelectedRows[0].DataBoundItem;
+
+            caller.GuardianComplete(guardian);
         }
     }
 }

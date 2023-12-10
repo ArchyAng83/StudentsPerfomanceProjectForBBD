@@ -24,6 +24,13 @@ namespace StudentsPerformanceLogic.Models
         public DateTime BirthDate { get; }
         [DisplayName("Телефон")]
         public string CellPhone { get; }
+        public string FullName
+        { 
+            get
+            {
+                return $"{LastName} {FirstName} {MiddleName}";
+            }
+        }
 
         protected Person(int id, string lastName, string firstName, string middleName,  string address, DateTime birthDate, string cellPhone)
         {

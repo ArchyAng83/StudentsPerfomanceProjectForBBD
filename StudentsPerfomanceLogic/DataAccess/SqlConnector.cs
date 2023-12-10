@@ -94,7 +94,17 @@ namespace StudentsPerformanceLogic.DataAccess
 
             using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
             {
-                connection.Execute("spGuardians_Update", guardian, commandType: CommandType.StoredProcedure);
+                var p = new DynamicParameters();
+
+                p.Add("@id", guardian.Id);
+                p.Add("@lastName", guardian.LastName);
+                p.Add("@firstName", guardian.FirstName);
+                p.Add("@middleName", guardian.MiddleName);
+                p.Add("@address", guardian.Address);
+                p.Add("@birthDate", guardian.BirthDate);
+                p.Add("@cellPhone", guardian.CellPhone);
+
+                connection.Execute("spGuardians_Update", p, commandType: CommandType.StoredProcedure);
             }
         }
 
