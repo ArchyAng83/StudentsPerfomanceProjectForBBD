@@ -58,11 +58,11 @@ namespace StudentsPerformance
             this.label1 = new System.Windows.Forms.Label();
             this.teachersEditTabPage = new System.Windows.Forms.TabPage();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.classNameForTeacherComboBox = new System.Windows.Forms.ComboBox();
             this.printTeacherBtn = new System.Windows.Forms.Button();
             this.quantityOfStaffLbl = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.staffDataGridView = new System.Windows.Forms.DataGridView();
+            this.teachersDataGridView = new System.Windows.Forms.DataGridView();
             this.deleteTeacherBtn = new System.Windows.Forms.Button();
             this.updateTeacherBtn = new System.Windows.Forms.Button();
             this.addTeacherBtn = new System.Windows.Forms.Button();
@@ -97,7 +97,7 @@ namespace StudentsPerformance
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.studentsDataGridView)).BeginInit();
             this.teachersEditTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.staffDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teachersDataGridView)).BeginInit();
             this.reportsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultReportDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -388,11 +388,11 @@ namespace StudentsPerformance
             // teachersEditTabPage
             // 
             this.teachersEditTabPage.Controls.Add(this.checkBox1);
-            this.teachersEditTabPage.Controls.Add(this.comboBox1);
+            this.teachersEditTabPage.Controls.Add(this.classNameForTeacherComboBox);
             this.teachersEditTabPage.Controls.Add(this.printTeacherBtn);
             this.teachersEditTabPage.Controls.Add(this.quantityOfStaffLbl);
             this.teachersEditTabPage.Controls.Add(this.label18);
-            this.teachersEditTabPage.Controls.Add(this.staffDataGridView);
+            this.teachersEditTabPage.Controls.Add(this.teachersDataGridView);
             this.teachersEditTabPage.Controls.Add(this.deleteTeacherBtn);
             this.teachersEditTabPage.Controls.Add(this.updateTeacherBtn);
             this.teachersEditTabPage.Controls.Add(this.addTeacherBtn);
@@ -432,15 +432,15 @@ namespace StudentsPerformance
             this.checkBox1.Text = "Классный руководитель";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // classNameForTeacherComboBox
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(696, 153);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(80, 32);
-            this.comboBox1.TabIndex = 95;
+            this.classNameForTeacherComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.classNameForTeacherComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.classNameForTeacherComboBox.FormattingEnabled = true;
+            this.classNameForTeacherComboBox.Location = new System.Drawing.Point(696, 153);
+            this.classNameForTeacherComboBox.Name = "classNameForTeacherComboBox";
+            this.classNameForTeacherComboBox.Size = new System.Drawing.Size(80, 32);
+            this.classNameForTeacherComboBox.TabIndex = 95;
             // 
             // printTeacherBtn
             // 
@@ -471,15 +471,15 @@ namespace StudentsPerformance
             this.label18.TabIndex = 91;
             this.label18.Text = "Количество персонала:";
             // 
-            // staffDataGridView
+            // teachersDataGridView
             // 
-            this.staffDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.staffDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.staffDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.staffDataGridView.Location = new System.Drawing.Point(3, 231);
-            this.staffDataGridView.Name = "staffDataGridView";
-            this.staffDataGridView.Size = new System.Drawing.Size(954, 262);
-            this.staffDataGridView.TabIndex = 90;
+            this.teachersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.teachersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.teachersDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.teachersDataGridView.Location = new System.Drawing.Point(3, 231);
+            this.teachersDataGridView.Name = "teachersDataGridView";
+            this.teachersDataGridView.Size = new System.Drawing.Size(954, 262);
+            this.teachersDataGridView.TabIndex = 90;
             // 
             // deleteTeacherBtn
             // 
@@ -594,6 +594,7 @@ namespace StudentsPerformance
             this.addNewSubjectLinkLabel.TabIndex = 57;
             this.addNewSubjectLinkLabel.TabStop = true;
             this.addNewSubjectLinkLabel.Text = "Добавить предмет";
+            this.addNewSubjectLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.addNewSubjectLinkLabel_LinkClicked);
             // 
             // subjectCmbBox
             // 
@@ -783,7 +784,7 @@ namespace StudentsPerformance
             ((System.ComponentModel.ISupportInitialize)(this.studentsDataGridView)).EndInit();
             this.teachersEditTabPage.ResumeLayout(false);
             this.teachersEditTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.staffDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teachersDataGridView)).EndInit();
             this.reportsTabPage.ResumeLayout(false);
             this.reportsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultReportDataGridView)).EndInit();
@@ -832,7 +833,7 @@ namespace StudentsPerformance
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.DataGridView staffDataGridView;
+        private System.Windows.Forms.DataGridView teachersDataGridView;
         private System.Windows.Forms.Button deleteTeacherBtn;
         private System.Windows.Forms.Button updateTeacherBtn;
         private System.Windows.Forms.Button addTeacherBtn;
@@ -850,7 +851,7 @@ namespace StudentsPerformance
         private System.Windows.Forms.Button printReportBtn;
         private System.Windows.Forms.LinkLabel addNewClassLinkLabel;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox classNameForTeacherComboBox;
         private System.Windows.Forms.LinkLabel editGuardiansLinkLabel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button removeGuardianBtn;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using StudentsPerformanceLogic;
+using StudentsPerformanceLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,41 +15,46 @@ namespace StudentsPerformance
 {
     public partial class AddSubjectForm : Form
     {
-        public AddSubjectForm()
+        ISubjectRequest caller;
+
+        public AddSubjectForm(ISubjectRequest caller)
         {
             InitializeComponent();
+            this.caller = caller;
         }
 
         private void saveSubjectBtn_Click(object sender, EventArgs e)
         {
             if (ValidateForm())
             {
-                using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
+                try
                 {
-                    sqlConnection.Open();
+                    Subject subject = new Subject(0, newSubjectTextBox.Text);
 
-                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO Subjects(name) VALUES (@name)", sqlConnection);
-                    sqlCommand.Parameters.Add(new SqlParameter("@name", newSubjectTextBox.Text));
+                    subject = GlobalConfig.Connection.CreateSubject(subject);
 
-                    sqlCommand.ExecuteNonQuery();
+                    caller.SubjectComplete(subject);
+                }
+                catch (System.Data.SqlClient.SqlException)
+                {
+
+                    MessageBox.Show("Такой предмет уже существует.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
-                MessageBox.Show("Данные сохранены", "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
             }
-
-            this.Close();
         }
 
         private bool ValidateForm()
         {
             bool output = true;
 
-            if (newSubjectTextBox.Text.Length <= 1)
+            if (newSubjectTextBox.Text.Length == 0)
             {
                 output = false;
                 

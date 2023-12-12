@@ -12,13 +12,14 @@ using System.Windows.Forms;
 
 namespace StudentsPerformance
 {
-    public partial class HeadTeacherForm : Form, ISchoolClassRequest, IGuardianRequest
+    public partial class HeadTeacherForm : Form, ISchoolClassRequest, IGuardianRequest, ISubjectRequest
     {
         readonly List<SchoolClass> availableClasses = GlobalConfig.Connection.GetAllClasses();
         List<Guardian> selectedGuardians = new List<Guardian>();
         List<Student> availableStudents = new List<Student>();
         Student currentStudent;
         SchoolClass oldClass;
+        List<Subject> availableSubjects = GlobalConfig.Connection.GetAllSubjects();
 
         public HeadTeacherForm()
         {
@@ -35,7 +36,21 @@ namespace StudentsPerformance
 
             studentsDataGridView.AllowUserToAddRows = false;
             studentsDataGridView.ReadOnly = true;
-            studentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;            
+            studentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            subjectCmbBox.DataSource = null;
+            subjectCmbBox.DataSource= availableSubjects;
+            subjectCmbBox.DisplayMember = "Name";
+
+            classNameForTeacherComboBox.DataSource = null;
+            classNameForTeacherComboBox.DataSource = availableClasses;
+            classNameForTeacherComboBox.DisplayMember = "Name";
+
+            teachersDataGridView.AllowUserToAddRows = false;
+            teachersDataGridView.ReadOnly = true;
+            teachersDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            quantityOfStaffLbl.Text = "1";
         }
 
         private void WireUpStudentLists()
@@ -60,7 +75,7 @@ namespace StudentsPerformance
             this.Hide();
             loginForm.ShowDialog();
         }
-
+        #region Student's page functional
         private void addNewClassLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             AddNewClassForm newClassForm = new AddNewClassForm(this);
@@ -215,7 +230,10 @@ namespace StudentsPerformance
         {
             SchoolClass schoolClass = (SchoolClass)classStudentCmbBox.SelectedItem;
 
-            availableStudents = schoolClass.Students;
+            if (schoolClass != null)
+            {
+                availableStudents = schoolClass.Students; 
+            }
 
             WireUpStudentLists();
         }
@@ -237,5 +255,22 @@ namespace StudentsPerformance
 
             WireUpGuardianLists();
         }
+        #endregion
+
+        #region Teacher's page functional
+        private void addNewSubjectLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AddSubjectForm subjectForm = new AddSubjectForm(this);
+            subjectForm.ShowDialog();
+        }
+
+        public void SubjectComplete(Subject subject)
+        {
+            availableSubjects.Add(subject);
+            WireUpLists();
+        }
+        #endregion
+
+
     }
 }

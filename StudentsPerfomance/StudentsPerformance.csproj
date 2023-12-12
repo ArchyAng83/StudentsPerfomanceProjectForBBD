@@ -215,6 +215,7 @@
     </Compile>
     <Compile Include="IClassRequest.cs" />
     <Compile Include="IGuardianRequest.cs" />
+    <Compile Include="ISubjectRequest.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

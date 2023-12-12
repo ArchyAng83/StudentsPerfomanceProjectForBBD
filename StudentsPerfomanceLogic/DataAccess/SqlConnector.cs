@@ -11,6 +11,7 @@ using Dapper;
 
 namespace StudentsPerformanceLogic.DataAccess
 {
+    //Todo: Print Button ?
     public class SqlConnector : IDataConnection
     {
         private const string db = "StudentsPerformanceForPAS";
@@ -219,6 +220,40 @@ namespace StudentsPerformanceLogic.DataAccess
             }
         }
 
+        #endregion
+
+        #region Subjects
+        public List<Subject> GetAllSubjects()
+        {
+            List<Subject> output;
+
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                output = connection.Query<Subject>("spSubjects_GetAll", commandType: CommandType.StoredProcedure).ToList();
+            }
+
+            return output;
+        }
+
+        public Subject CreateSubject(Subject subject)
+        {
+            using (IDbConnection connection = new SqlConnection (GlobalConfig.GetConnection(db)))
+            {
+                var p = new DynamicParameters();
+
+                p.Add("@name", subject.Name);
+                p.Add("@id", 0, DbType.Int32, ParameterDirection.Output);
+
+                connection.Execute("spSubjects_Insert", p, commandType: CommandType.StoredProcedure);
+                subject = new Subject(p.Get<int>("@id"), subject.Name);
+            }
+
+            return subject;
+        }
+
+        #endregion
+
+        #region Teachers
 
         #endregion
     }
