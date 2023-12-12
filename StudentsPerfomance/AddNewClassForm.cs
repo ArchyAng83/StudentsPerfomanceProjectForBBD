@@ -32,7 +32,7 @@ namespace StudentsPerformance
                 {
                     SchoolClass schoolClass = new SchoolClass(0, newClassTextBox.Text);
 
-                    GlobalConfig.Connection.CreateClass(schoolClass);
+                    schoolClass = GlobalConfig.Connection.CreateClass(schoolClass);
 
                     caller.SchoolClassComplete(schoolClass);
                 }

@@ -15,11 +15,15 @@ namespace StudentsPerformance
     public partial class HeadTeacherForm : Form, ISchoolClassRequest, IGuardianRequest
     {
         readonly List<SchoolClass> availableClasses = GlobalConfig.Connection.GetAllClasses();
-        readonly List<Guardian> availableGuardians = new List<Guardian>();
+        List<Guardian> selectedGuardians = new List<Guardian>();
+        List<Student> availableStudents = new List<Student>();
+        Student currentStudent;
+        SchoolClass oldClass;
 
         public HeadTeacherForm()
         {
             InitializeComponent();
+
             WireUpLists();
         }
 
@@ -29,8 +33,24 @@ namespace StudentsPerformance
             classStudentCmbBox.DataSource = availableClasses;
             classStudentCmbBox.DisplayMember = "Name";
 
+            studentsDataGridView.AllowUserToAddRows = false;
+            studentsDataGridView.ReadOnly = true;
+            studentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;            
+        }
+
+        private void WireUpStudentLists()
+        {
+            WireUpGuardianLists();
+
+            studentsDataGridView.DataSource = null;
+            studentsDataGridView.DataSource = availableStudents.GetRange(0, availableStudents.Count);
+            studentsDataGridView.Columns["FullName"].Visible = false;
+        }
+
+        private void WireUpGuardianLists()
+        {
             guardiansListBox.DataSource = null;
-            guardiansListBox.DataSource = availableGuardians;
+            guardiansListBox.DataSource = selectedGuardians;
             guardiansListBox.DisplayMember = "FullName";
         }
 
@@ -61,8 +81,161 @@ namespace StudentsPerformance
 
         public void GuardianComplete(Guardian guardian)
         {
-            availableGuardians.Add(guardian);
-            WireUpLists();
+            selectedGuardians.Add(guardian);
+            if (currentStudent != null)
+            {
+                currentStudent.Guardians = selectedGuardians;
+            }
+            
+            WireUpStudentLists();
+        }
+
+        private void removeGuardianBtn_Click(object sender, EventArgs e)
+        {
+            Guardian guardian = (Guardian)guardiansListBox.SelectedItem;
+            if (guardian != null)
+            {
+                selectedGuardians.Remove(guardian);
+                if (currentStudent != null)
+                {
+                    currentStudent.Guardians = selectedGuardians;
+                }
+                WireUpStudentLists();
+            }
+        }
+
+        private void addStudentBtn_Click(object sender, EventArgs e)
+        {
+            if (ValidateForm())
+            {
+                SchoolClass schoolClass = (SchoolClass)classStudentCmbBox.SelectedItem;
+                string cellPhoneNumber = cellPhoneStudentTextBox.Text == string.Empty ? null : cellPhoneStudentTextBox.Text;
+                Student student = new Student(0, lastNameStudentTextBox.Text, firstNameStudentTextBox.Text, middleNameStudentTextBox.Text, adressStudentTextBox.Text,
+                                                  dateOfBirthTimePicker.Value, cellPhoneNumber);
+
+                student.Guardians = selectedGuardians;
+
+                student = GlobalConfig.Connection.AddStudent(student, schoolClass.Id);
+
+                availableStudents.Add(student);
+
+                WireUpStudentLists();
+            }
+            else
+            {
+                MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private bool ValidateForm()
+        {
+            bool output = true;
+
+            if (lastNameStudentTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (firstNameStudentTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (middleNameStudentTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (adressStudentTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (selectedGuardians.Count < 1 || selectedGuardians.Count > 2)
+            {
+                output = false;
+            }
+
+            return output;
+        }
+
+        private void deleteStudentBtn_Click(object sender, EventArgs e)
+        {
+            if (currentStudent != null)
+            {
+                Student student = (Student)studentsDataGridView.SelectedRows[0].DataBoundItem;
+
+                GlobalConfig.Connection.DeleteStudent(student.Id);
+
+                availableStudents.Remove(student);
+            }
+            else
+            {
+                MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            WireUpStudentLists();
+        }
+
+        private void updateStudentBtn_Click(object sender, EventArgs e)
+        {
+            if (ValidateForm())
+            {
+                if (currentStudent != null)
+                {
+                    SchoolClass schoolClass = (SchoolClass)classStudentCmbBox.SelectedItem;
+                    string cellPhoneNumber = cellPhoneStudentTextBox.Text == string.Empty ? null : cellPhoneStudentTextBox.Text;
+                    Student newStudent = new Student(currentStudent.Id, lastNameStudentTextBox.Text, firstNameStudentTextBox.Text, middleNameStudentTextBox.Text, adressStudentTextBox.Text,
+                                                      dateOfBirthTimePicker.Value, cellPhoneNumber);
+                    newStudent.Guardians = currentStudent.Guardians;
+
+                    GlobalConfig.Connection.UpdateStudent(newStudent, schoolClass.Id);
+
+                    oldClass.Students.Remove(currentStudent);
+                    availableStudents.Remove(currentStudent);
+                    availableStudents.Add(newStudent);
+
+                    WireUpStudentLists();
+                }
+                else
+                {
+                    MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                
+            }
+            else
+            {
+                MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void classStudentCmbBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SchoolClass schoolClass = (SchoolClass)classStudentCmbBox.SelectedItem;
+
+            availableStudents = schoolClass.Students;
+
+            WireUpStudentLists();
+        }
+
+        private void studentsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (availableStudents.Count > 0)
+            {
+                currentStudent = (Student)studentsDataGridView.SelectedRows[0].DataBoundItem;
+                oldClass = (SchoolClass)classStudentCmbBox.SelectedItem;
+                lastNameStudentTextBox.Text = currentStudent.LastName;
+                firstNameStudentTextBox.Text = currentStudent.FirstName;
+                middleNameStudentTextBox.Text = currentStudent.MiddleName;
+                adressStudentTextBox.Text = currentStudent.Address;
+                dateOfBirthTimePicker.Text = currentStudent.BirthDate.ToString();
+                cellPhoneStudentTextBox.Text = currentStudent.CellPhone?.ToString();
+                selectedGuardians = currentStudent.Guardians;
+            }
+
+            WireUpGuardianLists();
         }
     }
 }

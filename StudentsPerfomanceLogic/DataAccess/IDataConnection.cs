@@ -10,11 +10,15 @@ namespace StudentsPerformanceLogic.DataAccess
     public interface IDataConnection
     {
         User GetUserByLoginAndPassword(string login, string password);
-        void CreateClass(SchoolClass schoolClass);
+        SchoolClass CreateClass(SchoolClass schoolClass);
         List<SchoolClass> GetAllClasses();
         List<Guardian> GetAllGuardians();
         Guardian AddGuardian(Guardian guardian);
         void UpdateGuardian(Guardian guardian);
         void DeleteGuardian(int id);
+        //List<Student> GetAllStudents();
+        Student AddStudent(Student student, int classId);
+        void UpdateStudent(Student student, int classId);
+        void DeleteStudent(int id);
     }
 }

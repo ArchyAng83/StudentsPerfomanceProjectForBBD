@@ -10,7 +10,7 @@ namespace StudentsPerformanceLogic.Models
     {
         public int Id { get; }
         public string Name { get; }
-        public List<Student> Students { get; }
+        public List<Student> Students { get; set; }
 
         public SchoolClass(int id, string name)
         {

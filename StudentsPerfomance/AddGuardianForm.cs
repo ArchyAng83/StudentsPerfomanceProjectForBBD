@@ -32,7 +32,7 @@ namespace StudentsPerformance
         {
             guardiansDataGridView.DataSource = null;
             guardiansDataGridView.DataSource = availableGuardians.GetRange(0, availableGuardians.Count);
-            guardiansDataGridView.Columns["id"].Visible = false;
+            guardiansDataGridView.Columns["Id"].Visible = false;
             guardiansDataGridView.Columns["FullName"].Visible = false;
         }
 

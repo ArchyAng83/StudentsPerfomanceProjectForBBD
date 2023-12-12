@@ -38,7 +38,7 @@ namespace StudentsPerformance
             this.guardiansListBox = new System.Windows.Forms.ListBox();
             this.addNewClassLinkLabel = new System.Windows.Forms.LinkLabel();
             this.printStudentBtn = new System.Windows.Forms.Button();
-            this.cellPhoneTextBox = new System.Windows.Forms.TextBox();
+            this.cellPhoneStudentTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.studentsDataGridView = new System.Windows.Forms.DataGridView();
             this.deleteStudentBtn = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@ namespace StudentsPerformance
             this.dateOfBirthTimePicker = new System.Windows.Forms.DateTimePicker();
             this.classStudentCmbBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.adressTextBox = new System.Windows.Forms.TextBox();
+            this.adressStudentTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.middleNameStudentTextBox = new System.Windows.Forms.TextBox();
@@ -120,7 +120,7 @@ namespace StudentsPerformance
             this.studentsEditTabPage.Controls.Add(this.groupBox1);
             this.studentsEditTabPage.Controls.Add(this.addNewClassLinkLabel);
             this.studentsEditTabPage.Controls.Add(this.printStudentBtn);
-            this.studentsEditTabPage.Controls.Add(this.cellPhoneTextBox);
+            this.studentsEditTabPage.Controls.Add(this.cellPhoneStudentTextBox);
             this.studentsEditTabPage.Controls.Add(this.label5);
             this.studentsEditTabPage.Controls.Add(this.studentsDataGridView);
             this.studentsEditTabPage.Controls.Add(this.deleteStudentBtn);
@@ -129,7 +129,7 @@ namespace StudentsPerformance
             this.studentsEditTabPage.Controls.Add(this.dateOfBirthTimePicker);
             this.studentsEditTabPage.Controls.Add(this.classStudentCmbBox);
             this.studentsEditTabPage.Controls.Add(this.label7);
-            this.studentsEditTabPage.Controls.Add(this.adressTextBox);
+            this.studentsEditTabPage.Controls.Add(this.adressStudentTextBox);
             this.studentsEditTabPage.Controls.Add(this.label6);
             this.studentsEditTabPage.Controls.Add(this.label4);
             this.studentsEditTabPage.Controls.Add(this.middleNameStudentTextBox);
@@ -179,6 +179,7 @@ namespace StudentsPerformance
             this.removeGuardianBtn.TabIndex = 85;
             this.removeGuardianBtn.Text = "X";
             this.removeGuardianBtn.UseVisualStyleBackColor = true;
+            this.removeGuardianBtn.Click += new System.EventHandler(this.removeGuardianBtn_Click);
             // 
             // guardiansListBox
             // 
@@ -210,13 +211,13 @@ namespace StudentsPerformance
             this.printStudentBtn.Text = "Печать";
             this.printStudentBtn.UseVisualStyleBackColor = true;
             // 
-            // cellPhoneTextBox
+            // cellPhoneStudentTextBox
             // 
-            this.cellPhoneTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cellPhoneTextBox.Location = new System.Drawing.Point(180, 175);
-            this.cellPhoneTextBox.Name = "cellPhoneTextBox";
-            this.cellPhoneTextBox.Size = new System.Drawing.Size(223, 29);
-            this.cellPhoneTextBox.TabIndex = 80;
+            this.cellPhoneStudentTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cellPhoneStudentTextBox.Location = new System.Drawing.Point(180, 175);
+            this.cellPhoneStudentTextBox.Name = "cellPhoneStudentTextBox";
+            this.cellPhoneStudentTextBox.Size = new System.Drawing.Size(223, 29);
+            this.cellPhoneStudentTextBox.TabIndex = 80;
             // 
             // label5
             // 
@@ -237,6 +238,7 @@ namespace StudentsPerformance
             this.studentsDataGridView.Name = "studentsDataGridView";
             this.studentsDataGridView.Size = new System.Drawing.Size(954, 283);
             this.studentsDataGridView.TabIndex = 78;
+            this.studentsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.studentsDataGridView_CellClick);
             // 
             // deleteStudentBtn
             // 
@@ -247,6 +249,7 @@ namespace StudentsPerformance
             this.deleteStudentBtn.TabIndex = 77;
             this.deleteStudentBtn.Text = "Удалить";
             this.deleteStudentBtn.UseVisualStyleBackColor = true;
+            this.deleteStudentBtn.Click += new System.EventHandler(this.deleteStudentBtn_Click);
             // 
             // updateStudentBtn
             // 
@@ -257,6 +260,7 @@ namespace StudentsPerformance
             this.updateStudentBtn.TabIndex = 76;
             this.updateStudentBtn.Text = "Изменить";
             this.updateStudentBtn.UseVisualStyleBackColor = true;
+            this.updateStudentBtn.Click += new System.EventHandler(this.updateStudentBtn_Click);
             // 
             // addStudentBtn
             // 
@@ -267,6 +271,7 @@ namespace StudentsPerformance
             this.addStudentBtn.TabIndex = 75;
             this.addStudentBtn.Text = "Добавить";
             this.addStudentBtn.UseVisualStyleBackColor = true;
+            this.addStudentBtn.Click += new System.EventHandler(this.addStudentBtn_Click);
             // 
             // dateOfBirthTimePicker
             // 
@@ -286,6 +291,7 @@ namespace StudentsPerformance
             this.classStudentCmbBox.Name = "classStudentCmbBox";
             this.classStudentCmbBox.Size = new System.Drawing.Size(79, 32);
             this.classStudentCmbBox.TabIndex = 73;
+            this.classStudentCmbBox.SelectedIndexChanged += new System.EventHandler(this.classStudentCmbBox_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -297,13 +303,13 @@ namespace StudentsPerformance
             this.label7.TabIndex = 72;
             this.label7.Text = "Класс";
             // 
-            // adressTextBox
+            // adressStudentTextBox
             // 
-            this.adressTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.adressTextBox.Location = new System.Drawing.Point(181, 137);
-            this.adressTextBox.Name = "adressTextBox";
-            this.adressTextBox.Size = new System.Drawing.Size(223, 29);
-            this.adressTextBox.TabIndex = 71;
+            this.adressStudentTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.adressStudentTextBox.Location = new System.Drawing.Point(181, 137);
+            this.adressStudentTextBox.Name = "adressStudentTextBox";
+            this.adressStudentTextBox.Size = new System.Drawing.Size(223, 29);
+            this.adressStudentTextBox.TabIndex = 71;
             // 
             // label6
             // 
@@ -794,7 +800,7 @@ namespace StudentsPerformance
         private System.Windows.Forms.DateTimePicker dateOfBirthTimePicker;
         private System.Windows.Forms.ComboBox classStudentCmbBox;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox adressTextBox;
+        private System.Windows.Forms.TextBox adressStudentTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox middleNameStudentTextBox;
@@ -807,7 +813,7 @@ namespace StudentsPerformance
         private System.Windows.Forms.Button deleteStudentBtn;
         private System.Windows.Forms.Button updateStudentBtn;
         private System.Windows.Forms.Button addStudentBtn;
-        private System.Windows.Forms.TextBox cellPhoneTextBox;
+        private System.Windows.Forms.TextBox cellPhoneStudentTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox phoneTeacherTextBox;
         private System.Windows.Forms.Label label8;

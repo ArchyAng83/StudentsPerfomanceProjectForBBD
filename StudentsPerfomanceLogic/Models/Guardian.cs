@@ -11,5 +11,10 @@ namespace StudentsPerformanceLogic.Models
            string address,
            DateTime birthDate,
            string cellPhone) : base(id, lastName, firstName, middleName, address, birthDate, cellPhone) { }
+
+        public override string ToString()
+        {
+            return $"{FullName}";
+        }
     }
 }
