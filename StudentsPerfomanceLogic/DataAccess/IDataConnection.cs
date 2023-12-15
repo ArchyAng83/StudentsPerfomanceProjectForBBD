@@ -22,5 +22,10 @@ namespace StudentsPerformanceLogic.DataAccess
         void DeleteStudent(int id);
         List<Subject> GetAllSubjects();
         Subject CreateSubject(Subject subject);
+        List<Teacher> GetAllTeachers();
+        Teacher AddTeacher(Teacher teacher);
+        void UpdateTeacher(Teacher teacher);
+        void DeleteTeacher(int id);
+        int GetStudentsCount();
     }
 }

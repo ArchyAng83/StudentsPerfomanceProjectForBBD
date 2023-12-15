@@ -98,8 +98,7 @@ namespace StudentsPerformance
                 guardian = GlobalConfig.Connection.AddGuardian(guardian);                
                 availableGuardians.Add(guardian);
                 ClearSetup();
-                WireUpLists();
-               
+                WireUpLists();               
             }
             else
             {
@@ -124,6 +123,7 @@ namespace StudentsPerformance
                     availableGuardians[index] = newGuardian;
                 }
 
+                ClearSetup();
                 WireUpLists();
             }
             else

@@ -255,6 +255,96 @@ namespace StudentsPerformanceLogic.DataAccess
 
         #region Teachers
 
+        public List<Teacher> GetAllTeachers()
+        {
+            List<Teacher> output;
+
+            Teacher map(Teacher teacher, Subject subject, SchoolClass schoolClass)
+            {
+                return new Teacher(teacher.Id, teacher.LastName, teacher.FirstName, teacher.MiddleName, teacher.Address, teacher.BirthDate, teacher.CellPhone, subject, schoolClass);
+            }
+
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                output = connection.Query("spTeachers_GetAll", (Func<Teacher, Subject, SchoolClass, Teacher>)map, commandType: CommandType.StoredProcedure).ToList();
+            }
+
+            return output;
+        }
+
+        public Teacher AddTeacher(Teacher teacher)
+        {
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                var p = new DynamicParameters();
+                p.Add("@lastName", teacher.LastName);
+                p.Add("@firstName", teacher.FirstName);
+                p.Add("@middleName", teacher.MiddleName);
+                p.Add("@address", teacher.Address);
+                p.Add("@birthDate", teacher.BirthDate);
+                p.Add("@cellPhone", teacher.CellPhone);
+                p.Add("@subjectId", teacher.Subject.Id);
+                p.Add("@classId", teacher.SchoolClass?.Id);
+                p.Add("@id", 0, DbType.Int32, ParameterDirection.Output);
+
+                connection.Execute("spTeachers_Insert", p, commandType: CommandType.StoredProcedure);
+
+                teacher = new Teacher(p.Get<int>("@id"), teacher.LastName, teacher.FirstName, teacher.MiddleName, teacher.Address, teacher.BirthDate, teacher.CellPhone, teacher.Subject, teacher.SchoolClass);
+            }
+
+            return teacher;
+        }
+
+        public void UpdateTeacher(Teacher teacher)
+        {
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                var p = new DynamicParameters();
+                p.Add("@id", teacher.Id);
+                p.Add("@lastName", teacher.LastName);
+                p.Add("@firstName", teacher.FirstName);
+                p.Add("@middleName", teacher.MiddleName);
+                p.Add("@address", teacher.Address);
+                p.Add("@birthDate", teacher.BirthDate);
+                p.Add("@cellPhone", teacher.CellPhone);
+                p.Add("@subjectId", teacher.Subject.Id);
+                p.Add("@classId", teacher.SchoolClass?.Id);
+
+                connection.Execute("spTeachers_Update", p, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public void DeleteTeacher(int id)
+        {
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                connection.Execute("spTeachers_Delete", new { id }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        #endregion
+
+
+        #region Reports
+
+        public int GetStudentsCount()
+        {
+            int result = 0;
+
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                result = connection.ExecuteScalar<int>("spStudents_Count", commandType: CommandType.StoredProcedure);
+            }
+
+            return result;
+        }
+
+
+        #endregion
+
+        #region
+
+
         #endregion
     }
 }

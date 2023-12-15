@@ -44,7 +44,7 @@ namespace StudentsPerformance
             this.deleteStudentBtn = new System.Windows.Forms.Button();
             this.updateStudentBtn = new System.Windows.Forms.Button();
             this.addStudentBtn = new System.Windows.Forms.Button();
-            this.dateOfBirthTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.birthDateSturdentTimePicker = new System.Windows.Forms.DateTimePicker();
             this.classStudentCmbBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.adressStudentTextBox = new System.Windows.Forms.TextBox();
@@ -57,7 +57,7 @@ namespace StudentsPerformance
             this.lastNameStudentTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.teachersEditTabPage = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.classTeacherChckBox = new System.Windows.Forms.CheckBox();
             this.classNameForTeacherComboBox = new System.Windows.Forms.ComboBox();
             this.printTeacherBtn = new System.Windows.Forms.Button();
             this.quantityOfStaffLbl = new System.Windows.Forms.Label();
@@ -66,13 +66,11 @@ namespace StudentsPerformance
             this.deleteTeacherBtn = new System.Windows.Forms.Button();
             this.updateTeacherBtn = new System.Windows.Forms.Button();
             this.addTeacherBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.addressTeacherTextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.birthDateTeacherTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
-            this.phoneTeacherTextBox = new System.Windows.Forms.TextBox();
+            this.cellPhoneTeacherTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.addNewSubjectLinkLabel = new System.Windows.Forms.LinkLabel();
             this.subjectCmbBox = new System.Windows.Forms.ComboBox();
@@ -126,7 +124,7 @@ namespace StudentsPerformance
             this.studentsEditTabPage.Controls.Add(this.deleteStudentBtn);
             this.studentsEditTabPage.Controls.Add(this.updateStudentBtn);
             this.studentsEditTabPage.Controls.Add(this.addStudentBtn);
-            this.studentsEditTabPage.Controls.Add(this.dateOfBirthTimePicker);
+            this.studentsEditTabPage.Controls.Add(this.birthDateSturdentTimePicker);
             this.studentsEditTabPage.Controls.Add(this.classStudentCmbBox);
             this.studentsEditTabPage.Controls.Add(this.label7);
             this.studentsEditTabPage.Controls.Add(this.adressStudentTextBox);
@@ -273,14 +271,14 @@ namespace StudentsPerformance
             this.addStudentBtn.UseVisualStyleBackColor = true;
             this.addStudentBtn.Click += new System.EventHandler(this.addStudentBtn_Click);
             // 
-            // dateOfBirthTimePicker
+            // birthDateSturdentTimePicker
             // 
-            this.dateOfBirthTimePicker.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateOfBirthTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateOfBirthTimePicker.Location = new System.Drawing.Point(181, 111);
-            this.dateOfBirthTimePicker.Name = "dateOfBirthTimePicker";
-            this.dateOfBirthTimePicker.Size = new System.Drawing.Size(222, 20);
-            this.dateOfBirthTimePicker.TabIndex = 74;
+            this.birthDateSturdentTimePicker.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.birthDateSturdentTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.birthDateSturdentTimePicker.Location = new System.Drawing.Point(181, 111);
+            this.birthDateSturdentTimePicker.Name = "birthDateSturdentTimePicker";
+            this.birthDateSturdentTimePicker.Size = new System.Drawing.Size(222, 20);
+            this.birthDateSturdentTimePicker.TabIndex = 74;
             // 
             // classStudentCmbBox
             // 
@@ -387,7 +385,7 @@ namespace StudentsPerformance
             // 
             // teachersEditTabPage
             // 
-            this.teachersEditTabPage.Controls.Add(this.checkBox1);
+            this.teachersEditTabPage.Controls.Add(this.classTeacherChckBox);
             this.teachersEditTabPage.Controls.Add(this.classNameForTeacherComboBox);
             this.teachersEditTabPage.Controls.Add(this.printTeacherBtn);
             this.teachersEditTabPage.Controls.Add(this.quantityOfStaffLbl);
@@ -396,13 +394,11 @@ namespace StudentsPerformance
             this.teachersEditTabPage.Controls.Add(this.deleteTeacherBtn);
             this.teachersEditTabPage.Controls.Add(this.updateTeacherBtn);
             this.teachersEditTabPage.Controls.Add(this.addTeacherBtn);
-            this.teachersEditTabPage.Controls.Add(this.textBox1);
+            this.teachersEditTabPage.Controls.Add(this.addressTeacherTextBox);
             this.teachersEditTabPage.Controls.Add(this.label9);
-            this.teachersEditTabPage.Controls.Add(this.dateTimePicker1);
-            this.teachersEditTabPage.Controls.Add(this.textBox2);
-            this.teachersEditTabPage.Controls.Add(this.label14);
+            this.teachersEditTabPage.Controls.Add(this.birthDateTeacherTimePicker);
             this.teachersEditTabPage.Controls.Add(this.label15);
-            this.teachersEditTabPage.Controls.Add(this.phoneTeacherTextBox);
+            this.teachersEditTabPage.Controls.Add(this.cellPhoneTeacherTextBox);
             this.teachersEditTabPage.Controls.Add(this.label8);
             this.teachersEditTabPage.Controls.Add(this.addNewSubjectLinkLabel);
             this.teachersEditTabPage.Controls.Add(this.subjectCmbBox);
@@ -421,23 +417,23 @@ namespace StudentsPerformance
             this.teachersEditTabPage.Text = "Преподаватели";
             this.teachersEditTabPage.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // classTeacherChckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox1.Location = new System.Drawing.Point(427, 155);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(248, 28);
-            this.checkBox1.TabIndex = 96;
-            this.checkBox1.Text = "Классный руководитель";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.classTeacherChckBox.AutoSize = true;
+            this.classTeacherChckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.classTeacherChckBox.Location = new System.Drawing.Point(427, 79);
+            this.classTeacherChckBox.Name = "classTeacherChckBox";
+            this.classTeacherChckBox.Size = new System.Drawing.Size(248, 28);
+            this.classTeacherChckBox.TabIndex = 96;
+            this.classTeacherChckBox.Text = "Классный руководитель";
+            this.classTeacherChckBox.UseVisualStyleBackColor = true;
             // 
             // classNameForTeacherComboBox
             // 
             this.classNameForTeacherComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.classNameForTeacherComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.classNameForTeacherComboBox.FormattingEnabled = true;
-            this.classNameForTeacherComboBox.Location = new System.Drawing.Point(696, 153);
+            this.classNameForTeacherComboBox.Location = new System.Drawing.Point(719, 77);
             this.classNameForTeacherComboBox.Name = "classNameForTeacherComboBox";
             this.classNameForTeacherComboBox.Size = new System.Drawing.Size(80, 32);
             this.classNameForTeacherComboBox.TabIndex = 95;
@@ -480,6 +476,7 @@ namespace StudentsPerformance
             this.teachersDataGridView.Name = "teachersDataGridView";
             this.teachersDataGridView.Size = new System.Drawing.Size(954, 262);
             this.teachersDataGridView.TabIndex = 90;
+            this.teachersDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.teachersDataGridView_CellClick);
             // 
             // deleteTeacherBtn
             // 
@@ -490,6 +487,7 @@ namespace StudentsPerformance
             this.deleteTeacherBtn.TabIndex = 89;
             this.deleteTeacherBtn.Text = "Удалить";
             this.deleteTeacherBtn.UseVisualStyleBackColor = true;
+            this.deleteTeacherBtn.Click += new System.EventHandler(this.deleteTeacherBtn_Click);
             // 
             // updateTeacherBtn
             // 
@@ -500,6 +498,7 @@ namespace StudentsPerformance
             this.updateTeacherBtn.TabIndex = 88;
             this.updateTeacherBtn.Text = "Изменить";
             this.updateTeacherBtn.UseVisualStyleBackColor = true;
+            this.updateTeacherBtn.Click += new System.EventHandler(this.updateTeacherBtn_Click);
             // 
             // addTeacherBtn
             // 
@@ -510,75 +509,58 @@ namespace StudentsPerformance
             this.addTeacherBtn.TabIndex = 87;
             this.addTeacherBtn.Text = "Добавить";
             this.addTeacherBtn.UseVisualStyleBackColor = true;
+            this.addTeacherBtn.Click += new System.EventHandler(this.addTeacherBtn_Click);
             // 
-            // textBox1
+            // addressTeacherTextBox
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(551, 50);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(223, 29);
-            this.textBox1.TabIndex = 86;
+            this.addressTeacherTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.addressTeacherTextBox.Location = new System.Drawing.Point(186, 147);
+            this.addressTeacherTextBox.Name = "addressTeacherTextBox";
+            this.addressTeacherTextBox.Size = new System.Drawing.Size(223, 29);
+            this.addressTeacherTextBox.TabIndex = 86;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(425, 50);
+            this.label9.Location = new System.Drawing.Point(14, 150);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(90, 24);
+            this.label9.Size = new System.Drawing.Size(67, 24);
             this.label9.TabIndex = 85;
-            this.label9.Text = "Телефон";
+            this.label9.Text = "Адрес";
             // 
-            // dateTimePicker1
+            // birthDateTeacherTimePicker
             // 
-            this.dateTimePicker1.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(185, 157);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(222, 20);
-            this.dateTimePicker1.TabIndex = 84;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(552, 12);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(223, 29);
-            this.textBox2.TabIndex = 83;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(425, 15);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(67, 24);
-            this.label14.TabIndex = 82;
-            this.label14.Text = "Адрес";
+            this.birthDateTeacherTimePicker.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.birthDateTeacherTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.birthDateTeacherTimePicker.Location = new System.Drawing.Point(186, 121);
+            this.birthDateTeacherTimePicker.Name = "birthDateTeacherTimePicker";
+            this.birthDateTeacherTimePicker.Size = new System.Drawing.Size(222, 20);
+            this.birthDateTeacherTimePicker.TabIndex = 84;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label15.Location = new System.Drawing.Point(13, 152);
+            this.label15.Location = new System.Drawing.Point(14, 116);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(150, 24);
             this.label15.TabIndex = 81;
             this.label15.Text = "Дата рождения";
             // 
-            // phoneTeacherTextBox
+            // cellPhoneTeacherTextBox
             // 
-            this.phoneTeacherTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.phoneTeacherTextBox.Location = new System.Drawing.Point(185, 117);
-            this.phoneTeacherTextBox.Name = "phoneTeacherTextBox";
-            this.phoneTeacherTextBox.Size = new System.Drawing.Size(223, 29);
-            this.phoneTeacherTextBox.TabIndex = 59;
+            this.cellPhoneTeacherTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cellPhoneTeacherTextBox.Location = new System.Drawing.Point(185, 182);
+            this.cellPhoneTeacherTextBox.Name = "cellPhoneTeacherTextBox";
+            this.cellPhoneTeacherTextBox.Size = new System.Drawing.Size(223, 29);
+            this.cellPhoneTeacherTextBox.TabIndex = 59;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(13, 117);
+            this.label8.Location = new System.Drawing.Point(14, 188);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(90, 24);
             this.label8.TabIndex = 58;
@@ -588,7 +570,7 @@ namespace StudentsPerformance
             // 
             this.addNewSubjectLinkLabel.AutoSize = true;
             this.addNewSubjectLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addNewSubjectLinkLabel.Location = new System.Drawing.Point(646, 123);
+            this.addNewSubjectLinkLabel.Location = new System.Drawing.Point(670, 50);
             this.addNewSubjectLinkLabel.Name = "addNewSubjectLinkLabel";
             this.addNewSubjectLinkLabel.Size = new System.Drawing.Size(129, 16);
             this.addNewSubjectLinkLabel.TabIndex = 57;
@@ -601,7 +583,7 @@ namespace StudentsPerformance
             this.subjectCmbBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.subjectCmbBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.subjectCmbBox.FormattingEnabled = true;
-            this.subjectCmbBox.Location = new System.Drawing.Point(552, 85);
+            this.subjectCmbBox.Location = new System.Drawing.Point(577, 12);
             this.subjectCmbBox.Name = "subjectCmbBox";
             this.subjectCmbBox.Size = new System.Drawing.Size(223, 32);
             this.subjectCmbBox.TabIndex = 56;
@@ -610,7 +592,7 @@ namespace StudentsPerformance
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(425, 88);
+            this.label10.Location = new System.Drawing.Point(423, 18);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(91, 24);
             this.label10.TabIndex = 53;
@@ -628,7 +610,7 @@ namespace StudentsPerformance
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(13, 82);
+            this.label11.Location = new System.Drawing.Point(14, 82);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(98, 24);
             this.label11.TabIndex = 51;
@@ -646,7 +628,7 @@ namespace StudentsPerformance
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(13, 47);
+            this.label12.Location = new System.Drawing.Point(14, 47);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(46, 24);
             this.label12.TabIndex = 49;
@@ -664,7 +646,7 @@ namespace StudentsPerformance
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(13, 12);
+            this.label13.Location = new System.Drawing.Point(14, 12);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(91, 24);
             this.label13.TabIndex = 47;
@@ -689,7 +671,7 @@ namespace StudentsPerformance
             // 
             // printReportBtn
             // 
-            this.printReportBtn.Location = new System.Drawing.Point(666, 159);
+            this.printReportBtn.Location = new System.Drawing.Point(652, 434);
             this.printReportBtn.Name = "printReportBtn";
             this.printReportBtn.Size = new System.Drawing.Size(75, 23);
             this.printReportBtn.TabIndex = 82;
@@ -699,7 +681,7 @@ namespace StudentsPerformance
             // avgMarkClassBtn
             // 
             this.avgMarkClassBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.avgMarkClassBtn.Location = new System.Drawing.Point(13, 290);
+            this.avgMarkClassBtn.Location = new System.Drawing.Point(178, 296);
             this.avgMarkClassBtn.Name = "avgMarkClassBtn";
             this.avgMarkClassBtn.Size = new System.Drawing.Size(155, 55);
             this.avgMarkClassBtn.TabIndex = 17;
@@ -709,7 +691,7 @@ namespace StudentsPerformance
             // avgMarkSubjectBtn
             // 
             this.avgMarkSubjectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.avgMarkSubjectBtn.Location = new System.Drawing.Point(13, 188);
+            this.avgMarkSubjectBtn.Location = new System.Drawing.Point(178, 194);
             this.avgMarkSubjectBtn.Name = "avgMarkSubjectBtn";
             this.avgMarkSubjectBtn.Size = new System.Drawing.Size(155, 52);
             this.avgMarkSubjectBtn.TabIndex = 16;
@@ -721,7 +703,7 @@ namespace StudentsPerformance
             this.resultReportDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.resultReportDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.resultReportDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultReportDataGridView.Location = new System.Drawing.Point(214, 159);
+            this.resultReportDataGridView.Location = new System.Drawing.Point(379, 165);
             this.resultReportDataGridView.Name = "resultReportDataGridView";
             this.resultReportDataGridView.Size = new System.Drawing.Size(348, 245);
             this.resultReportDataGridView.TabIndex = 15;
@@ -730,7 +712,7 @@ namespace StudentsPerformance
             // 
             this.avgSchoolLbl.AutoSize = true;
             this.avgSchoolLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.avgSchoolLbl.Location = new System.Drawing.Point(261, 107);
+            this.avgSchoolLbl.Location = new System.Drawing.Point(426, 113);
             this.avgSchoolLbl.Name = "avgSchoolLbl";
             this.avgSchoolLbl.Size = new System.Drawing.Size(76, 24);
             this.avgSchoolLbl.TabIndex = 12;
@@ -740,7 +722,7 @@ namespace StudentsPerformance
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label16.Location = new System.Drawing.Point(8, 107);
+            this.label16.Location = new System.Drawing.Point(173, 113);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(228, 24);
             this.label16.TabIndex = 11;
@@ -750,7 +732,7 @@ namespace StudentsPerformance
             // 
             this.quantityOfStudentsLbl.AutoSize = true;
             this.quantityOfStudentsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.quantityOfStudentsLbl.Location = new System.Drawing.Point(261, 18);
+            this.quantityOfStudentsLbl.Location = new System.Drawing.Point(426, 24);
             this.quantityOfStudentsLbl.Name = "quantityOfStudentsLbl";
             this.quantityOfStudentsLbl.Size = new System.Drawing.Size(76, 24);
             this.quantityOfStudentsLbl.TabIndex = 10;
@@ -760,7 +742,7 @@ namespace StudentsPerformance
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label17.Location = new System.Drawing.Point(8, 18);
+            this.label17.Location = new System.Drawing.Point(173, 24);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(210, 24);
             this.label17.TabIndex = 9;
@@ -798,7 +780,7 @@ namespace StudentsPerformance
         private System.Windows.Forms.TabPage studentsEditTabPage;
         private System.Windows.Forms.TabPage teachersEditTabPage;
         private System.Windows.Forms.TabPage reportsTabPage;
-        private System.Windows.Forms.DateTimePicker dateOfBirthTimePicker;
+        private System.Windows.Forms.DateTimePicker birthDateSturdentTimePicker;
         private System.Windows.Forms.ComboBox classStudentCmbBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox adressStudentTextBox;
@@ -816,7 +798,7 @@ namespace StudentsPerformance
         private System.Windows.Forms.Button addStudentBtn;
         private System.Windows.Forms.TextBox cellPhoneStudentTextBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox phoneTeacherTextBox;
+        private System.Windows.Forms.TextBox cellPhoneTeacherTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.LinkLabel addNewSubjectLinkLabel;
         private System.Windows.Forms.ComboBox subjectCmbBox;
@@ -827,11 +809,9 @@ namespace StudentsPerformance
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox lastNameTeacherTextBox;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox addressTeacherTextBox;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.DateTimePicker birthDateTeacherTimePicker;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.DataGridView teachersDataGridView;
         private System.Windows.Forms.Button deleteTeacherBtn;
@@ -850,7 +830,7 @@ namespace StudentsPerformance
         private System.Windows.Forms.Button printTeacherBtn;
         private System.Windows.Forms.Button printReportBtn;
         private System.Windows.Forms.LinkLabel addNewClassLinkLabel;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox classTeacherChckBox;
         private System.Windows.Forms.ComboBox classNameForTeacherComboBox;
         private System.Windows.Forms.LinkLabel editGuardiansLinkLabel;
         private System.Windows.Forms.GroupBox groupBox1;

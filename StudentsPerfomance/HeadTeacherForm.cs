@@ -20,6 +20,7 @@ namespace StudentsPerformance
         Student currentStudent;
         SchoolClass oldClass;
         List<Subject> availableSubjects = GlobalConfig.Connection.GetAllSubjects();
+        List<Teacher> availableTeachers = GlobalConfig.Connection.GetAllTeachers();
 
         public HeadTeacherForm()
         {
@@ -39,18 +40,30 @@ namespace StudentsPerformance
             studentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             subjectCmbBox.DataSource = null;
-            subjectCmbBox.DataSource= availableSubjects;
+            subjectCmbBox.DataSource = availableSubjects;
             subjectCmbBox.DisplayMember = "Name";
 
             classNameForTeacherComboBox.DataSource = null;
             classNameForTeacherComboBox.DataSource = availableClasses;
             classNameForTeacherComboBox.DisplayMember = "Name";
+                        
+            WireUpTeacherLists();
+        }
+
+        private void WireUpTeacherLists()
+        {
+            teachersDataGridView.DataSource = null;
+            teachersDataGridView.DataSource = availableTeachers.GetRange(0, availableTeachers.Count);
+            teachersDataGridView.Columns["FullName"].Visible = false;
 
             teachersDataGridView.AllowUserToAddRows = false;
             teachersDataGridView.ReadOnly = true;
             teachersDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            quantityOfStaffLbl.Text = "1";
+            teachersDataGridView.Columns["Subject"].DisplayIndex = teachersDataGridView.Columns.Count - 1;
+            teachersDataGridView.Columns["SchoolClass"].DisplayIndex = teachersDataGridView.Columns.Count - 1;
+
+            quantityOfStaffLbl.Text = availableTeachers.Count.ToString();
         }
 
         private void WireUpStudentLists()
@@ -60,6 +73,8 @@ namespace StudentsPerformance
             studentsDataGridView.DataSource = null;
             studentsDataGridView.DataSource = availableStudents.GetRange(0, availableStudents.Count);
             studentsDataGridView.Columns["FullName"].Visible = false;
+
+            quantityOfStudentsLbl.Text = GlobalConfig.Connection.GetStudentsCount().ToString();
         }
 
         private void WireUpGuardianLists()
@@ -75,7 +90,9 @@ namespace StudentsPerformance
             this.Hide();
             loginForm.ShowDialog();
         }
+
         #region Student's page functional
+
         private void addNewClassLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             AddNewClassForm newClassForm = new AddNewClassForm(this);
@@ -121,12 +138,13 @@ namespace StudentsPerformance
 
         private void addStudentBtn_Click(object sender, EventArgs e)
         {
-            if (ValidateForm())
+            //Todo: add two same guardiarn error
+            if (ValidateStudentPage())
             {
                 SchoolClass schoolClass = (SchoolClass)classStudentCmbBox.SelectedItem;
                 string cellPhoneNumber = cellPhoneStudentTextBox.Text == string.Empty ? null : cellPhoneStudentTextBox.Text;
                 Student student = new Student(0, lastNameStudentTextBox.Text, firstNameStudentTextBox.Text, middleNameStudentTextBox.Text, adressStudentTextBox.Text,
-                                                  dateOfBirthTimePicker.Value, cellPhoneNumber);
+                                                  birthDateSturdentTimePicker.Value, cellPhoneNumber);
 
                 student.Guardians = selectedGuardians;
 
@@ -134,6 +152,7 @@ namespace StudentsPerformance
 
                 availableStudents.Add(student);
 
+                ClearStudentSetup();
                 WireUpStudentLists();
             }
             else
@@ -143,7 +162,7 @@ namespace StudentsPerformance
         }
 
 
-        private bool ValidateForm()
+        private bool ValidateStudentPage()
         {
             bool output = true;
 
@@ -190,19 +209,20 @@ namespace StudentsPerformance
                 MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            ClearStudentSetup();
             WireUpStudentLists();
         }
 
         private void updateStudentBtn_Click(object sender, EventArgs e)
         {
-            if (ValidateForm())
+            if (ValidateStudentPage())
             {
                 if (currentStudent != null)
                 {
                     SchoolClass schoolClass = (SchoolClass)classStudentCmbBox.SelectedItem;
                     string cellPhoneNumber = cellPhoneStudentTextBox.Text == string.Empty ? null : cellPhoneStudentTextBox.Text;
                     Student newStudent = new Student(currentStudent.Id, lastNameStudentTextBox.Text, firstNameStudentTextBox.Text, middleNameStudentTextBox.Text, adressStudentTextBox.Text,
-                                                      dateOfBirthTimePicker.Value, cellPhoneNumber);
+                                                      birthDateSturdentTimePicker.Value, cellPhoneNumber);
                     newStudent.Guardians = currentStudent.Guardians;
 
                     GlobalConfig.Connection.UpdateStudent(newStudent, schoolClass.Id);
@@ -211,6 +231,7 @@ namespace StudentsPerformance
                     availableStudents.Remove(currentStudent);
                     availableStudents.Add(newStudent);
 
+                    ClearStudentSetup();
                     WireUpStudentLists();
                 }
                 else
@@ -248,16 +269,28 @@ namespace StudentsPerformance
                 firstNameStudentTextBox.Text = currentStudent.FirstName;
                 middleNameStudentTextBox.Text = currentStudent.MiddleName;
                 adressStudentTextBox.Text = currentStudent.Address;
-                dateOfBirthTimePicker.Text = currentStudent.BirthDate.ToString();
+                birthDateSturdentTimePicker.Value = currentStudent.BirthDate;
                 cellPhoneStudentTextBox.Text = currentStudent.CellPhone?.ToString();
                 selectedGuardians = currentStudent.Guardians;
             }
 
             WireUpGuardianLists();
         }
+
+        private void ClearStudentSetup()
+        {
+            lastNameStudentTextBox.Text = string.Empty;
+            firstNameStudentTextBox.Text = string.Empty;
+            middleNameStudentTextBox.Text = string.Empty;
+            adressStudentTextBox.Text = string.Empty;
+            birthDateSturdentTimePicker.Value = DateTime.UtcNow;
+            cellPhoneStudentTextBox.Text = string.Empty;
+            selectedGuardians = null;
+        }
         #endregion
 
         #region Teacher's page functional
+
         private void addNewSubjectLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             AddSubjectForm subjectForm = new AddSubjectForm(this);
@@ -269,8 +302,141 @@ namespace StudentsPerformance
             availableSubjects.Add(subject);
             WireUpLists();
         }
+
+        private void addTeacherBtn_Click(object sender, EventArgs e)
+        {
+            if (ValidateTeacherPage())
+            {
+                Subject selectedSubject = (Subject)subjectCmbBox.SelectedItem;
+                SchoolClass selectedClass = classTeacherChckBox.Checked ? (SchoolClass)classNameForTeacherComboBox.SelectedItem : null;
+                string cellPhoneNumber = cellPhoneTeacherTextBox.Text == string.Empty ? null : cellPhoneTeacherTextBox.Text;
+                Teacher teacher = new Teacher(0, lastNameTeacherTextBox.Text, firstNameTeacherTextBox.Text, middleNameTeacherTextBox.Text,
+                                                 addressTeacherTextBox.Text, birthDateTeacherTimePicker.Value, cellPhoneNumber, selectedSubject, selectedClass);
+                teacher = GlobalConfig.Connection.AddTeacher(teacher);
+
+                availableTeachers.Add(teacher);
+
+                ClearTeacherSetup();
+            }
+            else
+            {
+                MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            WireUpTeacherLists();
+        }
+
+        private void updateTeacherBtn_Click(object sender, EventArgs e)
+        {
+            if (ValidateTeacherPage())
+            {
+                if (availableTeachers.Count > 0)
+                {
+                    Teacher selectedTeacher = (Teacher)teachersDataGridView.SelectedRows[0].DataBoundItem;
+                    Subject selectedSubject = (Subject)subjectCmbBox.SelectedItem;
+                    SchoolClass selectedClass = classTeacherChckBox.Checked ? (SchoolClass)classNameForTeacherComboBox.SelectedItem : null;
+                    string cellPhoneNumber = cellPhoneTeacherTextBox.Text == string.Empty ? null : cellPhoneTeacherTextBox.Text;
+                    Teacher newTeacher = new Teacher(selectedTeacher.Id, lastNameTeacherTextBox.Text, firstNameTeacherTextBox.Text, middleNameTeacherTextBox.Text,
+                                                 addressTeacherTextBox.Text, birthDateTeacherTimePicker.Value, cellPhoneNumber, selectedSubject, selectedClass);
+
+                    GlobalConfig.Connection.UpdateTeacher(newTeacher);
+
+                    availableTeachers.Remove(selectedTeacher);
+                    availableTeachers.Add(newTeacher);
+
+                    ClearTeacherSetup();
+                }
+                else
+                {
+                    MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            WireUpTeacherLists();
+        }
+
+        private void deleteTeacherBtn_Click(object sender, EventArgs e)
+        {
+            if (availableTeachers.Count > 0)
+            {
+                Teacher selectedTeacher = (Teacher)teachersDataGridView.SelectedRows[0].DataBoundItem;
+
+                GlobalConfig.Connection.DeleteTeacher(selectedTeacher.Id);
+
+                availableTeachers.Remove(selectedTeacher);
+            }
+
+            ClearTeacherSetup();
+            WireUpTeacherLists();
+        }
+
+        private void teachersDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (availableTeachers.Count > 0)
+            {
+                Teacher selectedTeacher = (Teacher)teachersDataGridView.SelectedRows[0].DataBoundItem;
+                lastNameTeacherTextBox.Text = selectedTeacher.LastName;
+                firstNameTeacherTextBox.Text = selectedTeacher.FirstName;
+                middleNameTeacherTextBox.Text = selectedTeacher.MiddleName;
+                addressTeacherTextBox.Text = selectedTeacher.Address;
+                birthDateTeacherTimePicker.Value = selectedTeacher.BirthDate;
+                cellPhoneTeacherTextBox.Text = selectedTeacher.CellPhone?.ToString();
+                
+                classNameForTeacherComboBox.SelectedItem = selectedTeacher.SchoolClass ?? classNameForTeacherComboBox.Items[0];
+                classTeacherChckBox.Checked = selectedTeacher.SchoolClass != null;
+            }
+
+            WireUpGuardianLists();
+        }
+
+        private bool ValidateTeacherPage()
+        {
+            bool output = true;
+
+            if (lastNameTeacherTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (firstNameTeacherTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (middleNameTeacherTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (addressTeacherTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            return output;
+        }
+
+        private void ClearTeacherSetup()
+        {
+            lastNameTeacherTextBox.Text = string.Empty;
+            firstNameTeacherTextBox.Text = string.Empty;
+            middleNameTeacherTextBox.Text = string.Empty;
+            addressTeacherTextBox.Text = string.Empty;
+            birthDateTeacherTimePicker.Value = DateTime.UtcNow;
+            cellPhoneTeacherTextBox.Text = string.Empty;
+            classTeacherChckBox.Checked = false;
+        }
         #endregion
 
+        #region Reports page functional
 
+
+        //Todo: add reports
+
+        #endregion
     }
 }
