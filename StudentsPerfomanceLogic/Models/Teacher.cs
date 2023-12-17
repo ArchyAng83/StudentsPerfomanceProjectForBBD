@@ -23,7 +23,7 @@ namespace StudentsPerformanceLogic.Models
            DateTime birthDate,
            string cellPhone,
            Subject subject,
-           SchoolClass schoolClass) : base(id, lastName, firstName, middleName, address, birthDate, cellPhone)
+           SchoolClass schoolClass) : this(id, lastName, firstName, middleName, address, birthDate, cellPhone)
         {
             Subject = subject;
             SchoolClass = schoolClass;

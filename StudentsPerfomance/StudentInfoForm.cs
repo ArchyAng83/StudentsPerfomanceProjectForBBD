@@ -20,7 +20,7 @@ namespace StudentsPerformance
         DataSet dataSet;
         SqlDataAdapter adapter;
         List<Subject> availbaleSubjects = new List<Subject>();
-        TempStudent student;
+        Student student;
 
         public StudentInfoForm(int studentId)
         {
@@ -103,11 +103,11 @@ namespace StudentsPerformance
 
                 p.Add("@studentId", studentId);
 
-                student = connection.QueryFirst<TempStudent>("spStudents_GetStudent", p, commandType: CommandType.StoredProcedure);
+                student = connection.QueryFirst<Student>("spStudents_GetStudent", p, commandType: CommandType.StoredProcedure);
 
                 p = new DynamicParameters();
 
-                p.Add("@classId", student.ClassId);
+                p.Add("@classId", student.Id);
 
                 studentInfoLabel.Text = $"{student.LastName} {student.FirstName}";
                 var schoolClass = connection.Query<SchoolClass>("Select className from Classes where Classes.id = @classId").FirstOrDefault();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using StudentsPerformanceLogic;
+using StudentsPerformanceLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,16 +16,20 @@ namespace StudentsPerformance
     public partial class TeachersForm : Form
     {
         private readonly int teacherId;
-        private int subjectId;
-        DataSet dataSet;
-        SqlDataAdapter adapter;
-        private SqlCommandBuilder commandBuilder;
+        List<SchoolClass> availableClasses = GlobalConfig.Connection.GetAllClasses();
+        List<Student> availableStudents = new List<Student>();
+        Teacher currentTeacher;
+        Student currentStudent;
 
         public TeachersForm(int teacherId, bool isClassTeacher)
         {
-            InitializeComponent();
-
             this.teacherId = teacherId;
+
+            InitializeComponent();            
+            
+            WireUpLists();
+
+            markComboBox.SelectedIndex = 0;
 
             if (isClassTeacher)
             {
@@ -33,182 +38,63 @@ namespace StudentsPerformance
                 lessonDataGridView.AllowUserToAddRows = false;
                 classJournalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 classJournalDataGridView.AllowUserToAddRows = false;
-                AddCmbBoxData("SELECT * FROM Classes ORDER BY className", classLessonCmbBox);
-                LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
-                this.Text = "Журнал классного руководителя";
             }
             else
             {
                 tabControl1.TabPages[1].Parent = null;
                 lessonDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 lessonDataGridView.AllowUserToAddRows = false;
-                AddCmbBoxData("SELECT * FROM Classes ORDER BY className", classLessonCmbBox);
-                LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
-                this.Text = "Журнал преподавателя";
             }
-
-            GetFullNameTeacherAndSubject();
         }
 
-        private void LoadData(int classId, DataGridView dataGridView)
+        private void WireUpLists()
         {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
+            classLessonCmbBox.DataSource = null;
+            classLessonCmbBox.DataSource = availableClasses;
+            classLessonCmbBox.DisplayMember = "Name";
+
+            classStudentsDataGridView.ReadOnly = true;
+            classStudentsDataGridView.AllowUserToAddRows = false;
+            classStudentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            currentTeacher = GlobalConfig.Connection.GetTeacher(teacherId);
+            
+            teacherFullNameLabel.Text = currentTeacher.FullName;
+            subjectNameLbl.Text = currentTeacher.Subject.Name;
+        }
+
+        private void WireUpStudentLists()
+        {
+            classStudentsDataGridView.DataSource = null;
+            classStudentsDataGridView.DataSource = availableStudents.GetRange(0, availableStudents.Count);
+            classStudentsDataGridView.Columns["FullName"].Visible = false;
+
+            classStudentsDataGridView.Columns["Id"].Visible = false;
+            classStudentsDataGridView.Columns["MiddleName"].Visible = false;
+            classStudentsDataGridView.Columns["Address"].Visible = false;
+            classStudentsDataGridView.Columns["BirthDate"].Visible = false;
+            classStudentsDataGridView.Columns["CellPhone"].Visible = false;
+        }
+
+        private void WireUpMarkLists()
+        {
+            lessonDataGridView.DataSource = null;
+            lessonDataGridView.DataSource = currentStudent.Marks;
+            lessonDataGridView.Columns["Subject"].Visible = false;
+        }
+
+        #region Lesson's page
+
+        private void classLessonCmbBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SchoolClass schoolClass = (SchoolClass)classLessonCmbBox.SelectedItem;
+
+            if (schoolClass != null)
             {
-                connection.Open();
-
-                SqlCommand sqlCommand = new SqlCommand("spStudentsMarks_GetMarksForSubject", connection)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                sqlCommand.Parameters.Add(new SqlParameter("@subjectId", subjectId));
-                sqlCommand.Parameters.Add(new SqlParameter("@classId", classId));
-                adapter = new SqlDataAdapter(sqlCommand);
-
-                dataSet = new DataSet();
-                adapter.Fill(dataSet);
-                dataGridView.DataSource = dataSet.Tables[0];
-
-                dataGridView.Columns[0].Visible = false;
-                dataGridView.Columns[1].ReadOnly = true;
-                dataGridView.Columns[2].ReadOnly = true;
-                dataGridView.Columns[5].Visible = false;
-            }
-        }
-
-        private void LoadData(int classId)
-        {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
-            {
-                connection.Open();
-
-                SqlCommand sqlCommand = new SqlCommand("spStudentsMarks_GetMarksForAllSubjects", connection)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                sqlCommand.Parameters.Add(new SqlParameter("@classId", classId));
-                adapter = new SqlDataAdapter(sqlCommand);
-
-                dataSet = new DataSet();
-                adapter.Fill(dataSet);
-                classJournalDataGridView.DataSource = dataSet.Tables[0];
-
-                classJournalDataGridView.Columns[0].Visible = true;
-                classJournalDataGridView.Columns[1].ReadOnly = true;
-                classJournalDataGridView.Columns[2].ReadOnly = true;
-                classJournalDataGridView.Columns[5].Visible = true;
-            }
-        }
-
-        private void AddCmbBoxData(string sqlExpresion, ComboBox comboBox)
-        {
-            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
-            {
-                sqlConnection.Open();
-
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlExpresion, sqlConnection);
-                DataTable dataTable = new DataTable();
-                dataAdapter.Fill(dataTable);
-
-                comboBox.DataSource = dataTable;
-                comboBox.DisplayMember = "className";
-                comboBox.ValueMember = "id";
-            }
-        }
-
-        private void GetFullNameTeacherAndSubject()
-        {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand("spTeachersSubjects_GetSubjectForTeacher", connection)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                command.Parameters.Add(new SqlParameter("@teacherId", teacherId));
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        teacherFullNameLabel.Text = reader.GetString(3) + " " + reader.GetString(1) + " " + reader.GetString(2);
-                        subjectNameLabel.Text = reader.GetString(7);
-                        subjectId = reader.GetInt32(5);
-                    }
-                }
-            }
-        }
-
-        private void deleteLessonBtn_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in lessonDataGridView.SelectedRows)
-            {
-                using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
-                {
-                    sqlConnection.Open();
-
-                    SqlCommand sqlCommand = new SqlCommand("spMarks_DeleteMark", sqlConnection)
-                    {
-                        CommandType = CommandType.StoredProcedure
-                    };
-                    sqlCommand.Parameters.Add(new SqlParameter("@dateOfIssue", row.Cells[4].Value));
-                    sqlCommand.Parameters.Add(new SqlParameter("@studentId", row.Cells[0].Value));
-                    sqlCommand.Parameters.Add(new SqlParameter("@subjectId", row.Cells[5].Value));
-
-                    sqlCommand.ExecuteNonQuery();
-                }
-
-                lessonDataGridView.Rows.Remove(row);
-            }
-        }
-
-        private void saveLessonBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(GlobalConfig.GetConnection("StudentsPerformance")))
-                {
-                    connection.Open();
-                    adapter = new SqlDataAdapter("spStudentsMarks_GetMarksForSubject", connection);
-                    commandBuilder = new SqlCommandBuilder(adapter);
-                    adapter.InsertCommand = new SqlCommand("spMarks_InsertMark", connection)
-                    {
-                        CommandType = CommandType.StoredProcedure
-                    };
-                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@dateOfIssue", SqlDbType.Date, 0, "Дата выставления"));
-                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@subjectId", SqlDbType.Int, 0, "SubjectId"));
-                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@studentId", SqlDbType.Int, 0, "id"));
-                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@markName", SqlDbType.Int, 0, "Оценка"));
-
-                    adapter.Update(dataSet);
-                }
-
-                MessageBox.Show("Данные сохранены", "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (SqlException)
-            {
-                MessageBox.Show("Неверно введена дата или оценка", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                availableStudents = schoolClass.Students;
             }
 
-
-        }
-
-        private void addLessonBtn_Click(object sender, EventArgs e)
-        {
-            //LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
-            //DataRow row = dataSet.Tables[0].NewRow();
-            //dataSet.Tables[0].Rows.Add(row);
-            //AddStudentToClassJournal addStudentTo = new AddStudentToClassJournal((int)classLessonCmbBox.SelectedValue);
-            //addStudentTo.ShowDialog();
-            //row[0] = DataBank.Id;
-            //row[1] = DataBank.LastName;
-            //row[2] = DataBank.FirstName;
-            //row[5] = subjectId;
-        }
-
-        private void updateLessonBtn_Click(object sender, EventArgs e)
-        {
-            LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
+            WireUpStudentLists();
         }
 
         private void TeachersForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -217,5 +103,86 @@ namespace StudentsPerformance
             this.Hide();
             loginForm.ShowDialog();
         }
+
+        private void classStudentsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            currentStudent = (Student)classStudentsDataGridView.SelectedRows[0].DataBoundItem;
+            if (currentStudent != null)
+            {
+                lessonDataGridView.DataSource = currentStudent.Marks;
+                lessonDataGridView.Columns["Subject"].Visible = false;
+            }
+        }
+
+        private void addLessonBtn_Click(object sender, EventArgs e)
+        {
+            int selectedMark = int.Parse(markComboBox.Text);
+            Mark mark;
+
+            try
+            {
+                if (currentStudent != null)
+                {
+                    mark = new Mark(DateTime.UtcNow, currentTeacher.Subject, selectedMark);
+                    GlobalConfig.Connection.AddMarkToStudent(mark, currentStudent.Id);
+                    currentStudent.Marks.Add(mark);
+
+                    WireUpMarkLists();
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("Разрешено ставить только одну оценку в день по предмету", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void updateMarkLessonBtn_Click(object sender, EventArgs e)
+        {
+            if (currentStudent != null)
+            {
+                Mark mark;
+
+                if (currentStudent.Marks.Count > 0)
+                {
+                    mark = (Mark)lessonDataGridView.SelectedRows[0].DataBoundItem;
+
+                    int selectedMark = int.Parse(markComboBox.Text);
+                    Mark newMark = new Mark(mark.DateOfIssue, currentTeacher.Subject, selectedMark);
+
+                    GlobalConfig.Connection.UpdateMarkToStudent(newMark, currentStudent.Id);
+                    currentStudent.Marks.Remove(mark);
+                    currentStudent.Marks.Add(newMark);
+
+                    WireUpMarkLists();
+                }                
+            }
+            else
+            {
+                MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void deleteMarkLessonBtn_Click(object sender, EventArgs e)
+        {
+            if (currentStudent != null)
+            {
+                Mark mark;
+
+                if (currentStudent.Marks.Count > 0)
+                {
+                    mark = (Mark)lessonDataGridView.SelectedRows[0].DataBoundItem;
+
+                    GlobalConfig.Connection.DeleteMarkToStudent(mark, currentStudent.Id);
+                    currentStudent.Marks.Remove(mark);
+                    WireUpMarkLists();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
     }
 }

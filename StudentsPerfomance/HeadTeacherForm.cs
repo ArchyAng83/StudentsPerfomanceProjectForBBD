@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 namespace StudentsPerformance
 {
+    //Todo: selected teacher view
     public partial class HeadTeacherForm : Form, ISchoolClassRequest, IGuardianRequest, ISubjectRequest
     {
         readonly List<SchoolClass> availableClasses = GlobalConfig.Connection.GetAllClasses();
@@ -21,6 +22,7 @@ namespace StudentsPerformance
         SchoolClass oldClass;
         List<Subject> availableSubjects = GlobalConfig.Connection.GetAllSubjects();
         List<Teacher> availableTeachers = GlobalConfig.Connection.GetAllTeachers();
+        Teacher selectedTeacher;
 
         public HeadTeacherForm()
         {
@@ -332,7 +334,7 @@ namespace StudentsPerformance
             {
                 if (availableTeachers.Count > 0)
                 {
-                    Teacher selectedTeacher = (Teacher)teachersDataGridView.SelectedRows[0].DataBoundItem;
+                    selectedTeacher = (Teacher)teachersDataGridView.SelectedRows[0].DataBoundItem;
                     Subject selectedSubject = (Subject)subjectCmbBox.SelectedItem;
                     SchoolClass selectedClass = classTeacherChckBox.Checked ? (SchoolClass)classNameForTeacherComboBox.SelectedItem : null;
                     string cellPhoneNumber = cellPhoneTeacherTextBox.Text == string.Empty ? null : cellPhoneTeacherTextBox.Text;
@@ -363,7 +365,7 @@ namespace StudentsPerformance
         {
             if (availableTeachers.Count > 0)
             {
-                Teacher selectedTeacher = (Teacher)teachersDataGridView.SelectedRows[0].DataBoundItem;
+                selectedTeacher = (Teacher)teachersDataGridView.SelectedRows[0].DataBoundItem;
 
                 GlobalConfig.Connection.DeleteTeacher(selectedTeacher.Id);
 
@@ -378,19 +380,19 @@ namespace StudentsPerformance
         {
             if (availableTeachers.Count > 0)
             {
-                Teacher selectedTeacher = (Teacher)teachersDataGridView.SelectedRows[0].DataBoundItem;
+                selectedTeacher = (Teacher)teachersDataGridView.SelectedRows[0].DataBoundItem;
                 lastNameTeacherTextBox.Text = selectedTeacher.LastName;
                 firstNameTeacherTextBox.Text = selectedTeacher.FirstName;
                 middleNameTeacherTextBox.Text = selectedTeacher.MiddleName;
                 addressTeacherTextBox.Text = selectedTeacher.Address;
                 birthDateTeacherTimePicker.Value = selectedTeacher.BirthDate;
                 cellPhoneTeacherTextBox.Text = selectedTeacher.CellPhone?.ToString();
-                
+                subjectCmbBox.SelectedItem = selectedTeacher.Subject;
                 classNameForTeacherComboBox.SelectedItem = selectedTeacher.SchoolClass ?? classNameForTeacherComboBox.Items[0];
                 classTeacherChckBox.Checked = selectedTeacher.SchoolClass != null;
             }
 
-            WireUpGuardianLists();
+            //WireUpGuardianLists();
         }
 
         private bool ValidateTeacherPage()

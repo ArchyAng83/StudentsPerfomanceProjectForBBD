@@ -18,7 +18,8 @@ namespace StudentsPerformance
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             GlobalConfig.InitializeConnection(DataType.Sql);
-            Application.Run(new HeadTeacherForm());
+            Application.Run(new TeachersForm(3, true));
+            //Application.Run(new HeadTeacherForm());
         }
     }
 }

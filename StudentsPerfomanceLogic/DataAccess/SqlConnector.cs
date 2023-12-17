@@ -20,7 +20,7 @@ namespace StudentsPerformanceLogic.DataAccess
         {
             User user;
 
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.GetConnection(db)))
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
             {
                 var p = new DynamicParameters();
 
@@ -67,6 +67,14 @@ namespace StudentsPerformanceLogic.DataAccess
                         p = new DynamicParameters();
                         p.Add("studentId", student.Id);
                         student.Guardians = connection.Query<Guardian>("spGuardians_GetAllByStudetId", p, commandType: CommandType.StoredProcedure).ToList();
+                    }
+
+                    foreach (Student student in schoolClass.Students)
+                    {
+                        p = new DynamicParameters();
+                        p.Add("studentId", student.Id);
+                        student.Marks = connection.Query<Mark, Subject, Mark>("spMarks_GetAllByStudentId", 
+                            (mark, subject) => { return new Mark(mark.DateOfIssue, subject, mark.ValueMark); }, p, commandType: CommandType.StoredProcedure).ToList();
                     }
                 }
             }
@@ -272,6 +280,23 @@ namespace StudentsPerformanceLogic.DataAccess
             return output;
         }
 
+        public Teacher GetTeacher(int id)
+        {
+            Teacher currentTeacher;
+
+            Teacher map(Teacher teacher, Subject subject, SchoolClass schoolClass)
+            {
+                return new Teacher(id, teacher.LastName, teacher.FirstName, teacher.MiddleName, teacher.Address, teacher.BirthDate, teacher.CellPhone, subject, schoolClass);
+            }
+
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                currentTeacher = connection.Query("spTeachers_GetById", (Func<Teacher, Subject, SchoolClass, Teacher>)map, new { Id = id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+
+            return currentTeacher;
+        }
+
         public Teacher AddTeacher(Teacher teacher)
         {
             using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
@@ -342,8 +367,54 @@ namespace StudentsPerformanceLogic.DataAccess
 
         #endregion
 
-        #region
+        #region Lesson
 
+        public void AddMarkToStudent(Mark mark, int studentId)
+        {
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                var p = new DynamicParameters();
+                p.Add("@subjectId", mark.Subject.Id);
+                p.Add("@studentId", studentId);
+                p.Add("@value", mark.ValueMark);
+
+                try
+                {
+                    connection.Execute("spMarks_Insert", p, commandType: CommandType.StoredProcedure);
+                }
+                catch (SqlException)
+                {
+                    throw new ArgumentException("Ошибка");
+                }
+            }
+        }
+
+        public void UpdateMarkToStudent(Mark mark, int studentId)
+        {
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                var p = new DynamicParameters();
+                p.Add("dateOfIssue", mark.DateOfIssue);
+                p.Add("@subjectId", mark.Subject.Id);
+                p.Add("@studentId", studentId);
+                p.Add("@value", mark.ValueMark);
+
+                connection.Execute("spMarks_Update", p, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public void DeleteMarkToStudent(Mark mark, int studentId)
+        {
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                var p = new DynamicParameters();
+                p.Add("dateOfIssue", mark.DateOfIssue);
+                p.Add("@subjectId", mark.Subject.Id);
+                p.Add("@studentId", studentId);
+
+                connection.Execute("spMarks_Delete", p, commandType: CommandType.StoredProcedure);
+            }
+        }
 
         #endregion
     }

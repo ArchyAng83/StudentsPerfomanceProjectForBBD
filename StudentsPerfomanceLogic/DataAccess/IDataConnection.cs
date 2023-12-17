@@ -27,5 +27,9 @@ namespace StudentsPerformanceLogic.DataAccess
         void UpdateTeacher(Teacher teacher);
         void DeleteTeacher(int id);
         int GetStudentsCount();
+        Teacher GetTeacher(int id);
+        void AddMarkToStudent(Mark mark, int studentId);
+        void UpdateMarkToStudent(Mark mark, int studentId);
+        void DeleteMarkToStudent(Mark mark, int studentId);
     }
 }

@@ -42,5 +42,13 @@ namespace StudentsPerformanceLogic.Models
             BirthDate = birthDate;
             CellPhone = cellPhone;
         }
+
+        protected Person(int id, string lastName, string firstName, string middleName)
+        {
+            Id = id;
+            FirstName = firstName;
+            MiddleName = middleName;
+            LastName = lastName;
+        }
     }
 }
