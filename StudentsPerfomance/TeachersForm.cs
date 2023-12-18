@@ -13,6 +13,7 @@ using System.Windows.Forms;
 
 namespace StudentsPerformance
 {
+    //Todo: Print button functional ?
     public partial class TeachersForm : Form
     {
         private readonly int teacherId;
@@ -20,6 +21,7 @@ namespace StudentsPerformance
         List<Student> availableStudents = new List<Student>();
         Teacher currentTeacher;
         Student currentStudent;
+        List<Subject> availableSubjects = GlobalConfig.Connection.GetAllSubjects();
 
         public TeachersForm(int teacherId, bool isClassTeacher)
         {
@@ -29,58 +31,106 @@ namespace StudentsPerformance
             
             WireUpLists();
 
-            markComboBox.SelectedIndex = 0;
+            
 
             if (isClassTeacher)
             {
-                tabControl1.TabPages[1].Parent = tabControl1;
-                lessonDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                lessonDataGridView.AllowUserToAddRows = false;
-                classJournalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                classJournalDataGridView.AllowUserToAddRows = false;
+                teacherTabControl.TabPages[1].Parent = teacherTabControl;
+                lessonMarksDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                lessonMarksDataGridView.AllowUserToAddRows = false;
             }
             else
             {
-                tabControl1.TabPages[1].Parent = null;
-                lessonDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                lessonDataGridView.AllowUserToAddRows = false;
+                teacherTabControl.TabPages[1].Parent = null;
+                lessonMarksDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                lessonMarksDataGridView.AllowUserToAddRows = false;
             }
         }
 
         private void WireUpLists()
         {
+            markComboBox.SelectedIndex = 0;
+
             classLessonCmbBox.DataSource = null;
             classLessonCmbBox.DataSource = availableClasses;
             classLessonCmbBox.DisplayMember = "Name";
 
-            classStudentsDataGridView.ReadOnly = true;
-            classStudentsDataGridView.AllowUserToAddRows = false;
-            classStudentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            lessonStudentsDataGridView.ReadOnly = true;
+            lessonStudentsDataGridView.AllowUserToAddRows = false;
+            lessonStudentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            classJournalStudentsDataGridView.ReadOnly = true;
+            classJournalStudentsDataGridView.AllowUserToAddRows = false;
+            classJournalStudentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             currentTeacher = GlobalConfig.Connection.GetTeacher(teacherId);
-            
+            currentTeacher.SchoolClass.Students = availableClasses.Where(c => c.Id == currentTeacher.SchoolClass.Id).Select(s => s.Students).FirstOrDefault();
+
+            subjectCmbBox.DataSource = null;
+            subjectCmbBox.DataSource = availableSubjects;
+            subjectCmbBox.DisplayMember = "Name";
+            subjectCmbBox.SelectedIndex = 0;
+
+            classValueLabel.Text = currentTeacher.SchoolClass.Name;
+            classTeacherFullNameLbl.Text = currentTeacher.FullName;
+
             teacherFullNameLabel.Text = currentTeacher.FullName;
             subjectNameLbl.Text = currentTeacher.Subject.Name;
+            wireUpStudentCJLists();
+        }
+
+        private void wireUpStudentCJLists()
+        {
+            if (currentTeacher.SchoolClass != null)
+            {
+                classJournalStudentsDataGridView.DataSource = null;
+                classJournalStudentsDataGridView.DataSource = currentTeacher.SchoolClass.Students;
+                classJournalStudentsDataGridView.Columns["FullName"].Visible = false;
+                classJournalStudentsDataGridView.Columns["Id"].Visible = false;
+                classJournalStudentsDataGridView.Columns["MiddleName"].Visible = false;
+                classJournalStudentsDataGridView.Columns["Address"].Visible = false;
+                classJournalStudentsDataGridView.Columns["BirthDate"].Visible = false;
+                classJournalStudentsDataGridView.Columns["CellPhone"].Visible = false;
+            }
         }
 
         private void WireUpStudentLists()
         {
-            classStudentsDataGridView.DataSource = null;
-            classStudentsDataGridView.DataSource = availableStudents.GetRange(0, availableStudents.Count);
-            classStudentsDataGridView.Columns["FullName"].Visible = false;
+            lessonStudentsDataGridView.DataSource = null;
+            lessonStudentsDataGridView.DataSource = availableStudents.GetRange(0, availableStudents.Count);
+            lessonStudentsDataGridView.Columns["FullName"].Visible = false;
 
-            classStudentsDataGridView.Columns["Id"].Visible = false;
-            classStudentsDataGridView.Columns["MiddleName"].Visible = false;
-            classStudentsDataGridView.Columns["Address"].Visible = false;
-            classStudentsDataGridView.Columns["BirthDate"].Visible = false;
-            classStudentsDataGridView.Columns["CellPhone"].Visible = false;
+            lessonStudentsDataGridView.Columns["Id"].Visible = false;
+            lessonStudentsDataGridView.Columns["MiddleName"].Visible = false;
+            lessonStudentsDataGridView.Columns["Address"].Visible = false;
+            lessonStudentsDataGridView.Columns["BirthDate"].Visible = false;
+            lessonStudentsDataGridView.Columns["CellPhone"].Visible = false;
         }
 
         private void WireUpMarkLists()
         {
-            lessonDataGridView.DataSource = null;
-            lessonDataGridView.DataSource = currentStudent.Marks;
-            lessonDataGridView.Columns["Subject"].Visible = false;
+            List<Mark> markList = currentStudent.Marks.Where(m => m.Subject.Id == currentTeacher.Subject.Id).ToList();
+            lessonMarksDataGridView.DataSource = null;
+            lessonMarksDataGridView.DataSource = markList;
+            lessonMarksDataGridView.Columns["Subject"].Visible = false;
+
+            double avgMarks = markList.Count != 0 ? Convert.ToDouble(markList.Sum(x => x.ValueMark)) / markList.Count : 0;
+            avgSubjectLbl.Text = avgMarks.ToString("f2");
+        }
+
+        private void WireUpMarkCJLists()
+        {
+            Subject selectedSubject = (Subject)subjectCmbBox.SelectedItem;
+            List<Mark> markList = currentStudent.Marks.Where(m => m.Subject.Id == selectedSubject.Id).ToList();
+            classJournalMarksDataGridView.DataSource = null;
+            classJournalMarksDataGridView.DataSource = markList;
+            classJournalMarksDataGridView.Columns["Subject"].Visible = false;
+
+            double avgMarks = markList.Count != 0 ? Convert.ToDouble(markList.Sum(x => x.ValueMark)) / markList.Count : 0;
+            avgBySubjectLbl.Text = avgMarks.ToString("f2");
+
+            avgMarks = currentStudent.Marks.Count != 0 ? Convert.ToDouble(currentStudent.Marks.Sum(m => m.ValueMark)) / currentStudent.Marks.Count : 0;
+            avgAllSubjectsLbl.Text = avgMarks.ToString("f2");
         }
 
         #region Lesson's page
@@ -104,13 +154,12 @@ namespace StudentsPerformance
             loginForm.ShowDialog();
         }
 
-        private void classStudentsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void lessonStudentsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            currentStudent = (Student)classStudentsDataGridView.SelectedRows[0].DataBoundItem;
+            currentStudent = (Student)lessonStudentsDataGridView.SelectedRows[0].DataBoundItem;
             if (currentStudent != null)
             {
-                lessonDataGridView.DataSource = currentStudent.Marks;
-                lessonDataGridView.Columns["Subject"].Visible = false;
+                WireUpMarkLists();
             }
         }
 
@@ -144,7 +193,7 @@ namespace StudentsPerformance
 
                 if (currentStudent.Marks.Count > 0)
                 {
-                    mark = (Mark)lessonDataGridView.SelectedRows[0].DataBoundItem;
+                    mark = (Mark)lessonMarksDataGridView.SelectedRows[0].DataBoundItem;
 
                     int selectedMark = int.Parse(markComboBox.Text);
                     Mark newMark = new Mark(mark.DateOfIssue, currentTeacher.Subject, selectedMark);
@@ -170,7 +219,7 @@ namespace StudentsPerformance
 
                 if (currentStudent.Marks.Count > 0)
                 {
-                    mark = (Mark)lessonDataGridView.SelectedRows[0].DataBoundItem;
+                    mark = (Mark)lessonMarksDataGridView.SelectedRows[0].DataBoundItem;
 
                     GlobalConfig.Connection.DeleteMarkToStudent(mark, currentStudent.Id);
                     currentStudent.Marks.Remove(mark);
@@ -184,5 +233,28 @@ namespace StudentsPerformance
         }
 
         #endregion
+
+        #region Class Journal page
+
+        private void classJournalStudentsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            currentStudent = (Student)classJournalStudentsDataGridView.SelectedRows[0].DataBoundItem;
+            if (currentStudent != null)
+            {
+                WireUpMarkCJLists();
+            }
+        }
+
+        private void subjectCmbBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (currentStudent != null)
+            {
+                WireUpMarkCJLists();
+            }
+        }
+
+        #endregion
+
+
     }
 }

@@ -29,9 +29,13 @@ namespace StudentsPerformance
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.teacherTabControl = new System.Windows.Forms.TabControl();
             this.lessonTabPage = new System.Windows.Forms.TabPage();
-            this.classStudentsDataGridView = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.markComboBox = new System.Windows.Forms.ComboBox();
+            this.avgSubjectLbl = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.lessonStudentsDataGridView = new System.Windows.Forms.DataGridView();
             this.addMarkLessonBtn = new System.Windows.Forms.Button();
             this.deleteMarkLessonBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -41,36 +45,40 @@ namespace StudentsPerformance
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.updateMarkLessonBtn = new System.Windows.Forms.Button();
-            this.lessonDataGridView = new System.Windows.Forms.DataGridView();
+            this.lessonMarksDataGridView = new System.Windows.Forms.DataGridView();
             this.classJournalTabPage = new System.Windows.Forms.TabPage();
+            this.subjectCmbBox = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.avgAllSubjectsLbl = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.avgBySubjectLbl = new System.Windows.Forms.Label();
+            this.classJournalStudentsDataGridView = new System.Windows.Forms.DataGridView();
+            this.classJournalMarksDataGridView = new System.Windows.Forms.DataGridView();
             this.printStudentAVGBallBtn = new System.Windows.Forms.Button();
-            this.classTeacherFullNameValueLabel = new System.Windows.Forms.Label();
+            this.classTeacherFullNameLbl = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.classValueLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.classJournalDataGridView = new System.Windows.Forms.DataGridView();
-            this.avgSubjectLbl = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.markComboBox = new System.Windows.Forms.ComboBox();
-            this.tabControl1.SuspendLayout();
+            this.teacherTabControl.SuspendLayout();
             this.lessonTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.classStudentsDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lessonDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lessonStudentsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lessonMarksDataGridView)).BeginInit();
             this.classJournalTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.classJournalDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.classJournalStudentsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.classJournalMarksDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // teacherTabControl
             // 
-            this.tabControl1.Controls.Add(this.lessonTabPage);
-            this.tabControl1.Controls.Add(this.classJournalTabPage);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(726, 493);
-            this.tabControl1.TabIndex = 0;
+            this.teacherTabControl.Controls.Add(this.lessonTabPage);
+            this.teacherTabControl.Controls.Add(this.classJournalTabPage);
+            this.teacherTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.teacherTabControl.Location = new System.Drawing.Point(0, 0);
+            this.teacherTabControl.Name = "teacherTabControl";
+            this.teacherTabControl.SelectedIndex = 0;
+            this.teacherTabControl.Size = new System.Drawing.Size(726, 493);
+            this.teacherTabControl.TabIndex = 0;
             // 
             // lessonTabPage
             // 
@@ -78,7 +86,7 @@ namespace StudentsPerformance
             this.lessonTabPage.Controls.Add(this.markComboBox);
             this.lessonTabPage.Controls.Add(this.avgSubjectLbl);
             this.lessonTabPage.Controls.Add(this.label16);
-            this.lessonTabPage.Controls.Add(this.classStudentsDataGridView);
+            this.lessonTabPage.Controls.Add(this.lessonStudentsDataGridView);
             this.lessonTabPage.Controls.Add(this.addMarkLessonBtn);
             this.lessonTabPage.Controls.Add(this.deleteMarkLessonBtn);
             this.lessonTabPage.Controls.Add(this.label5);
@@ -88,7 +96,7 @@ namespace StudentsPerformance
             this.lessonTabPage.Controls.Add(this.label2);
             this.lessonTabPage.Controls.Add(this.label1);
             this.lessonTabPage.Controls.Add(this.updateMarkLessonBtn);
-            this.lessonTabPage.Controls.Add(this.lessonDataGridView);
+            this.lessonTabPage.Controls.Add(this.lessonMarksDataGridView);
             this.lessonTabPage.Location = new System.Drawing.Point(4, 22);
             this.lessonTabPage.Name = "lessonTabPage";
             this.lessonTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -97,15 +105,66 @@ namespace StudentsPerformance
             this.lessonTabPage.Text = "Урок";
             this.lessonTabPage.UseVisualStyleBackColor = true;
             // 
-            // classStudentsDataGridView
+            // label4
             // 
-            this.classStudentsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.classStudentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.classStudentsDataGridView.Location = new System.Drawing.Point(12, 204);
-            this.classStudentsDataGridView.Name = "classStudentsDataGridView";
-            this.classStudentsDataGridView.Size = new System.Drawing.Size(263, 204);
-            this.classStudentsDataGridView.TabIndex = 24;
-            this.classStudentsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.classStudentsDataGridView_CellClick);
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(423, 147);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 24);
+            this.label4.TabIndex = 28;
+            this.label4.Text = "Оценка:";
+            // 
+            // markComboBox
+            // 
+            this.markComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.markComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.markComboBox.FormattingEnabled = true;
+            this.markComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.markComboBox.Location = new System.Drawing.Point(511, 147);
+            this.markComboBox.Name = "markComboBox";
+            this.markComboBox.Size = new System.Drawing.Size(56, 28);
+            this.markComboBox.TabIndex = 27;
+            // 
+            // avgSubjectLbl
+            // 
+            this.avgSubjectLbl.AutoSize = true;
+            this.avgSubjectLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.avgSubjectLbl.Location = new System.Drawing.Point(516, 422);
+            this.avgSubjectLbl.Name = "avgSubjectLbl";
+            this.avgSubjectLbl.Size = new System.Drawing.Size(51, 16);
+            this.avgSubjectLbl.TabIndex = 26;
+            this.avgSubjectLbl.Text = "<none>";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.Location = new System.Drawing.Point(301, 422);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(188, 16);
+            this.label16.TabIndex = 25;
+            this.label16.Text = "Средний балл по предмету:";
+            // 
+            // lessonStudentsDataGridView
+            // 
+            this.lessonStudentsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.lessonStudentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.lessonStudentsDataGridView.Location = new System.Drawing.Point(12, 204);
+            this.lessonStudentsDataGridView.Name = "lessonStudentsDataGridView";
+            this.lessonStudentsDataGridView.Size = new System.Drawing.Size(263, 204);
+            this.lessonStudentsDataGridView.TabIndex = 24;
+            this.lessonStudentsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lessonStudentsDataGridView_CellClick);
             // 
             // addMarkLessonBtn
             // 
@@ -201,24 +260,31 @@ namespace StudentsPerformance
             this.updateMarkLessonBtn.UseVisualStyleBackColor = true;
             this.updateMarkLessonBtn.Click += new System.EventHandler(this.updateMarkLessonBtn_Click);
             // 
-            // lessonDataGridView
+            // lessonMarksDataGridView
             // 
-            this.lessonDataGridView.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lessonDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.lessonDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.lessonDataGridView.Location = new System.Drawing.Point(304, 204);
-            this.lessonDataGridView.Name = "lessonDataGridView";
-            this.lessonDataGridView.Size = new System.Drawing.Size(263, 204);
-            this.lessonDataGridView.TabIndex = 13;
+            this.lessonMarksDataGridView.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lessonMarksDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.lessonMarksDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.lessonMarksDataGridView.Location = new System.Drawing.Point(304, 204);
+            this.lessonMarksDataGridView.Name = "lessonMarksDataGridView";
+            this.lessonMarksDataGridView.Size = new System.Drawing.Size(263, 204);
+            this.lessonMarksDataGridView.TabIndex = 13;
             // 
             // classJournalTabPage
             // 
+            this.classJournalTabPage.Controls.Add(this.subjectCmbBox);
+            this.classJournalTabPage.Controls.Add(this.label10);
+            this.classJournalTabPage.Controls.Add(this.label9);
+            this.classJournalTabPage.Controls.Add(this.avgAllSubjectsLbl);
+            this.classJournalTabPage.Controls.Add(this.label8);
+            this.classJournalTabPage.Controls.Add(this.avgBySubjectLbl);
+            this.classJournalTabPage.Controls.Add(this.classJournalStudentsDataGridView);
+            this.classJournalTabPage.Controls.Add(this.classJournalMarksDataGridView);
             this.classJournalTabPage.Controls.Add(this.printStudentAVGBallBtn);
-            this.classJournalTabPage.Controls.Add(this.classTeacherFullNameValueLabel);
+            this.classJournalTabPage.Controls.Add(this.classTeacherFullNameLbl);
             this.classJournalTabPage.Controls.Add(this.label6);
             this.classJournalTabPage.Controls.Add(this.classValueLabel);
             this.classJournalTabPage.Controls.Add(this.label3);
-            this.classJournalTabPage.Controls.Add(this.classJournalDataGridView);
             this.classJournalTabPage.Location = new System.Drawing.Point(4, 22);
             this.classJournalTabPage.Name = "classJournalTabPage";
             this.classJournalTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -226,6 +292,87 @@ namespace StudentsPerformance
             this.classJournalTabPage.TabIndex = 1;
             this.classJournalTabPage.Text = "Журнал";
             this.classJournalTabPage.UseVisualStyleBackColor = true;
+            // 
+            // subjectCmbBox
+            // 
+            this.subjectCmbBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.subjectCmbBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.subjectCmbBox.FormattingEnabled = true;
+            this.subjectCmbBox.Location = new System.Drawing.Point(489, 139);
+            this.subjectCmbBox.Name = "subjectCmbBox";
+            this.subjectCmbBox.Size = new System.Drawing.Size(223, 32);
+            this.subjectCmbBox.TabIndex = 90;
+            this.subjectCmbBox.SelectedIndexChanged += new System.EventHandler(this.subjectCmbBox_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.Location = new System.Drawing.Point(386, 142);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(96, 24);
+            this.label10.TabIndex = 89;
+            this.label10.Text = "Предмет:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(5, 413);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(146, 16);
+            this.label9.TabIndex = 88;
+            this.label9.Text = "Общий средний балл:";
+            // 
+            // avgAllSubjectsLbl
+            // 
+            this.avgAllSubjectsLbl.AutoSize = true;
+            this.avgAllSubjectsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.avgAllSubjectsLbl.Location = new System.Drawing.Point(220, 413);
+            this.avgAllSubjectsLbl.Name = "avgAllSubjectsLbl";
+            this.avgAllSubjectsLbl.Size = new System.Drawing.Size(51, 16);
+            this.avgAllSubjectsLbl.TabIndex = 87;
+            this.avgAllSubjectsLbl.Text = "<none>";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(297, 413);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(188, 16);
+            this.label8.TabIndex = 86;
+            this.label8.Text = "Средний балл по предмету:";
+            // 
+            // avgBySubjectLbl
+            // 
+            this.avgBySubjectLbl.AutoSize = true;
+            this.avgBySubjectLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.avgBySubjectLbl.Location = new System.Drawing.Point(512, 413);
+            this.avgBySubjectLbl.Name = "avgBySubjectLbl";
+            this.avgBySubjectLbl.Size = new System.Drawing.Size(51, 16);
+            this.avgBySubjectLbl.TabIndex = 85;
+            this.avgBySubjectLbl.Text = "<none>";
+            // 
+            // classJournalStudentsDataGridView
+            // 
+            this.classJournalStudentsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.classJournalStudentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.classJournalStudentsDataGridView.Location = new System.Drawing.Point(12, 195);
+            this.classJournalStudentsDataGridView.Name = "classJournalStudentsDataGridView";
+            this.classJournalStudentsDataGridView.Size = new System.Drawing.Size(263, 204);
+            this.classJournalStudentsDataGridView.TabIndex = 84;
+            this.classJournalStudentsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.classJournalStudentsDataGridView_CellClick);
+            // 
+            // classJournalMarksDataGridView
+            // 
+            this.classJournalMarksDataGridView.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.classJournalMarksDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.classJournalMarksDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.classJournalMarksDataGridView.Location = new System.Drawing.Point(300, 195);
+            this.classJournalMarksDataGridView.Name = "classJournalMarksDataGridView";
+            this.classJournalMarksDataGridView.Size = new System.Drawing.Size(263, 204);
+            this.classJournalMarksDataGridView.TabIndex = 83;
             // 
             // printStudentAVGBallBtn
             // 
@@ -236,15 +383,15 @@ namespace StudentsPerformance
             this.printStudentAVGBallBtn.Text = "Печать";
             this.printStudentAVGBallBtn.UseVisualStyleBackColor = true;
             // 
-            // classTeacherFullNameValueLabel
+            // classTeacherFullNameLbl
             // 
-            this.classTeacherFullNameValueLabel.AutoSize = true;
-            this.classTeacherFullNameValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.classTeacherFullNameValueLabel.Location = new System.Drawing.Point(251, 46);
-            this.classTeacherFullNameValueLabel.Name = "classTeacherFullNameValueLabel";
-            this.classTeacherFullNameValueLabel.Size = new System.Drawing.Size(76, 24);
-            this.classTeacherFullNameValueLabel.TabIndex = 26;
-            this.classTeacherFullNameValueLabel.Text = "<none>";
+            this.classTeacherFullNameLbl.AutoSize = true;
+            this.classTeacherFullNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.classTeacherFullNameLbl.Location = new System.Drawing.Point(251, 46);
+            this.classTeacherFullNameLbl.Name = "classTeacherFullNameLbl";
+            this.classTeacherFullNameLbl.Size = new System.Drawing.Size(76, 24);
+            this.classTeacherFullNameLbl.TabIndex = 26;
+            this.classTeacherFullNameLbl.Text = "<none>";
             // 
             // label6
             // 
@@ -276,92 +423,31 @@ namespace StudentsPerformance
             this.label3.TabIndex = 23;
             this.label3.Text = "Класс:";
             // 
-            // classJournalDataGridView
-            // 
-            this.classJournalDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.classJournalDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.classJournalDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.classJournalDataGridView.Location = new System.Drawing.Point(0, 108);
-            this.classJournalDataGridView.Name = "classJournalDataGridView";
-            this.classJournalDataGridView.Size = new System.Drawing.Size(858, 349);
-            this.classJournalDataGridView.TabIndex = 0;
-            // 
-            // avgSubjectLbl
-            // 
-            this.avgSubjectLbl.AutoSize = true;
-            this.avgSubjectLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.avgSubjectLbl.Location = new System.Drawing.Point(516, 422);
-            this.avgSubjectLbl.Name = "avgSubjectLbl";
-            this.avgSubjectLbl.Size = new System.Drawing.Size(51, 16);
-            this.avgSubjectLbl.TabIndex = 26;
-            this.avgSubjectLbl.Text = "<none>";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label16.Location = new System.Drawing.Point(301, 422);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(188, 16);
-            this.label16.TabIndex = 25;
-            this.label16.Text = "Средний балл по предмету:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(423, 147);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 24);
-            this.label4.TabIndex = 28;
-            this.label4.Text = "Оценка:";
-            // 
-            // markComboBox
-            // 
-            this.markComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.markComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.markComboBox.FormattingEnabled = true;
-            this.markComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.markComboBox.Location = new System.Drawing.Point(511, 147);
-            this.markComboBox.Name = "markComboBox";
-            this.markComboBox.Size = new System.Drawing.Size(56, 28);
-            this.markComboBox.TabIndex = 27;
-            // 
             // TeachersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 493);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.teacherTabControl);
             this.Name = "TeachersForm";
             this.Text = "Журнал учителя";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TeachersForm_FormClosing);
-            this.tabControl1.ResumeLayout(false);
+            this.teacherTabControl.ResumeLayout(false);
             this.lessonTabPage.ResumeLayout(false);
             this.lessonTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.classStudentsDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lessonDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lessonStudentsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lessonMarksDataGridView)).EndInit();
             this.classJournalTabPage.ResumeLayout(false);
             this.classJournalTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.classJournalDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.classJournalStudentsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.classJournalMarksDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl teacherTabControl;
         private System.Windows.Forms.TabPage lessonTabPage;
         private System.Windows.Forms.TabPage classJournalTabPage;
         private System.Windows.Forms.Button addMarkLessonBtn;
@@ -373,17 +459,24 @@ namespace StudentsPerformance
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button updateMarkLessonBtn;
-        private System.Windows.Forms.DataGridView lessonDataGridView;
-        private System.Windows.Forms.DataGridView classJournalDataGridView;
+        private System.Windows.Forms.DataGridView lessonMarksDataGridView;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label classTeacherFullNameValueLabel;
+        private System.Windows.Forms.Label classTeacherFullNameLbl;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label classValueLabel;
         private System.Windows.Forms.Button printStudentAVGBallBtn;
-        private System.Windows.Forms.DataGridView classStudentsDataGridView;
+        private System.Windows.Forms.DataGridView lessonStudentsDataGridView;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox markComboBox;
         private System.Windows.Forms.Label avgSubjectLbl;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label avgAllSubjectsLbl;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label avgBySubjectLbl;
+        private System.Windows.Forms.DataGridView classJournalStudentsDataGridView;
+        private System.Windows.Forms.DataGridView classJournalMarksDataGridView;
+        private System.Windows.Forms.ComboBox subjectCmbBox;
+        private System.Windows.Forms.Label label10;
     }
 }
