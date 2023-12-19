@@ -1,11 +1,11 @@
-﻿using StudentsPerfomanceLogic;
+﻿using StudentsPerformanceLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StudentsPerfomance
+namespace StudentsPerformance
 {
     static class Program
     {
@@ -18,7 +18,8 @@ namespace StudentsPerfomance
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             GlobalConfig.InitializeConnection(DataType.Sql);
-            Application.Run(new LoginForm());
+            //Application.Run(new StudentInfoForm(1));
+            Application.Run(new HeadTeacherForm());
         }
     }
 }

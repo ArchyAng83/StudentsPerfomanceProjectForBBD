@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
+using StudentsPerformanceLogic;
+using StudentsPerformanceLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,207 +11,138 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StudentsPerfomance
+namespace StudentsPerformance
 {
+    //Todo: Print button functional ?
     public partial class TeachersForm : Form
     {
         private readonly int teacherId;
-        private int subjectId;
-        DataSet dataSet;
-        SqlDataAdapter adapter;
-        private SqlCommandBuilder commandBuilder;
+        List<SchoolClass> availableClasses = GlobalConfig.Connection.GetAllClasses();
+        List<Student> availableStudents = new List<Student>();
+        Teacher currentTeacher;
+        Student currentStudent;
+        List<Subject> availableSubjects = GlobalConfig.Connection.GetAllSubjects();
 
         public TeachersForm(int teacherId, bool isClassTeacher)
         {
-            InitializeComponent();
-
             this.teacherId = teacherId;
+
+            InitializeComponent();            
+            
+            WireUpLists();            
 
             if (isClassTeacher)
             {
-                tabControl1.TabPages[1].Parent = tabControl1;
-                lessonDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                lessonDataGridView.AllowUserToAddRows = false;
-                classJournalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                classJournalDataGridView.AllowUserToAddRows = false;
-                AddCmbBoxData("SELECT * FROM Classes ORDER BY className", classLessonCmbBox);
-                AddCmbBoxData($"SELECT Classes.id, Classes.className FROM Classes INNER JOIN Teachers ON Classes.classTeacherId = Teachers.id WHERE Teachers.id = {teacherId}", classJournalCmbBox);
-                LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
-                LoadData((int)classJournalCmbBox.SelectedValue);
-                this.Text = "Журнал классного руководителя";
+                teacherTabControl.TabPages[1].Parent = teacherTabControl;
+                lessonMarksDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                lessonMarksDataGridView.AllowUserToAddRows = false;
             }
             else
             {
-                tabControl1.TabPages[1].Parent = null;
-                lessonDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                lessonDataGridView.AllowUserToAddRows = false;
-                AddCmbBoxData("SELECT * FROM Classes ORDER BY className", classLessonCmbBox);
-                LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
-                this.Text = "Журнал преподавателя";
+                teacherTabControl.TabPages[1].Parent = null;
+                lessonMarksDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                lessonMarksDataGridView.AllowUserToAddRows = false;
             }
-
-            GetFullNameTeacherAndSubject();
         }
 
-        private void LoadData(int classId, DataGridView dataGridView)
+        private void WireUpLists()
         {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
+            markComboBox.SelectedIndex = 0;
+
+            classLessonCmbBox.DataSource = null;
+            classLessonCmbBox.DataSource = availableClasses;
+            classLessonCmbBox.DisplayMember = "Name";
+
+            lessonStudentsDataGridView.ReadOnly = true;
+            lessonStudentsDataGridView.AllowUserToAddRows = false;
+            lessonStudentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            classJournalStudentsDataGridView.ReadOnly = true;
+            classJournalStudentsDataGridView.AllowUserToAddRows = false;
+            classJournalStudentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            currentTeacher = GlobalConfig.Connection.GetTeacher(teacherId);
+            currentTeacher.SchoolClass.Students = availableClasses.Where(c => c.Id == currentTeacher.SchoolClass.Id).Select(s => s.Students).FirstOrDefault();
+
+            subjectCmbBox.DataSource = null;
+            subjectCmbBox.DataSource = availableSubjects;
+            subjectCmbBox.DisplayMember = "Name";
+            subjectCmbBox.SelectedIndex = 0;
+
+            classValueLabel.Text = currentTeacher.SchoolClass.Name;
+            classTeacherFullNameLbl.Text = currentTeacher.FullName;
+
+            teacherFullNameLabel.Text = currentTeacher.FullName;
+            subjectNameLbl.Text = currentTeacher.Subject.Name;
+            wireUpStudentCJLists();
+        }
+
+        private void wireUpStudentCJLists()
+        {
+            if (currentTeacher.SchoolClass != null)
             {
-                connection.Open();
-
-                SqlCommand sqlCommand = new SqlCommand("spStudentsMarks_GetMarksForSubject", connection)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                sqlCommand.Parameters.Add(new SqlParameter("@subjectId", subjectId));
-                sqlCommand.Parameters.Add(new SqlParameter("@classId", classId));
-                adapter = new SqlDataAdapter(sqlCommand);
-
-                dataSet = new DataSet();
-                adapter.Fill(dataSet);
-                dataGridView.DataSource = dataSet.Tables[0];
-
-                dataGridView.Columns[0].Visible = false;
-                dataGridView.Columns[1].ReadOnly = true;
-                dataGridView.Columns[2].ReadOnly = true;
-                dataGridView.Columns[5].Visible = false;
+                classJournalStudentsDataGridView.DataSource = null;
+                classJournalStudentsDataGridView.DataSource = currentTeacher.SchoolClass.Students;
+                classJournalStudentsDataGridView.Columns["FullName"].Visible = false;
+                classJournalStudentsDataGridView.Columns["Id"].Visible = false;
+                classJournalStudentsDataGridView.Columns["MiddleName"].Visible = false;
+                classJournalStudentsDataGridView.Columns["Address"].Visible = false;
+                classJournalStudentsDataGridView.Columns["BirthDate"].Visible = false;
+                classJournalStudentsDataGridView.Columns["CellPhone"].Visible = false;
             }
         }
 
-        private void LoadData(int classId)
+        private void WireUpStudentLists()
         {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
+            lessonStudentsDataGridView.DataSource = null;
+            lessonStudentsDataGridView.DataSource = availableStudents.GetRange(0, availableStudents.Count);
+            lessonStudentsDataGridView.Columns["FullName"].Visible = false;
+
+            lessonStudentsDataGridView.Columns["Id"].Visible = false;
+            lessonStudentsDataGridView.Columns["MiddleName"].Visible = false;
+            lessonStudentsDataGridView.Columns["Address"].Visible = false;
+            lessonStudentsDataGridView.Columns["BirthDate"].Visible = false;
+            lessonStudentsDataGridView.Columns["CellPhone"].Visible = false;
+        }
+
+        private void WireUpMarkLists()
+        {
+            List<Mark> markList = currentStudent.Marks.Where(m => m.Subject.Id == currentTeacher.Subject.Id).ToList();
+            double avgMarks = markList.Count != 0 ? Convert.ToDouble(markList.Sum(x => x.ValueMark)) / markList.Count : 0;
+            avgSubjectLbl.Text = avgMarks.ToString("f2");
+
+            lessonMarksDataGridView.DataSource = null;
+            lessonMarksDataGridView.DataSource = markList;
+            lessonMarksDataGridView.Columns["Subject"].Visible = false;            
+        }
+
+        private void WireUpMarkCJLists()
+        {
+            Subject selectedSubject = (Subject)subjectCmbBox.SelectedItem;
+            List<Mark> markList = currentStudent.Marks.Where(m => m.Subject.Id == selectedSubject.Id).ToList();
+            double avgMarks = markList.Count != 0 ? Convert.ToDouble(markList.Sum(x => x.ValueMark)) / markList.Count : 0;
+            avgBySubjectLbl.Text = avgMarks.ToString("f2");
+
+            avgMarks = currentStudent.Marks.Count != 0 ? Convert.ToDouble(currentStudent.Marks.Sum(m => m.ValueMark)) / currentStudent.Marks.Count : 0;
+            avgAllSubjectsLbl.Text = avgMarks.ToString("f2");
+
+            classJournalMarksDataGridView.DataSource = null;
+            classJournalMarksDataGridView.DataSource = markList;
+            classJournalMarksDataGridView.Columns["Subject"].Visible = false;           
+        }
+
+        #region Lesson's page
+
+        private void classLessonCmbBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SchoolClass schoolClass = (SchoolClass)classLessonCmbBox.SelectedItem;
+
+            if (schoolClass != null)
             {
-                connection.Open();
-
-                SqlCommand sqlCommand = new SqlCommand("spStudentsMarks_GetMarksForAllSubjects", connection)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                sqlCommand.Parameters.Add(new SqlParameter("@classId", classId));
-                adapter = new SqlDataAdapter(sqlCommand);
-
-                dataSet = new DataSet();
-                adapter.Fill(dataSet);
-                classJournalDataGridView.DataSource = dataSet.Tables[0];
-
-                classJournalDataGridView.Columns[0].Visible = true;
-                classJournalDataGridView.Columns[1].ReadOnly = true;
-                classJournalDataGridView.Columns[2].ReadOnly = true;
-                classJournalDataGridView.Columns[5].Visible = true;
-            }
-        }
-
-        private void AddCmbBoxData(string sqlExpresion, ComboBox comboBox)
-        {
-            using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
-            {
-                sqlConnection.Open();
-
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlExpresion, sqlConnection);
-                DataTable dataTable = new DataTable();
-                dataAdapter.Fill(dataTable);
-
-                comboBox.DataSource = dataTable;
-                comboBox.DisplayMember = "className";
-                comboBox.ValueMember = "id";
-            }
-        }
-
-        private void GetFullNameTeacherAndSubject()
-        {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand("spTeachersSubjects_GetSubjectForTeacher", connection)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                command.Parameters.Add(new SqlParameter("@teacherId", teacherId));
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        teacherFullNameLabel.Text = reader.GetString(3) + " " + reader.GetString(1) + " " + reader.GetString(2);
-                        subjectNameLabel.Text = reader.GetString(7);
-                        subjectId = reader.GetInt32(5);
-                    }
-                }
-            }
-        }
-
-        private void deleteLessonBtn_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in lessonDataGridView.SelectedRows)
-            {
-                using (SqlConnection sqlConnection = new SqlConnection(GlobalConfig.connectionString))
-                {
-                    sqlConnection.Open();
-
-                    SqlCommand sqlCommand = new SqlCommand("spMarks_DeleteMark", sqlConnection)
-                    {
-                        CommandType = CommandType.StoredProcedure
-                    };
-                    sqlCommand.Parameters.Add(new SqlParameter("@dateOfIssue", row.Cells[4].Value));
-                    sqlCommand.Parameters.Add(new SqlParameter("@studentId", row.Cells[0].Value));
-                    sqlCommand.Parameters.Add(new SqlParameter("@subjectId", row.Cells[5].Value));
-
-                    sqlCommand.ExecuteNonQuery();
-                }
-
-                lessonDataGridView.Rows.Remove(row);
-            }
-        }
-
-        private void saveLessonBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
-                {
-                    connection.Open();
-                    adapter = new SqlDataAdapter("spStudentsMarks_GetMarksForSubject", connection);
-                    commandBuilder = new SqlCommandBuilder(adapter);
-                    adapter.InsertCommand = new SqlCommand("spMarks_InsertMark", connection)
-                    {
-                        CommandType = CommandType.StoredProcedure
-                    };
-                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@dateOfIssue", SqlDbType.Date, 0, "Дата выставления"));
-                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@subjectId", SqlDbType.Int, 0, "SubjectId"));
-                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@studentId", SqlDbType.Int, 0, "id"));
-                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@markName", SqlDbType.Int, 0, "Оценка"));
-
-                    adapter.Update(dataSet);
-                }
-
-                MessageBox.Show("Данные сохранены", "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (SqlException)
-            {
-                MessageBox.Show("Неверно введена дата или оценка", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                availableStudents = schoolClass.Students;
             }
 
-
-        }
-
-        private void addLessonBtn_Click(object sender, EventArgs e)
-        {
-            LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
-            DataRow row = dataSet.Tables[0].NewRow();
-            dataSet.Tables[0].Rows.Add(row);
-            AddStudentToClassJournal addStudentTo = new AddStudentToClassJournal((int)classLessonCmbBox.SelectedValue);
-            addStudentTo.ShowDialog();
-            row[0] = DataBank.Id;
-            row[1] = DataBank.LastName;
-            row[2] = DataBank.FirstName;
-            row[5] = subjectId;
-        }
-
-        private void updateLessonBtn_Click(object sender, EventArgs e)
-        {
-            LoadData((int)classLessonCmbBox.SelectedValue, lessonDataGridView);
+            WireUpStudentLists();
         }
 
         private void TeachersForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -219,9 +152,107 @@ namespace StudentsPerfomance
             loginForm.ShowDialog();
         }
 
-        private void classJournalBtn_Click(object sender, EventArgs e)
+        private void lessonStudentsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            LoadData((int)classJournalCmbBox.SelectedValue);
+            currentStudent = (Student)lessonStudentsDataGridView.SelectedRows[0].DataBoundItem;
+            if (currentStudent != null)
+            {
+                WireUpMarkLists();
+            }
         }
+
+        private void addLessonBtn_Click(object sender, EventArgs e)
+        {
+            int selectedMark = int.Parse(markComboBox.Text);
+            Mark mark;
+
+            try
+            {
+                if (currentStudent != null)
+                {
+                    mark = new Mark(DateTime.UtcNow, currentTeacher.Subject, selectedMark);
+                    GlobalConfig.Connection.AddMarkToStudent(mark, currentStudent.Id);
+                    currentStudent.Marks.Add(mark);
+
+                    WireUpMarkLists();
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("Разрешено ставить только одну оценку в день по предмету", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void updateMarkLessonBtn_Click(object sender, EventArgs e)
+        {
+            if (currentStudent != null)
+            {
+                Mark mark;
+
+                if (currentStudent.Marks.Count > 0)
+                {
+                    mark = (Mark)lessonMarksDataGridView.SelectedRows[0].DataBoundItem;
+
+                    int selectedMark = int.Parse(markComboBox.Text);
+                    Mark newMark = new Mark(mark.DateOfIssue, currentTeacher.Subject, selectedMark);
+
+                    GlobalConfig.Connection.UpdateMarkToStudent(newMark, currentStudent.Id);
+                    currentStudent.Marks.Remove(mark);
+                    currentStudent.Marks.Add(newMark);
+
+                    WireUpMarkLists();
+                }                
+            }
+            else
+            {
+                MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void deleteMarkLessonBtn_Click(object sender, EventArgs e)
+        {
+            if (currentStudent != null)
+            {
+                Mark mark;
+
+                if (currentStudent.Marks.Count > 0)
+                {
+                    mark = (Mark)lessonMarksDataGridView.SelectedRows[0].DataBoundItem;
+
+                    GlobalConfig.Connection.DeleteMarkToStudent(mark, currentStudent.Id);
+                    currentStudent.Marks.Remove(mark);
+                    WireUpMarkLists();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
+
+        #region Class Journal page
+
+        private void classJournalStudentsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            currentStudent = (Student)classJournalStudentsDataGridView.SelectedRows[0].DataBoundItem;
+            if (currentStudent != null)
+            {
+                WireUpMarkCJLists();
+            }
+        }
+
+        private void subjectCmbBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (currentStudent != null)
+            {
+                WireUpMarkCJLists();
+            }
+        }
+
+        #endregion
+
+
     }
 }

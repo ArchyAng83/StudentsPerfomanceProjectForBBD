@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,32 +14,32 @@ using System.Windows.Forms;
 
 namespace StudentsPerformance
 {
-    public partial class AddSubjectForm : Form
+    public partial class AddNewClassForm : Form
     {
-        ISubjectRequest caller;
+        ISchoolClassRequest caller;
 
-        public AddSubjectForm(ISubjectRequest caller)
+        public AddNewClassForm(ISchoolClassRequest caller)
         {
             InitializeComponent();
             this.caller = caller;
         }
 
-        private void saveSubjectBtn_Click(object sender, EventArgs e)
+        private void saveNewClassBtn_Click(object sender, EventArgs e)
         {
             if (ValidateForm())
             {
                 try
                 {
-                    Subject subject = new Subject(0, newSubjectTextBox.Text);
+                    SchoolClass schoolClass = new SchoolClass(0, newClassTextBox.Text);
 
-                    subject = GlobalConfig.Connection.CreateSubject(subject);
+                    schoolClass = GlobalConfig.Connection.CreateClass(schoolClass);
 
-                    caller.SubjectComplete(subject);
+                    caller.SchoolClassComplete(schoolClass);
                 }
                 catch (System.Data.SqlClient.SqlException)
                 {
 
-                    MessageBox.Show("Такой предмет уже существует.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Такой класс уже существует.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -46,7 +47,7 @@ namespace StudentsPerformance
             }
             else
             {
-                MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неверный ввод данных.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -54,10 +55,9 @@ namespace StudentsPerformance
         {
             bool output = true;
 
-            if (newSubjectTextBox.Text.Length == 0)
+            if (newClassTextBox.Text.Trim().Length < 1 || newClassTextBox.Text.Trim().Length > 3)
             {
                 output = false;
-                
             }
 
             return output;

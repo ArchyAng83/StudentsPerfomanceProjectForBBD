@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6C1D47E1-ADE8-4D4B-9C00-A6CEF93DCBC1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>StudentsPerfomance</RootNamespace>
-    <AssemblyName>StudentsPerfomance</AssemblyName>
+    <RootNamespace>StudentsPerformance</RootNamespace>
+    <AssemblyName>StudentsPerformance</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -41,6 +41,9 @@
     </Reference>
     <Reference Include="Azure.Identity, Version=1.10.4.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Identity.1.10.4\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.1.24\lib\net461\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -186,29 +189,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddStaffForm.cs">
+    <Compile Include="AddNewClassForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddStaffForm.Designer.cs">
-      <DependentUpon>AddStaffForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AddStudentsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddStudentsForm.Designer.cs">
-      <DependentUpon>AddStudentsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AddStudentToClassJournal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddStudentToClassJournal.Designer.cs">
-      <DependentUpon>AddStudentToClassJournal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AddGuardianFromListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddGuardianFromListForm.Designer.cs">
-      <DependentUpon>AddGuardianFromListForm.cs</DependentUpon>
+    <Compile Include="AddNewClassForm.Designer.cs">
+      <DependentUpon>AddNewClassForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AddGuardianForm.cs">
       <SubType>Form</SubType>
@@ -222,13 +207,9 @@
     <Compile Include="AddSubjectForm.Designer.cs">
       <DependentUpon>AddSubjectForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataBank.cs" />
-    <Compile Include="GuardiansInfoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GuardiansInfoForm.Designer.cs">
-      <DependentUpon>GuardiansInfoForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="IClassRequest.cs" />
+    <Compile Include="IGuardianRequest.cs" />
+    <Compile Include="ISubjectRequest.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -249,29 +230,11 @@
     <Compile Include="HeadTeacherForm.Designer.cs">
       <DependentUpon>HeadTeacherForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReportsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ReportsForm.Designer.cs">
-      <DependentUpon>ReportsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="StaffForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="StaffForm.Designer.cs">
-      <DependentUpon>StaffForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="StudentInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="StudentInfoForm.Designer.cs">
       <DependentUpon>StudentInfoForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="StudentsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="StudentsForm.Designer.cs">
-      <DependentUpon>StudentsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TeachersForm.cs">
       <SubType>Form</SubType>
@@ -279,38 +242,14 @@
     <Compile Include="TeachersForm.Designer.cs">
       <DependentUpon>TeachersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UpdateStaffForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UpdateStaffForm.Designer.cs">
-      <DependentUpon>UpdateStaffForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UpdateStudentsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UpdateStudentsForm.Designer.cs">
-      <DependentUpon>UpdateStudentsForm.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="AddStaffForm.resx">
-      <DependentUpon>AddStaffForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AddStudentsForm.resx">
-      <DependentUpon>AddStudentsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AddStudentToClassJournal.resx">
-      <DependentUpon>AddStudentToClassJournal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AddGuardianFromListForm.resx">
-      <DependentUpon>AddGuardianFromListForm.cs</DependentUpon>
+    <EmbeddedResource Include="AddNewClassForm.resx">
+      <DependentUpon>AddNewClassForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddGuardianForm.resx">
       <DependentUpon>AddGuardianForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddSubjectForm.resx">
       <DependentUpon>AddSubjectForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GuardiansInfoForm.resx">
-      <DependentUpon>GuardiansInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -331,26 +270,11 @@
     <EmbeddedResource Include="HeadTeacherForm.resx">
       <DependentUpon>HeadTeacherForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReportsForm.resx">
-      <DependentUpon>ReportsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StaffForm.resx">
-      <DependentUpon>StaffForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="StudentInfoForm.resx">
       <DependentUpon>StudentInfoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StudentsForm.resx">
-      <DependentUpon>StudentsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="TeachersForm.resx">
       <DependentUpon>TeachersForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UpdateStaffForm.resx">
-      <DependentUpon>UpdateStaffForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UpdateStudentsForm.resx">
-      <DependentUpon>UpdateStudentsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -367,9 +291,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StudentsPerfomanceLogic\StudentsPerfomanceLogic.csproj">
+    <ProjectReference Include="..\StudentsPerfomanceLogic\StudentsPerformanceLogic.csproj">
       <Project>{9a5e6c9c-d184-440a-90ea-f0a0e1d3b15d}</Project>
-      <Name>StudentsPerfomanceLogic</Name>
+      <Name>StudentsPerformanceLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

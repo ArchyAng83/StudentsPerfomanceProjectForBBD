@@ -1,4 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using StudentsPerformanceLogic;
+using StudentsPerformanceLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,67 +12,57 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StudentsPerfomance
+namespace StudentsPerformance
 {
     public partial class StudentInfoForm : Form
     {
-        private int studentId;
-        DataSet dataSet;
-        SqlDataAdapter adapter;
+        List<Subject> availableSubjects = GlobalConfig.Connection.GetAllSubjects();
+        List<SchoolClass> availableClasses = GlobalConfig.Connection.GetAllClasses();
+        private readonly int studentId;
+        Student currentStudent;
 
         public StudentInfoForm(int studentId)
         {
             InitializeComponent();
             this.studentId = studentId;
+            subjectNameComboBox.DataSource = null;
+            subjectNameComboBox.DataSource = availableSubjects;
+            subjectNameComboBox.SelectedIndex = 0;            
+
+            WireUpLists();
+
         }
 
-        private void StudentInfoForm_Load(object sender, EventArgs e)
+        private void WireUpLists()
         {
-            studentInfoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            studentInfoDataGridView.AllowUserToAddRows = false;
-            GetFullNameAndClass();
-            LoadData();
+            SchoolClass schoolClass = availableClasses.Find(sc => sc.Students.Exists(s => s.Id == studentId));
+            classNameLbl.Text = schoolClass.Name;
+            currentStudent = schoolClass.Students.Find(s => s.Id == studentId);
+            studentFullNameLabel.Text = currentStudent.FullName;
+
+            WireUpStudentLists();
         }
 
-        private void LoadData()
+        private void WireUpStudentLists()
         {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
+            Subject subject = (Subject)subjectNameComboBox.SelectedItem;
+            studentInfoDataGridView.DataSource = null;
+            studentInfoDataGridView.DataSource = currentStudent.Marks.Where(m => m.Subject.Id == subject.Id).ToList();
+            studentInfoDataGridView.Columns["Subject"].Visible = false;
+
+            List<Mark> markList = currentStudent.Marks.Where(m => m.Subject.Id == subject.Id).ToList();
+            double avgMarks = markList.Count != 0 ? Convert.ToDouble(markList.Sum(x => x.ValueMark)) / markList.Count : 0;
+            avgBySubjectLbl.Text = avgMarks.ToString("f2");
+
+            avgMarks = currentStudent.Marks.Count != 0 ? Convert.ToDouble(currentStudent.Marks.Sum(m => m.ValueMark)) / currentStudent.Marks.Count : 0;
+            avgAllSubjectsLbl.Text = avgMarks.ToString("f2");
+        }
+
+        private void subjectNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (currentStudent != null)
             {
-                connection.Open();
-
-                SqlCommand sqlCommand = new SqlCommand("spStudentsMarks_GetAllMarksOfStudent", connection)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                sqlCommand.Parameters.Add(new SqlParameter("@studentId", studentId));
-                adapter = new SqlDataAdapter(sqlCommand);
-
-                dataSet = new DataSet();
-                adapter.Fill(dataSet);
-                studentInfoDataGridView.DataSource = dataSet.Tables[0];
-            }
-        }
-
-        private void GetFullNameAndClass()
-        {
-            using (SqlConnection connection = new SqlConnection(GlobalConfig.connectionString))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand("spStudents_GetStudent", connection)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                command.Parameters.Add(new SqlParameter("@studentId", studentId));                
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        studentInfoLabel.Text = reader.GetString(0) + " " + reader.GetString(1);
-                        classStudentInfoLabel.Text = reader.GetString(2);
-                    }
-                }
+                WireUpStudentLists();
             }
         }
 

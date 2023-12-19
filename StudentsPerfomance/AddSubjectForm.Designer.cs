@@ -1,5 +1,5 @@
 ﻿
-namespace StudentsPerfomance
+namespace StudentsPerformance
 {
     partial class AddSubjectForm
     {
@@ -74,7 +74,7 @@ namespace StudentsPerfomance
             this.Controls.Add(this.saveSubjectBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddSubjectForm";
-            this.Text = "Добавить новый предмет";
+            this.Text = "Добавить нового предмета";
             this.ResumeLayout(false);
             this.PerformLayout();
 

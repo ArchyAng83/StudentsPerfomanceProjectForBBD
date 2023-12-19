@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentsPerfomanceLogic.Models
+namespace StudentsPerformanceLogic.Models
 {
     public class User
     {
-        public int Id { get; set; }
         public string Login { get; set; }
-        public string Password { get; set; }
+        public string Password { get; set; }        
+        public int UserId { get; set; }
         public int RoleId { get; set; }
     }
 }
