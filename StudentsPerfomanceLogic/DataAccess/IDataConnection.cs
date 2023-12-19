@@ -16,7 +16,7 @@ namespace StudentsPerformanceLogic.DataAccess
         Guardian AddGuardian(Guardian guardian);
         void UpdateGuardian(Guardian guardian);
         void DeleteGuardian(int id);
-        //List<Student> GetAllStudents();
+        List<Student> GetAllStudents();
         Student AddStudent(Student student, int classId);
         void UpdateStudent(Student student, int classId);
         void DeleteStudent(int id);

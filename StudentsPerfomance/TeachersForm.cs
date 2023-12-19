@@ -29,9 +29,7 @@ namespace StudentsPerformance
 
             InitializeComponent();            
             
-            WireUpLists();
-
-            
+            WireUpLists();            
 
             if (isClassTeacher)
             {
@@ -110,27 +108,27 @@ namespace StudentsPerformance
         private void WireUpMarkLists()
         {
             List<Mark> markList = currentStudent.Marks.Where(m => m.Subject.Id == currentTeacher.Subject.Id).ToList();
-            lessonMarksDataGridView.DataSource = null;
-            lessonMarksDataGridView.DataSource = markList;
-            lessonMarksDataGridView.Columns["Subject"].Visible = false;
-
             double avgMarks = markList.Count != 0 ? Convert.ToDouble(markList.Sum(x => x.ValueMark)) / markList.Count : 0;
             avgSubjectLbl.Text = avgMarks.ToString("f2");
+
+            lessonMarksDataGridView.DataSource = null;
+            lessonMarksDataGridView.DataSource = markList;
+            lessonMarksDataGridView.Columns["Subject"].Visible = false;            
         }
 
         private void WireUpMarkCJLists()
         {
             Subject selectedSubject = (Subject)subjectCmbBox.SelectedItem;
             List<Mark> markList = currentStudent.Marks.Where(m => m.Subject.Id == selectedSubject.Id).ToList();
-            classJournalMarksDataGridView.DataSource = null;
-            classJournalMarksDataGridView.DataSource = markList;
-            classJournalMarksDataGridView.Columns["Subject"].Visible = false;
-
             double avgMarks = markList.Count != 0 ? Convert.ToDouble(markList.Sum(x => x.ValueMark)) / markList.Count : 0;
             avgBySubjectLbl.Text = avgMarks.ToString("f2");
 
             avgMarks = currentStudent.Marks.Count != 0 ? Convert.ToDouble(currentStudent.Marks.Sum(m => m.ValueMark)) / currentStudent.Marks.Count : 0;
             avgAllSubjectsLbl.Text = avgMarks.ToString("f2");
+
+            classJournalMarksDataGridView.DataSource = null;
+            classJournalMarksDataGridView.DataSource = markList;
+            classJournalMarksDataGridView.Columns["Subject"].Visible = false;           
         }
 
         #region Lesson's page

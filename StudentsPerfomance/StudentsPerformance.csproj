@@ -207,12 +207,6 @@
     <Compile Include="AddSubjectForm.Designer.cs">
       <DependentUpon>AddSubjectForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GuardiansInfoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GuardiansInfoForm.Designer.cs">
-      <DependentUpon>GuardiansInfoForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="IClassRequest.cs" />
     <Compile Include="IGuardianRequest.cs" />
     <Compile Include="ISubjectRequest.cs" />
@@ -256,9 +250,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddSubjectForm.resx">
       <DependentUpon>AddSubjectForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GuardiansInfoForm.resx">
-      <DependentUpon>GuardiansInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

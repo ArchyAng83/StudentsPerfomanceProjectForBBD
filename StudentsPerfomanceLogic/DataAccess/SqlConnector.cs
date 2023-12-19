@@ -61,26 +61,14 @@ namespace StudentsPerformanceLogic.DataAccess
                     var p = new DynamicParameters();
                     p.Add("@classId", schoolClass.Id);
                     schoolClass.Students = connection.Query<Student>("spStudents_GetAllByClass", p, commandType: CommandType.StoredProcedure).ToList();
-
-                    foreach(Student student in schoolClass.Students)
-                    {
-                        p = new DynamicParameters();
-                        p.Add("studentId", student.Id);
-                        student.Guardians = connection.Query<Guardian>("spGuardians_GetAllByStudetId", p, commandType: CommandType.StoredProcedure).ToList();
-                    }
-
-                    foreach (Student student in schoolClass.Students)
-                    {
-                        p = new DynamicParameters();
-                        p.Add("studentId", student.Id);
-                        student.Marks = connection.Query<Mark, Subject, Mark>("spMarks_GetAllByStudentId", 
-                            (mark, subject) => { return new Mark(mark.DateOfIssue, subject, mark.ValueMark); }, p, commandType: CommandType.StoredProcedure).ToList();
-                    }
+                    AddGuardiansAndMarkToStudents(connection, schoolClass.Students);
                 }
             }
 
             return output;
         }
+
+        
         #endregion
 
         #region Guardians
@@ -148,17 +136,34 @@ namespace StudentsPerformanceLogic.DataAccess
 
         #region Students
 
-        //public List<Student> GetAllStudents()
-        //{
-        //    List<Student> output;
+        public List<Student> GetAllStudents()
+        {
+            List<Student> output;
 
-        //    using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
-        //    {
-        //        output = connection.Query<Student>("spStudents_GetAll").ToList();
-        //    }
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                output = connection.Query<Student>("spStudents_GetAll").ToList();
 
-        //    return output;
-        //}
+                AddGuardiansAndMarkToStudents(connection, output);
+            }
+
+            return output;
+        }
+
+        private static void AddGuardiansAndMarkToStudents(IDbConnection connection, List<Student> students)
+        {
+            foreach (Student student in students)
+            {
+                var p = new DynamicParameters();
+                p.Add("studentId", student.Id);
+                student.Guardians = connection.Query<Guardian>("spGuardians_GetAllByStudetId", p, commandType: CommandType.StoredProcedure).ToList();
+
+                p = new DynamicParameters();
+                p.Add("studentId", student.Id);
+                student.Marks = connection.Query<Mark, Subject, Mark>("spMarks_GetAllByStudentId",
+                    (mark, subject) => { return new Mark(mark.DateOfIssue, subject, mark.ValueMark); }, p, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
 
         public Student AddStudent(Student student, int classId)
         {
