@@ -140,17 +140,23 @@ namespace StudentsPerformance
 
         private void addStudentBtn_Click(object sender, EventArgs e)
         {
-            //Todo: add two same guardiarn error
             if (ValidateStudentPage())
             {
                 SchoolClass schoolClass = (SchoolClass)classStudentCmbBox.SelectedItem;
                 string cellPhoneNumber = cellPhoneStudentTextBox.Text == string.Empty ? null : cellPhoneStudentTextBox.Text;
                 Student student = new Student(0, lastNameStudentTextBox.Text, firstNameStudentTextBox.Text, middleNameStudentTextBox.Text, adressStudentTextBox.Text,
                                                   birthDateSturdentTimePicker.Value, cellPhoneNumber);
-
                 student.Guardians = selectedGuardians;
 
-                student = GlobalConfig.Connection.AddStudent(student, schoolClass.Id);
+                try
+                {
+                    student = GlobalConfig.Connection.AddStudent(student, schoolClass.Id);
+                }
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show("Опекуны должны быть разными", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }                
 
                 availableStudents.Add(student);
 
@@ -161,39 +167,6 @@ namespace StudentsPerformance
             {
                 MessageBox.Show("Неверный ввод данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-
-        private bool ValidateStudentPage()
-        {
-            bool output = true;
-
-            if (lastNameStudentTextBox.Text.Length == 0)
-            {
-                output = false;
-            }
-
-            if (firstNameStudentTextBox.Text.Length == 0)
-            {
-                output = false;
-            }
-
-            if (middleNameStudentTextBox.Text.Length == 0)
-            {
-                output = false;
-            }
-
-            if (adressStudentTextBox.Text.Length == 0)
-            {
-                output = false;
-            }
-
-            if (selectedGuardians.Count < 1 || selectedGuardians.Count > 2)
-            {
-                output = false;
-            }
-
-            return output;
         }
 
         private void deleteStudentBtn_Click(object sender, EventArgs e)
@@ -227,7 +200,15 @@ namespace StudentsPerformance
                                                       birthDateSturdentTimePicker.Value, cellPhoneNumber);
                     newStudent.Guardians = currentStudent.Guardians;
 
-                    GlobalConfig.Connection.UpdateStudent(newStudent, schoolClass.Id);
+                    try
+                    {
+                        GlobalConfig.Connection.UpdateStudent(newStudent, schoolClass.Id);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        MessageBox.Show("Опекуны должны быть разными", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     oldClass.Students.Remove(currentStudent);
                     availableStudents.Remove(currentStudent);
@@ -239,9 +220,7 @@ namespace StudentsPerformance
                 else
                 {
                     MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                
+                }                
             }
             else
             {
@@ -288,6 +267,38 @@ namespace StudentsPerformance
             birthDateSturdentTimePicker.Value = DateTime.UtcNow;
             cellPhoneStudentTextBox.Text = string.Empty;
             selectedGuardians = null;
+        }
+
+        private bool ValidateStudentPage()
+        {
+            bool output = true;
+
+            if (lastNameStudentTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (firstNameStudentTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (middleNameStudentTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (adressStudentTextBox.Text.Length == 0)
+            {
+                output = false;
+            }
+
+            if (selectedGuardians.Count < 1 || selectedGuardians.Count > 2)
+            {
+                output = false;
+            }
+
+            return output;
         }
         #endregion
 
@@ -391,8 +402,6 @@ namespace StudentsPerformance
                 classNameForTeacherComboBox.SelectedItem = selectedTeacher.SchoolClass ?? classNameForTeacherComboBox.Items[0];
                 classTeacherChckBox.Checked = selectedTeacher.SchoolClass != null;
             }
-
-            //WireUpGuardianLists();
         }
 
         private bool ValidateTeacherPage()

@@ -12,6 +12,7 @@ using Dapper;
 namespace StudentsPerformanceLogic.DataAccess
 {
     //Todo: Print Button ?
+    //Todo: Add to User Table ?
     public class SqlConnector : IDataConnection
     {
         private const string db = "StudentsPerformanceForPAS";
@@ -183,15 +184,27 @@ namespace StudentsPerformanceLogic.DataAccess
                 Student newStudent = new Student(p.Get<int>("@id"), student.LastName, student.FirstName, student.MiddleName, student.Address, student.BirthDate, student.CellPhone);
                 newStudent.Guardians = student.Guardians;
 
+                AddGuardiansToStudent(connection, newStudent);
+
+                return newStudent;
+            }
+        }
+
+        private static void AddGuardiansToStudent(IDbConnection connection, Student newStudent)
+        {
+            try
+            {
                 foreach (Guardian guardian in newStudent.Guardians)
                 {
-                    p = new DynamicParameters();
+                    var p = new DynamicParameters();
                     p.Add("@studentId", newStudent.Id);
                     p.Add("@guardianId", guardian.Id);
                     connection.Execute("spStudentsGuardians_Insert", p, commandType: CommandType.StoredProcedure);
                 }
-
-                return newStudent;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                throw new ArgumentException("Ошибка добавления");
             }
         }
 
@@ -215,13 +228,7 @@ namespace StudentsPerformanceLogic.DataAccess
                 p.Add("@studentId", student.Id);
                 connection.Execute("spStudentsGuardians_Delete", p, commandType: CommandType.StoredProcedure);
 
-                foreach (Guardian guardian in student.Guardians)
-                {
-                    p = new DynamicParameters();
-                    p.Add("@studentId", student.Id);
-                    p.Add("@guardianId", guardian.Id);
-                    connection.Execute("spStudentsGuardians_Insert", p, commandType: CommandType.StoredProcedure);
-                }
+                AddGuardiansToStudent(connection, student);
             }
         }
 
