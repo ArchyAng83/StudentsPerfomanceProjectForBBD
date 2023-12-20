@@ -1,6 +1,9 @@
-﻿using StudentsPerformanceLogic.Models;
+﻿
+using StudentsPerformanceLogic.Helpers;
+using StudentsPerformanceLogic.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,10 +29,11 @@ namespace StudentsPerformanceLogic.DataAccess
         Teacher AddTeacher(Teacher teacher);
         void UpdateTeacher(Teacher teacher);
         void DeleteTeacher(int id);
-        int GetStudentsCount();
         Teacher GetTeacher(int id);
         void AddMarkToStudent(Mark mark, int studentId);
         void UpdateMarkToStudent(Mark mark, int studentId);
         void DeleteMarkToStudent(Mark mark, int studentId);
+        List<SubjectAvgHelper> GetAvgBySubject();
+        List<ClassAvgHelper> GetAvgByClass();
     }
 }

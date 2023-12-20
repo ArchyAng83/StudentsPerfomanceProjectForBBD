@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using StudentsPerformanceLogic.Helpers;
 
 namespace StudentsPerformanceLogic.DataAccess
 {
@@ -364,18 +365,29 @@ namespace StudentsPerformanceLogic.DataAccess
 
         #region Reports
 
-        public int GetStudentsCount()
+        public List<SubjectAvgHelper> GetAvgBySubject()
         {
-            int result = 0;
+            List<SubjectAvgHelper> output;
 
             using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
             {
-                result = connection.ExecuteScalar<int>("spStudents_Count", commandType: CommandType.StoredProcedure);
+                output = connection.Query<SubjectAvgHelper>("spMarks_GetAvgBySubject", commandType: CommandType.StoredProcedure).ToList();
             }
 
-            return result;
+            return output;
         }
 
+        public List<ClassAvgHelper> GetAvgByClass()
+        {
+            List<ClassAvgHelper> output;
+
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                output = connection.Query<ClassAvgHelper>("spMarks_GetAvgByClass", commandType: CommandType.StoredProcedure).ToList();
+            }
+
+            return output;
+        }
 
         #endregion
 

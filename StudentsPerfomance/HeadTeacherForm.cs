@@ -1,4 +1,6 @@
-﻿using StudentsPerformanceLogic;
+﻿
+using StudentsPerformanceLogic;
+using StudentsPerformanceLogic.Helpers;
 using StudentsPerformanceLogic.Models;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,7 @@ namespace StudentsPerformance
         SchoolClass oldClass;
         List<Subject> availableSubjects = GlobalConfig.Connection.GetAllSubjects();
         List<Teacher> availableTeachers = GlobalConfig.Connection.GetAllTeachers();
+        
         Teacher selectedTeacher;
 
         public HeadTeacherForm()
@@ -48,7 +51,18 @@ namespace StudentsPerformance
             classNameForTeacherComboBox.DataSource = null;
             classNameForTeacherComboBox.DataSource = availableClasses;
             classNameForTeacherComboBox.DisplayMember = "Name";
-                        
+
+           
+            reportsAvgSubjectsDataGridView.AllowUserToAddRows = false;
+            reportsAvgSubjectsDataGridView.ReadOnly = true;
+            reportsAvgSubjectsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            reportsAvgClassesDataGridView.AllowUserToAddRows = false;
+            reportsAvgClassesDataGridView.ReadOnly = true;
+            reportsAvgClassesDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            WireUpStudentLists();
+
             WireUpTeacherLists();
         }
 
@@ -76,7 +90,25 @@ namespace StudentsPerformance
             studentsDataGridView.DataSource = availableStudents.GetRange(0, availableStudents.Count);
             studentsDataGridView.Columns["FullName"].Visible = false;
 
-            quantityOfStudentsLbl.Text = GlobalConfig.Connection.GetStudentsCount().ToString();
+            int quantityOfStudents = availableClasses.Select(s => s.Students.Count).Sum();
+            quantityOfStudentsLbl.Text = quantityOfStudents.ToString();
+
+            double avg = availableClasses.SelectMany(sc => sc.Students).SelectMany(s => s.Marks).Average(m => m.ValueMark);
+            avgSchoolLbl.Text = avg.ToString("f2");
+
+            WireUpAvgLists();
+
+        }
+
+        private void WireUpAvgLists()
+        {
+            List<SubjectAvgHelper> subjectAvgs = GlobalConfig.Connection.GetAvgBySubject();
+            reportsAvgSubjectsDataGridView.DataSource = null;
+            reportsAvgSubjectsDataGridView.DataSource = subjectAvgs.GetRange(0, subjectAvgs.Count);
+
+            List<ClassAvgHelper> classAvgs = GlobalConfig.Connection.GetAvgByClass();
+            reportsAvgClassesDataGridView.DataSource = null;
+            reportsAvgClassesDataGridView.DataSource = classAvgs.GetRange(0, classAvgs.Count);
         }
 
         private void WireUpGuardianLists()
@@ -441,12 +473,12 @@ namespace StudentsPerformance
             cellPhoneTeacherTextBox.Text = string.Empty;
             classTeacherChckBox.Checked = false;
         }
+
         #endregion
 
         #region Reports page functional
 
 
-        //Todo: add reports
 
         #endregion
     }

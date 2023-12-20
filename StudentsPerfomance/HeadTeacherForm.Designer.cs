@@ -82,10 +82,12 @@ namespace StudentsPerformance
             this.lastNameTeacherTextBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.reportsTabPage = new System.Windows.Forms.TabPage();
-            this.printReportBtn = new System.Windows.Forms.Button();
-            this.avgMarkClassBtn = new System.Windows.Forms.Button();
-            this.avgMarkSubjectBtn = new System.Windows.Forms.Button();
-            this.resultReportDataGridView = new System.Windows.Forms.DataGridView();
+            this.printReportAvgClassesBtn = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.reportsAvgClassesDataGridView = new System.Windows.Forms.DataGridView();
+            this.printReportAvgSubjectsBtn = new System.Windows.Forms.Button();
+            this.reportsAvgSubjectsDataGridView = new System.Windows.Forms.DataGridView();
             this.avgSchoolLbl = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.quantityOfStudentsLbl = new System.Windows.Forms.Label();
@@ -97,7 +99,8 @@ namespace StudentsPerformance
             this.teachersEditTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.teachersDataGridView)).BeginInit();
             this.reportsTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.resultReportDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reportsAvgClassesDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reportsAvgSubjectsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // headteacherTabControl
@@ -654,10 +657,12 @@ namespace StudentsPerformance
             // 
             // reportsTabPage
             // 
-            this.reportsTabPage.Controls.Add(this.printReportBtn);
-            this.reportsTabPage.Controls.Add(this.avgMarkClassBtn);
-            this.reportsTabPage.Controls.Add(this.avgMarkSubjectBtn);
-            this.reportsTabPage.Controls.Add(this.resultReportDataGridView);
+            this.reportsTabPage.Controls.Add(this.printReportAvgClassesBtn);
+            this.reportsTabPage.Controls.Add(this.label19);
+            this.reportsTabPage.Controls.Add(this.label14);
+            this.reportsTabPage.Controls.Add(this.reportsAvgClassesDataGridView);
+            this.reportsTabPage.Controls.Add(this.printReportAvgSubjectsBtn);
+            this.reportsTabPage.Controls.Add(this.reportsAvgSubjectsDataGridView);
             this.reportsTabPage.Controls.Add(this.avgSchoolLbl);
             this.reportsTabPage.Controls.Add(this.label16);
             this.reportsTabPage.Controls.Add(this.quantityOfStudentsLbl);
@@ -669,50 +674,73 @@ namespace StudentsPerformance
             this.reportsTabPage.Text = "Отчеты";
             this.reportsTabPage.UseVisualStyleBackColor = true;
             // 
-            // printReportBtn
+            // printReportAvgClassesBtn
             // 
-            this.printReportBtn.Location = new System.Drawing.Point(652, 434);
-            this.printReportBtn.Name = "printReportBtn";
-            this.printReportBtn.Size = new System.Drawing.Size(75, 23);
-            this.printReportBtn.TabIndex = 82;
-            this.printReportBtn.Text = "Печать";
-            this.printReportBtn.UseVisualStyleBackColor = true;
+            this.printReportAvgClassesBtn.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.printReportAvgClassesBtn.Location = new System.Drawing.Point(853, 418);
+            this.printReportAvgClassesBtn.Name = "printReportAvgClassesBtn";
+            this.printReportAvgClassesBtn.Size = new System.Drawing.Size(75, 23);
+            this.printReportAvgClassesBtn.TabIndex = 86;
+            this.printReportAvgClassesBtn.Text = "Печать";
+            this.printReportAvgClassesBtn.UseVisualStyleBackColor = true;
             // 
-            // avgMarkClassBtn
+            // label19
             // 
-            this.avgMarkClassBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.avgMarkClassBtn.Location = new System.Drawing.Point(178, 296);
-            this.avgMarkClassBtn.Name = "avgMarkClassBtn";
-            this.avgMarkClassBtn.Size = new System.Drawing.Size(155, 55);
-            this.avgMarkClassBtn.TabIndex = 17;
-            this.avgMarkClassBtn.Text = "Средний балл\r\nпо классам";
-            this.avgMarkClassBtn.UseVisualStyleBackColor = true;
+            this.label19.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label19.Location = new System.Drawing.Point(577, 130);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(211, 20);
+            this.label19.TabIndex = 85;
+            this.label19.Text = "Средний балл по классам:";
             // 
-            // avgMarkSubjectBtn
+            // label14
             // 
-            this.avgMarkSubjectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.avgMarkSubjectBtn.Location = new System.Drawing.Point(178, 194);
-            this.avgMarkSubjectBtn.Name = "avgMarkSubjectBtn";
-            this.avgMarkSubjectBtn.Size = new System.Drawing.Size(155, 52);
-            this.avgMarkSubjectBtn.TabIndex = 16;
-            this.avgMarkSubjectBtn.Text = "Средний балл \r\nпо предметам";
-            this.avgMarkSubjectBtn.UseVisualStyleBackColor = true;
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label14.Location = new System.Drawing.Point(32, 130);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(235, 20);
+            this.label14.TabIndex = 84;
+            this.label14.Text = "Средний балл по предметам:";
             // 
-            // resultReportDataGridView
+            // reportsAvgClassesDataGridView
             // 
-            this.resultReportDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.resultReportDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.resultReportDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultReportDataGridView.Location = new System.Drawing.Point(379, 165);
-            this.resultReportDataGridView.Name = "resultReportDataGridView";
-            this.resultReportDataGridView.Size = new System.Drawing.Size(348, 245);
-            this.resultReportDataGridView.TabIndex = 15;
+            this.reportsAvgClassesDataGridView.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.reportsAvgClassesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.reportsAvgClassesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.reportsAvgClassesDataGridView.Location = new System.Drawing.Point(580, 167);
+            this.reportsAvgClassesDataGridView.Name = "reportsAvgClassesDataGridView";
+            this.reportsAvgClassesDataGridView.Size = new System.Drawing.Size(348, 245);
+            this.reportsAvgClassesDataGridView.TabIndex = 83;
+            // 
+            // printReportAvgSubjectsBtn
+            // 
+            this.printReportAvgSubjectsBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.printReportAvgSubjectsBtn.Location = new System.Drawing.Point(308, 418);
+            this.printReportAvgSubjectsBtn.Name = "printReportAvgSubjectsBtn";
+            this.printReportAvgSubjectsBtn.Size = new System.Drawing.Size(75, 23);
+            this.printReportAvgSubjectsBtn.TabIndex = 82;
+            this.printReportAvgSubjectsBtn.Text = "Печать";
+            this.printReportAvgSubjectsBtn.UseVisualStyleBackColor = true;
+            // 
+            // reportsAvgSubjectsDataGridView
+            // 
+            this.reportsAvgSubjectsDataGridView.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.reportsAvgSubjectsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.reportsAvgSubjectsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.reportsAvgSubjectsDataGridView.Location = new System.Drawing.Point(35, 167);
+            this.reportsAvgSubjectsDataGridView.Name = "reportsAvgSubjectsDataGridView";
+            this.reportsAvgSubjectsDataGridView.Size = new System.Drawing.Size(348, 245);
+            this.reportsAvgSubjectsDataGridView.TabIndex = 15;
             // 
             // avgSchoolLbl
             // 
             this.avgSchoolLbl.AutoSize = true;
             this.avgSchoolLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.avgSchoolLbl.Location = new System.Drawing.Point(426, 113);
+            this.avgSchoolLbl.Location = new System.Drawing.Point(285, 66);
             this.avgSchoolLbl.Name = "avgSchoolLbl";
             this.avgSchoolLbl.Size = new System.Drawing.Size(76, 24);
             this.avgSchoolLbl.TabIndex = 12;
@@ -722,7 +750,7 @@ namespace StudentsPerformance
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label16.Location = new System.Drawing.Point(173, 113);
+            this.label16.Location = new System.Drawing.Point(32, 66);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(228, 24);
             this.label16.TabIndex = 11;
@@ -732,7 +760,7 @@ namespace StudentsPerformance
             // 
             this.quantityOfStudentsLbl.AutoSize = true;
             this.quantityOfStudentsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.quantityOfStudentsLbl.Location = new System.Drawing.Point(426, 24);
+            this.quantityOfStudentsLbl.Location = new System.Drawing.Point(285, 25);
             this.quantityOfStudentsLbl.Name = "quantityOfStudentsLbl";
             this.quantityOfStudentsLbl.Size = new System.Drawing.Size(76, 24);
             this.quantityOfStudentsLbl.TabIndex = 10;
@@ -742,7 +770,7 @@ namespace StudentsPerformance
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label17.Location = new System.Drawing.Point(173, 24);
+            this.label17.Location = new System.Drawing.Point(32, 25);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(210, 24);
             this.label17.TabIndex = 9;
@@ -769,7 +797,8 @@ namespace StudentsPerformance
             ((System.ComponentModel.ISupportInitialize)(this.teachersDataGridView)).EndInit();
             this.reportsTabPage.ResumeLayout(false);
             this.reportsTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.resultReportDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reportsAvgClassesDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reportsAvgSubjectsDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -817,18 +846,16 @@ namespace StudentsPerformance
         private System.Windows.Forms.Button deleteTeacherBtn;
         private System.Windows.Forms.Button updateTeacherBtn;
         private System.Windows.Forms.Button addTeacherBtn;
-        private System.Windows.Forms.DataGridView resultReportDataGridView;
+        private System.Windows.Forms.DataGridView reportsAvgSubjectsDataGridView;
         private System.Windows.Forms.Label avgSchoolLbl;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label quantityOfStudentsLbl;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label quantityOfStaffLbl;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Button avgMarkSubjectBtn;
-        private System.Windows.Forms.Button avgMarkClassBtn;
         private System.Windows.Forms.Button printStudentBtn;
         private System.Windows.Forms.Button printTeacherBtn;
-        private System.Windows.Forms.Button printReportBtn;
+        private System.Windows.Forms.Button printReportAvgSubjectsBtn;
         private System.Windows.Forms.LinkLabel addNewClassLinkLabel;
         private System.Windows.Forms.CheckBox classTeacherChckBox;
         private System.Windows.Forms.ComboBox classNameForTeacherComboBox;
@@ -836,5 +863,9 @@ namespace StudentsPerformance
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button removeGuardianBtn;
         private System.Windows.Forms.ListBox guardiansListBox;
+        private System.Windows.Forms.DataGridView reportsAvgClassesDataGridView;
+        private System.Windows.Forms.Button printReportAvgClassesBtn;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label14;
     }
 }

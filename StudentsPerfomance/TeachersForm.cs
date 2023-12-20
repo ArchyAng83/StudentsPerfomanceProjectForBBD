@@ -179,7 +179,7 @@ namespace StudentsPerformance
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show("Разрешено ставить только одну оценку в день по предмету", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Разрешено ставить только одну оценку в день по данному предмету", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -7,8 +7,8 @@
     <ProjectGuid>{9A5E6C9C-D184-440A-90EA-F0A0E1D3B15D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StudentsPerfomanceLogic</RootNamespace>
-    <AssemblyName>StudentsPerfomanceLogic</AssemblyName>
+    <RootNamespace>StudentsPerformanceLogic</RootNamespace>
+    <AssemblyName>StudentsPerformanceLogic</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -50,6 +50,8 @@
     <Compile Include="DataAccess\SqlConnector.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="GlobalConfig.cs" />
+    <Compile Include="Helpers\ClassAvgHelper.cs" />
+    <Compile Include="Helpers\SubjectAvgHelper.cs" />
     <Compile Include="Models\Guardian.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\Person.cs" />
