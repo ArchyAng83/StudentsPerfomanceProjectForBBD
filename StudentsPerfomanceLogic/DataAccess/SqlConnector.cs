@@ -14,24 +14,7 @@ namespace StudentsPerformanceLogic.DataAccess
 {
     //Todo: Add to User Table ?
     public class SqlConnector : IDataConnection
-    {
-        private const string db = "StudentsPerformanceForPAS";
-
-        public User GetUserByLoginAndPassword(string login, string password)
-        {
-            User user;
-
-            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
-            {
-                var p = new DynamicParameters();
-
-                p.Add("@login", login);
-                p.Add("@password", password);
-                user = connection.QueryFirstOrDefault<User>("spUsers_GetUserByLoginAndPassword",p, commandType: CommandType.StoredProcedure);
-            }
-
-            return user;
-        }
+    {       
 
         #region SchoolClasses
         public SchoolClass CreateClass(SchoolClass schoolClass)
@@ -454,6 +437,25 @@ namespace StudentsPerformanceLogic.DataAccess
         #endregion
 
         #region User
+
+        private const string db = "StudentsPerformanceForPAS";
+
+        public User GetUserByLoginAndPassword(string login, string password)
+        {
+            User user;
+
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                var p = new DynamicParameters();
+
+                p.Add("@login", login);
+                p.Add("@password", password);
+                user = connection.QueryFirstOrDefault<User>("spUsers_GetUserByLoginAndPassword", p, commandType: CommandType.StoredProcedure);
+            }
+
+            return user;
+        }
+
         public void CreateUser(User user)
         {
             using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
