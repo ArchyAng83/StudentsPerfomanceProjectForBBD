@@ -1,4 +1,5 @@
 ﻿
+using DGVPrinterHelper;
 using StudentsPerformanceLogic;
 using StudentsPerformanceLogic.Helpers;
 using StudentsPerformanceLogic.Models;
@@ -7,10 +8,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace StudentsPerformance
 {
@@ -24,6 +27,9 @@ namespace StudentsPerformance
         SchoolClass oldClass;
         List<Subject> availableSubjects = GlobalConfig.Connection.GetAllSubjects();
         List<Teacher> availableTeachers = GlobalConfig.Connection.GetAllTeachers();
+        List<SubjectAvgHelper> subjectAvgs = GlobalConfig.Connection.GetAvgBySubject();
+        List<ClassAvgHelper> classAvgs = GlobalConfig.Connection.GetAvgByClass();
+        private string printString = string.Empty;
         
         Teacher selectedTeacher;
 
@@ -79,7 +85,7 @@ namespace StudentsPerformance
             teachersDataGridView.Columns["Subject"].DisplayIndex = teachersDataGridView.Columns.Count - 1;
             teachersDataGridView.Columns["SchoolClass"].DisplayIndex = teachersDataGridView.Columns.Count - 1;
 
-            quantityOfStaffLbl.Text = availableTeachers.Count.ToString();
+            quantityOfStaffValue.Text = availableTeachers.Count.ToString();
         }
 
         private void WireUpStudentLists()
@@ -91,22 +97,20 @@ namespace StudentsPerformance
             studentsDataGridView.Columns["FullName"].Visible = false;
 
             int quantityOfStudents = availableClasses.Select(s => s.Students.Count).Sum();
-            quantityOfStudentsLbl.Text = quantityOfStudents.ToString();
+            quantityOfStudentsValue.Text = quantityOfStudents.ToString();
 
             double avg = availableClasses.SelectMany(sc => sc.Students).SelectMany(s => s.Marks).Average(m => m.ValueMark);
-            avgSchoolLbl.Text = avg.ToString("f2");
+            avgSchoolValue.Text = avg.ToString("f2");
 
             WireUpAvgLists();
 
         }
 
         private void WireUpAvgLists()
-        {
-            List<SubjectAvgHelper> subjectAvgs = GlobalConfig.Connection.GetAvgBySubject();
+        {            
             reportsAvgSubjectsDataGridView.DataSource = null;
             reportsAvgSubjectsDataGridView.DataSource = subjectAvgs.GetRange(0, subjectAvgs.Count);
-
-            List<ClassAvgHelper> classAvgs = GlobalConfig.Connection.GetAvgByClass();
+            
             reportsAvgClassesDataGridView.DataSource = null;
             reportsAvgClassesDataGridView.DataSource = classAvgs.GetRange(0, classAvgs.Count);
         }
@@ -481,5 +485,145 @@ namespace StudentsPerformance
 
 
         #endregion
+
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Bitmap bmp = new Bitmap(studentsDataGridView.Width, studentsDataGridView.Height);
+            studentsDataGridView.DrawToBitmap(bmp, new Rectangle(0, 0, studentsDataGridView.Width, studentsDataGridView.Height));
+            e.Graphics.DrawImage(bmp, 0, 0);
+            //e.Graphics.DrawString(printString, new Font("Arial", 14), Brushes.Black, 0, 0);
+        }
+
+        private string GetPrintStringStudent()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Информация о студенте");
+            sb.AppendLine();
+            sb.AppendLine(new string('_', 30));
+            sb.AppendLine($"{currentStudent.FullName}");
+            sb.AppendLine($"Класс: {classStudentCmbBox.SelectedValue}");
+            sb.AppendLine($"Дата рождения: {currentStudent.BirthDate.ToShortDateString()}");
+            sb.AppendLine($"Адрес проживания: {currentStudent.Address}");
+            sb.AppendLine($"Телефон: {currentStudent.CellPhone}");
+            sb.AppendLine($"Опекуны:");
+            foreach (var guardian in currentStudent.Guardians)
+            {
+                sb.AppendLine($"{guardian.FullName}");
+            }
+            sb.Append(new string('_', 30));
+            sb.AppendLine();
+            sb.AppendLine($"Дата: {DateTime.UtcNow.ToShortDateString()}");
+
+
+            sb.AppendLine();
+            foreach (DataGridViewRow row in studentsDataGridView.SelectedRows)
+            {
+                sb.AppendLine(row.ToString());
+                
+            }
+            sb.AppendLine();
+            return sb.ToString();
+        }
+
+        private void printStudentInfoBtn_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
+            printer.Title = "Информация об учащихся";
+            printer.SubTitle = classStudentCmbBox.SelectedValue.ToString() + " класс";
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            printer.PageNumbers = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = DateTime.UtcNow.ToShortDateString();
+            printer.PreviewDialog = printPreviewDialog1;
+            printer.printDocument.DefaultPageSettings.Landscape = true;
+            printer.PrintPreviewDataGridView(studentsDataGridView);
+
+            //printString = GetPrintStringStudent();
+
+            //printDocument1.PrintPage += printDocument1_PrintPage;
+
+            //if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
+            //{
+            //    printPreviewDialog1.Document.Print();
+            //}
+        }
+
+        private void printTeacherBtn_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
+            printer.Title = "Информация о преподавателях";
+            printer.SubTitle = $"{quantityOfStaffText.Text} {quantityOfStaffValue.Text}";
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            printer.PageNumbers = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = DateTime.UtcNow.ToShortDateString();
+            printer.PreviewDialog = printPreviewDialog1;
+            printer.printDocument.DefaultPageSettings.Landscape = true;
+            printer.PrintPreviewDataGridView(teachersDataGridView);
+        }
+
+        private void printReportAvgSubjectsBtn_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
+            printer.Title = "Отчет по среднему баллу школы";
+            printer.SubTitle = GetStringToTitle();
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            printer.PageNumbers = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = DateTime.UtcNow.ToShortDateString();
+            printer.PreviewDialog = printPreviewDialog1;
+            printer.printDocument.DefaultPageSettings.Landscape = true;
+            DataGridView dgv = new DataGridView();            
+            this.Controls.Add(dgv);
+            dgv.DataSource = GetDataTableForNewDGV();
+            dgv.DefaultCellStyle.Font = new Font("Arial", 12);
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12);
+            printer.PrintPreviewDataGridView(dgv);
+        }
+
+        private string GetStringToTitle()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"{quantityOfStudentsText.Text} {quantityOfStudentsValue.Text}");
+            sb.AppendLine($"{avgSchoolText.Text} {avgSchoolValue.Text}");
+
+            return sb.ToString();
+        }
+
+        public DataTable GetDataTableForNewDGV()
+        {
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("Предмет", typeof(string));
+            dt.Columns.Add("Средний балл по предметам", typeof(string));
+            dt.Columns.Add("Класс", typeof(string));
+            dt.Columns.Add("Средний балл по классам", typeof(string));
+
+            // Определяем максимальную длину из двух списков
+            int maxLength = Math.Max(subjectAvgs.Count, classAvgs.Count);
+
+            // Используем цикл for, чтобы перебрать элементы обоих списков по индексу
+            for (int i = 0; i < maxLength; i++)
+            {
+                // Используем метод ElementAtOrDefault, чтобы получить элемент из списка по индексу или null
+                SubjectAvgHelper subAvg = subjectAvgs.ElementAtOrDefault(i);
+                ClassAvgHelper classAvg = classAvgs.ElementAtOrDefault(i);
+
+                // Используем оператор ??, чтобы заменить null на пустую строку
+                string subName = subAvg?.Name ?? "";
+                string subAvgValue = subAvg?.Avg.ToString() ?? "";
+                string className = classAvg?.Name ?? "";
+                string classAvgValue = classAvg?.Avg.ToString() ?? "";
+
+                // Используем метод Add, чтобы добавить новую строку в DataTable с полученными значениями
+                dt.Rows.Add(subName, subAvgValue, className, classAvgValue);
+            }
+
+            return dt;
+        }
     }
 }

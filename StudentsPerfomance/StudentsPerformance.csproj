@@ -207,6 +207,7 @@
     <Compile Include="AddSubjectForm.Designer.cs">
       <DependentUpon>AddSubjectForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DGVPrinter.cs" />
     <Compile Include="IClassRequest.cs" />
     <Compile Include="IGuardianRequest.cs" />
     <Compile Include="ISubjectRequest.cs" />
