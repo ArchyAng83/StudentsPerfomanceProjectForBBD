@@ -432,6 +432,7 @@ namespace StudentsPerformance
             // 
             // printStudentAVGBallBtn
             // 
+            this.printStudentAVGBallBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.printStudentAVGBallBtn.Location = new System.Drawing.Point(618, 402);
             this.printStudentAVGBallBtn.Name = "printStudentAVGBallBtn";
             this.printStudentAVGBallBtn.Size = new System.Drawing.Size(94, 39);
@@ -496,6 +497,7 @@ namespace StudentsPerformance
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 493);
             this.Controls.Add(this.teacherTabControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TeachersForm";
             this.Text = "Журнал учителя";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TeachersForm_FormClosing);

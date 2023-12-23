@@ -19,6 +19,7 @@ using System.Windows.Forms.VisualStyles;
 namespace StudentsPerformance
 {
     //Todo: selected teacher view
+    //Todo: change update teacher and student to list
     public partial class HeadTeacherForm : Form, ISchoolClassRequest, IGuardianRequest, ISubjectRequest
     {
         readonly List<SchoolClass> availableClasses = GlobalConfig.Connection.GetAllClasses();
@@ -222,6 +223,7 @@ namespace StudentsPerformance
             else
             {
                 MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             ClearStudentSetup();
@@ -502,7 +504,7 @@ namespace StudentsPerformance
         private void printStudentInfoBtn_Click(object sender, EventArgs e)
         {
             DGVPrinter printer = new DGVPrinter();
-            printer.Title = "Информация об учащихся";
+            printer.Title = "Отчет о данных учащихся";
             printer.SubTitle = classStudentCmbBox.SelectedValue.ToString() + " класс";
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
             printer.PageNumbers = false;
@@ -517,7 +519,7 @@ namespace StudentsPerformance
         private void printTeacherBtn_Click(object sender, EventArgs e)
         {
             DGVPrinter printer = new DGVPrinter();
-            printer.Title = "Информация о преподавателях";
+            printer.Title = "Отчет о данных преподавателей";
             printer.SubTitle = $"{quantityOfStaffText.Text} {quantityOfStaffValue.Text}";
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
             printer.PageNumbers = false;

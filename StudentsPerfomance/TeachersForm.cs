@@ -268,6 +268,7 @@ namespace StudentsPerformance
             else
             {
                 MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             DGVPrinter printer = new DGVPrinter();
