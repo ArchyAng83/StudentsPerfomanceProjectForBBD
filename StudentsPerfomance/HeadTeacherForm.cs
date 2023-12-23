@@ -10,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -197,6 +198,10 @@ namespace StudentsPerformance
 
                 ClearStudentSetup();
                 WireUpStudentLists();
+
+                User newUser = new User($"S{student.Id}", GeneratePassword(), student.Id, 5);
+
+                GlobalConfig.Connection.CreateUser(newUser);
             }
             else
             {
@@ -365,6 +370,12 @@ namespace StudentsPerformance
                 availableTeachers.Add(teacher);
 
                 ClearTeacherSetup();
+                
+                int roleId = classTeacherChckBox.Checked ? 3 : 4;
+                string login = classTeacherChckBox.Checked ? $"CT{teacher.Id}" : $"T{teacher.Id}";
+                User newUser = new User(login, GeneratePassword(), teacher.Id, roleId);                               
+
+                GlobalConfig.Connection.CreateUser(newUser);
             }
             else
             {
@@ -393,10 +404,17 @@ namespace StudentsPerformance
                     availableTeachers.Add(newTeacher);
 
                     ClearTeacherSetup();
+
+                    User user = GlobalConfig.Connection.GetUser(selectedTeacher.Id);
+                    int roleId = classTeacherChckBox.Checked ? 3 : 4;
+                    string login = classTeacherChckBox.Checked ? $"CT{selectedTeacher.Id}" : $"T{selectedTeacher.Id}";
+                    user = new User(login, user.Password, user.UserId, roleId);
+
+                    GlobalConfig.Connection.UpdateUser(user);
                 }
                 else
                 {
-                    MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Не выбран преподаватель", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -480,50 +498,7 @@ namespace StudentsPerformance
         #endregion
 
         #region Reports page functional
-
-
-
-        #endregion
-
-        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            Bitmap bmp = new Bitmap(studentsDataGridView.Width, studentsDataGridView.Height);
-            studentsDataGridView.DrawToBitmap(bmp, new Rectangle(0, 0, studentsDataGridView.Width, studentsDataGridView.Height));
-            e.Graphics.DrawImage(bmp, 0, 0);
-            //e.Graphics.DrawString(printString, new Font("Arial", 14), Brushes.Black, 0, 0);
-        }
-
-        private string GetPrintStringStudent()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Информация о студенте");
-            sb.AppendLine();
-            sb.AppendLine(new string('_', 30));
-            sb.AppendLine($"{currentStudent.FullName}");
-            sb.AppendLine($"Класс: {classStudentCmbBox.SelectedValue}");
-            sb.AppendLine($"Дата рождения: {currentStudent.BirthDate.ToShortDateString()}");
-            sb.AppendLine($"Адрес проживания: {currentStudent.Address}");
-            sb.AppendLine($"Телефон: {currentStudent.CellPhone}");
-            sb.AppendLine($"Опекуны:");
-            foreach (var guardian in currentStudent.Guardians)
-            {
-                sb.AppendLine($"{guardian.FullName}");
-            }
-            sb.Append(new string('_', 30));
-            sb.AppendLine();
-            sb.AppendLine($"Дата: {DateTime.UtcNow.ToShortDateString()}");
-
-
-            sb.AppendLine();
-            foreach (DataGridViewRow row in studentsDataGridView.SelectedRows)
-            {
-                sb.AppendLine(row.ToString());
                 
-            }
-            sb.AppendLine();
-            return sb.ToString();
-        }
-
         private void printStudentInfoBtn_Click(object sender, EventArgs e)
         {
             DGVPrinter printer = new DGVPrinter();
@@ -537,15 +512,6 @@ namespace StudentsPerformance
             printer.PreviewDialog = printPreviewDialog1;
             printer.printDocument.DefaultPageSettings.Landscape = true;
             printer.PrintPreviewDataGridView(studentsDataGridView);
-
-            //printString = GetPrintStringStudent();
-
-            //printDocument1.PrintPage += printDocument1_PrintPage;
-
-            //if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
-            //{
-            //    printPreviewDialog1.Document.Print();
-            //}
         }
 
         private void printTeacherBtn_Click(object sender, EventArgs e)
@@ -624,6 +590,21 @@ namespace StudentsPerformance
             }
 
             return dt;
+        }
+
+        #endregion
+
+        private string GeneratePassword()
+        {
+            string[] arr = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+            Random rnd = new Random();
+            StringBuilder builder = new StringBuilder(7);
+            for (int i = 0; i < 7; i++)
+            {
+                builder.Append(arr[rnd.Next(0, 10)]);
+            }
+
+            return builder.ToString();
         }
     }
 }

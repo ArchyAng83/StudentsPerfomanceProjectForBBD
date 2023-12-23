@@ -8,9 +8,17 @@ namespace StudentsPerformanceLogic.Models
 {
     public class User
     {
-        public string Login { get; set; }
-        public string Password { get; set; }        
-        public int UserId { get; set; }
-        public int RoleId { get; set; }
+        public string Login { get; }
+        public string Password { get; }        
+        public int UserId { get; }
+        public int RoleId { get; }
+
+        public User(string login, string password, int userId, int roleId)
+        {
+            Login = login;
+            Password = password;
+            UserId = userId;
+            RoleId = roleId;
+        }
     }
 }

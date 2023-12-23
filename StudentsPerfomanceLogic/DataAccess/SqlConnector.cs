@@ -453,6 +453,46 @@ namespace StudentsPerformanceLogic.DataAccess
 
         #endregion
 
+        #region User
+        public void CreateUser(User user)
+        {
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                var p = new DynamicParameters();
+                p.Add("@login", user.Login);
+                p.Add("@password", user.Password);
+                p.Add("@userId", user.UserId);
+                p.Add("@roleId", user.RoleId);
 
+                connection.Execute("spUsers_Insert", p, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public void UpdateUser(User user)
+        {
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                var p = new DynamicParameters();
+                p.Add("@login", user.Login);
+                p.Add("@userId", user.UserId);
+                p.Add("@roleId", user.RoleId);
+
+                connection.Execute("spUsers_Update", p, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public User GetUser(int id)
+        {
+            User user;
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+
+                user = connection.Query<User>("spUsers_GetUser", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+
+            return user;
+        }
+
+        #endregion
     }
 }

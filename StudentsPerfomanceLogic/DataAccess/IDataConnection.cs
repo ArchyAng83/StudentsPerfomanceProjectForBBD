@@ -36,5 +36,8 @@ namespace StudentsPerformanceLogic.DataAccess
         List<SubjectAvgHelper> GetAvgBySubject();
         List<ClassAvgHelper> GetAvgByClass();
         List<SubjectAvgHelper> GetAvgByStudent(int studentId);
+        void CreateUser(User user);
+        void UpdateUser(User user);
+        User GetUser(int id);
     }
 }
