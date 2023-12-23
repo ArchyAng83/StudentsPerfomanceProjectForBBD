@@ -12,7 +12,6 @@ using StudentsPerformanceLogic.Helpers;
 
 namespace StudentsPerformanceLogic.DataAccess
 {
-    //Todo: Add to User Table ?
     public class SqlConnector : IDataConnection
     {       
 
