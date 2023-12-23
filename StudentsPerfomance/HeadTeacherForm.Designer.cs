@@ -218,7 +218,7 @@ namespace StudentsPerformance
             this.printStudentInfoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.printStudentInfoBtn.Location = new System.Drawing.Point(852, 165);
             this.printStudentInfoBtn.Name = "printStudentInfoBtn";
-            this.printStudentInfoBtn.Size = new System.Drawing.Size(100, 39);
+            this.printStudentInfoBtn.Size = new System.Drawing.Size(94, 39);
             this.printStudentInfoBtn.TabIndex = 81;
             this.printStudentInfoBtn.Text = "Печать";
             this.printStudentInfoBtn.UseVisualStyleBackColor = true;
@@ -777,7 +777,7 @@ namespace StudentsPerformance
             this.printReportAvgSubjectsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.printReportAvgSubjectsBtn.Location = new System.Drawing.Point(443, 440);
             this.printReportAvgSubjectsBtn.Name = "printReportAvgSubjectsBtn";
-            this.printReportAvgSubjectsBtn.Size = new System.Drawing.Size(82, 33);
+            this.printReportAvgSubjectsBtn.Size = new System.Drawing.Size(94, 39);
             this.printReportAvgSubjectsBtn.TabIndex = 82;
             this.printReportAvgSubjectsBtn.Text = "Печать";
             this.printReportAvgSubjectsBtn.UseVisualStyleBackColor = true;
