@@ -1,5 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DGVPrinterHelper;
+using Microsoft.Data.SqlClient;
 using StudentsPerformanceLogic;
+using StudentsPerformanceLogic.Helpers;
 using StudentsPerformanceLogic.Models;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,6 @@ using System.Windows.Forms;
 
 namespace StudentsPerformance
 {
-    //Todo: Print button functional ?
     public partial class TeachersForm : Form
     {
         private readonly int teacherId;
@@ -124,7 +125,7 @@ namespace StudentsPerformance
             avgBySubjectLbl.Text = avgMarks.ToString("f2");
 
             avgMarks = currentStudent.Marks.Count != 0 ? Convert.ToDouble(currentStudent.Marks.Sum(m => m.ValueMark)) / currentStudent.Marks.Count : 0;
-            avgAllSubjectsLbl.Text = avgMarks.ToString("f2");
+            avgAllSubjectsValue.Text = avgMarks.ToString("f2");
 
             classJournalMarksDataGridView.DataSource = null;
             classJournalMarksDataGridView.DataSource = markList;
@@ -249,10 +250,55 @@ namespace StudentsPerformance
             {
                 WireUpMarkCJLists();
             }
+        }        
+
+        private void printStudentAVGBallBtn_Click(object sender, EventArgs e)
+        {
+            DataGridView dgv = new DataGridView();
+
+            if (currentStudent != null)
+            {
+                List<SubjectAvgHelper> subjectAvgs = GlobalConfig.Connection.GetAvgByStudent(currentStudent.Id);
+                                
+                this.Controls.Add(dgv);
+                dgv.DataSource = subjectAvgs;
+                dgv.DefaultCellStyle.Font = new Font("Arial", 16);
+                dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 16);
+            }
+            else
+            {
+                MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            DGVPrinter printer = new DGVPrinter();
+            printer.Title = "Отчет по среднему баллу учащегося";
+            printer.SubTitle = GetStringToTitle();
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            printer.PageNumbers = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = DateTime.UtcNow.ToShortDateString();
+            printer.PreviewDialog = printPreviewDialog1;
+            printer.PrintPreviewDataGridView(dgv);
         }
 
+        private string GetStringToTitle()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (currentStudent != null)
+            {
+                sb.AppendLine($"{currentStudent.FullName}");
+                sb.AppendLine($"{currentTeacher.SchoolClass.Name} класс");
+                sb.AppendLine($"{avgAllSubjectsText.Text} {avgAllSubjectsValue.Text}"); 
+            }
+            else
+            {
+                MessageBox.Show("Не выбран учащийся", "Ошибка выбранных данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return sb.ToString();
+        }
         #endregion
-
-
     }
 }

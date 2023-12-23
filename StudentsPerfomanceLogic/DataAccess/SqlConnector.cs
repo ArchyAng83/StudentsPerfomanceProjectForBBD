@@ -12,7 +12,6 @@ using StudentsPerformanceLogic.Helpers;
 
 namespace StudentsPerformanceLogic.DataAccess
 {
-    //Todo: Print Button ?
     //Todo: Add to User Table ?
     public class SqlConnector : IDataConnection
     {
@@ -389,6 +388,18 @@ namespace StudentsPerformanceLogic.DataAccess
             return output;
         }
 
+        public List<SubjectAvgHelper> GetAvgByStudent(int studentId)
+        {
+            List<SubjectAvgHelper> output;
+
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.GetConnection(db)))
+            {
+                output = connection.Query<SubjectAvgHelper>("spMarks_GetAvgBySubjectStudent", new { studentId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+
+            return output;
+        }
+
         #endregion
 
         #region Lesson
@@ -441,5 +452,7 @@ namespace StudentsPerformanceLogic.DataAccess
         }
 
         #endregion
+
+
     }
 }

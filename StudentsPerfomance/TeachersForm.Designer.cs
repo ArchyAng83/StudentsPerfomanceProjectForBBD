@@ -29,6 +29,13 @@ namespace StudentsPerformance
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeachersForm));
             this.teacherTabControl = new System.Windows.Forms.TabControl();
             this.lessonTabPage = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
@@ -49,8 +56,8 @@ namespace StudentsPerformance
             this.classJournalTabPage = new System.Windows.Forms.TabPage();
             this.subjectCmbBox = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.avgAllSubjectsLbl = new System.Windows.Forms.Label();
+            this.avgAllSubjectsText = new System.Windows.Forms.Label();
+            this.avgAllSubjectsValue = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.avgBySubjectLbl = new System.Windows.Forms.Label();
             this.classJournalStudentsDataGridView = new System.Windows.Forms.DataGridView();
@@ -60,6 +67,7 @@ namespace StudentsPerformance
             this.label6 = new System.Windows.Forms.Label();
             this.classValueLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.teacherTabControl.SuspendLayout();
             this.lessonTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lessonStudentsDataGridView)).BeginInit();
@@ -159,7 +167,23 @@ namespace StudentsPerformance
             // lessonStudentsDataGridView
             // 
             this.lessonStudentsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.lessonStudentsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.lessonStudentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.lessonStudentsDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.lessonStudentsDataGridView.Location = new System.Drawing.Point(12, 204);
             this.lessonStudentsDataGridView.Name = "lessonStudentsDataGridView";
             this.lessonStudentsDataGridView.Size = new System.Drawing.Size(263, 204);
@@ -265,6 +289,14 @@ namespace StudentsPerformance
             this.lessonMarksDataGridView.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lessonMarksDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.lessonMarksDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.lessonMarksDataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.lessonMarksDataGridView.Location = new System.Drawing.Point(304, 204);
             this.lessonMarksDataGridView.Name = "lessonMarksDataGridView";
             this.lessonMarksDataGridView.Size = new System.Drawing.Size(263, 204);
@@ -274,8 +306,8 @@ namespace StudentsPerformance
             // 
             this.classJournalTabPage.Controls.Add(this.subjectCmbBox);
             this.classJournalTabPage.Controls.Add(this.label10);
-            this.classJournalTabPage.Controls.Add(this.label9);
-            this.classJournalTabPage.Controls.Add(this.avgAllSubjectsLbl);
+            this.classJournalTabPage.Controls.Add(this.avgAllSubjectsText);
+            this.classJournalTabPage.Controls.Add(this.avgAllSubjectsValue);
             this.classJournalTabPage.Controls.Add(this.label8);
             this.classJournalTabPage.Controls.Add(this.avgBySubjectLbl);
             this.classJournalTabPage.Controls.Add(this.classJournalStudentsDataGridView);
@@ -314,25 +346,25 @@ namespace StudentsPerformance
             this.label10.TabIndex = 89;
             this.label10.Text = "Предмет:";
             // 
-            // label9
+            // avgAllSubjectsText
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(5, 413);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(146, 16);
-            this.label9.TabIndex = 88;
-            this.label9.Text = "Общий средний балл:";
+            this.avgAllSubjectsText.AutoSize = true;
+            this.avgAllSubjectsText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.avgAllSubjectsText.Location = new System.Drawing.Point(5, 413);
+            this.avgAllSubjectsText.Name = "avgAllSubjectsText";
+            this.avgAllSubjectsText.Size = new System.Drawing.Size(146, 16);
+            this.avgAllSubjectsText.TabIndex = 88;
+            this.avgAllSubjectsText.Text = "Общий средний балл:";
             // 
-            // avgAllSubjectsLbl
+            // avgAllSubjectsValue
             // 
-            this.avgAllSubjectsLbl.AutoSize = true;
-            this.avgAllSubjectsLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.avgAllSubjectsLbl.Location = new System.Drawing.Point(220, 413);
-            this.avgAllSubjectsLbl.Name = "avgAllSubjectsLbl";
-            this.avgAllSubjectsLbl.Size = new System.Drawing.Size(51, 16);
-            this.avgAllSubjectsLbl.TabIndex = 87;
-            this.avgAllSubjectsLbl.Text = "<none>";
+            this.avgAllSubjectsValue.AutoSize = true;
+            this.avgAllSubjectsValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.avgAllSubjectsValue.Location = new System.Drawing.Point(220, 413);
+            this.avgAllSubjectsValue.Name = "avgAllSubjectsValue";
+            this.avgAllSubjectsValue.Size = new System.Drawing.Size(51, 16);
+            this.avgAllSubjectsValue.TabIndex = 87;
+            this.avgAllSubjectsValue.Text = "<none>";
             // 
             // label8
             // 
@@ -357,7 +389,23 @@ namespace StudentsPerformance
             // classJournalStudentsDataGridView
             // 
             this.classJournalStudentsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.classJournalStudentsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.classJournalStudentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.classJournalStudentsDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
             this.classJournalStudentsDataGridView.Location = new System.Drawing.Point(12, 195);
             this.classJournalStudentsDataGridView.Name = "classJournalStudentsDataGridView";
             this.classJournalStudentsDataGridView.Size = new System.Drawing.Size(263, 204);
@@ -369,6 +417,14 @@ namespace StudentsPerformance
             this.classJournalMarksDataGridView.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.classJournalMarksDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.classJournalMarksDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.classJournalMarksDataGridView.DefaultCellStyle = dataGridViewCellStyle6;
             this.classJournalMarksDataGridView.Location = new System.Drawing.Point(300, 195);
             this.classJournalMarksDataGridView.Name = "classJournalMarksDataGridView";
             this.classJournalMarksDataGridView.Size = new System.Drawing.Size(263, 204);
@@ -376,12 +432,13 @@ namespace StudentsPerformance
             // 
             // printStudentAVGBallBtn
             // 
-            this.printStudentAVGBallBtn.Location = new System.Drawing.Point(6, 79);
+            this.printStudentAVGBallBtn.Location = new System.Drawing.Point(618, 402);
             this.printStudentAVGBallBtn.Name = "printStudentAVGBallBtn";
-            this.printStudentAVGBallBtn.Size = new System.Drawing.Size(75, 23);
+            this.printStudentAVGBallBtn.Size = new System.Drawing.Size(94, 39);
             this.printStudentAVGBallBtn.TabIndex = 82;
             this.printStudentAVGBallBtn.Text = "Печать";
             this.printStudentAVGBallBtn.UseVisualStyleBackColor = true;
+            this.printStudentAVGBallBtn.Click += new System.EventHandler(this.printStudentAVGBallBtn_Click);
             // 
             // classTeacherFullNameLbl
             // 
@@ -422,6 +479,16 @@ namespace StudentsPerformance
             this.label3.Size = new System.Drawing.Size(67, 24);
             this.label3.TabIndex = 23;
             this.label3.Text = "Класс:";
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
             // 
             // TeachersForm
             // 
@@ -470,13 +537,14 @@ namespace StudentsPerformance
         private System.Windows.Forms.ComboBox markComboBox;
         private System.Windows.Forms.Label avgSubjectLbl;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label avgAllSubjectsLbl;
+        private System.Windows.Forms.Label avgAllSubjectsText;
+        private System.Windows.Forms.Label avgAllSubjectsValue;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label avgBySubjectLbl;
         private System.Windows.Forms.DataGridView classJournalStudentsDataGridView;
         private System.Windows.Forms.DataGridView classJournalMarksDataGridView;
         private System.Windows.Forms.ComboBox subjectCmbBox;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
     }
 }

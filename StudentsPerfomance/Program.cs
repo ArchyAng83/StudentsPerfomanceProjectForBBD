@@ -19,7 +19,7 @@ namespace StudentsPerformance
             Application.SetCompatibleTextRenderingDefault(false);
             GlobalConfig.InitializeConnection(DataType.Sql);
             //Application.Run(new StudentInfoForm(1));
-            Application.Run(new HeadTeacherForm());
+            Application.Run(new TeachersForm(3, true));
         }
     }
 }

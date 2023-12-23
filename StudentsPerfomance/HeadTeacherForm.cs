@@ -29,7 +29,6 @@ namespace StudentsPerformance
         List<Teacher> availableTeachers = GlobalConfig.Connection.GetAllTeachers();
         List<SubjectAvgHelper> subjectAvgs = GlobalConfig.Connection.GetAvgBySubject();
         List<ClassAvgHelper> classAvgs = GlobalConfig.Connection.GetAvgByClass();
-        private string printString = string.Empty;
         
         Teacher selectedTeacher;
 
@@ -566,6 +565,12 @@ namespace StudentsPerformance
 
         private void printReportAvgSubjectsBtn_Click(object sender, EventArgs e)
         {
+            DataGridView dgv = new DataGridView();
+            this.Controls.Add(dgv);
+            dgv.DataSource = GetDataTableForNewDGV();
+            dgv.DefaultCellStyle.Font = new Font("Arial", 12);
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12);
+
             DGVPrinter printer = new DGVPrinter();
             printer.Title = "Отчет по среднему баллу школы";
             printer.SubTitle = GetStringToTitle();
@@ -575,12 +580,7 @@ namespace StudentsPerformance
             printer.HeaderCellAlignment = StringAlignment.Near;
             printer.Footer = DateTime.UtcNow.ToShortDateString();
             printer.PreviewDialog = printPreviewDialog1;
-            printer.printDocument.DefaultPageSettings.Landscape = true;
-            DataGridView dgv = new DataGridView();            
-            this.Controls.Add(dgv);
-            dgv.DataSource = GetDataTableForNewDGV();
-            dgv.DefaultCellStyle.Font = new Font("Arial", 12);
-            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12);
+            printer.printDocument.DefaultPageSettings.Landscape = true;            
             printer.PrintPreviewDataGridView(dgv);
         }
 

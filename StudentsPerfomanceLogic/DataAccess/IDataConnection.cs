@@ -35,5 +35,6 @@ namespace StudentsPerformanceLogic.DataAccess
         void DeleteMarkToStudent(Mark mark, int studentId);
         List<SubjectAvgHelper> GetAvgBySubject();
         List<ClassAvgHelper> GetAvgByClass();
+        List<SubjectAvgHelper> GetAvgByStudent(int studentId);
     }
 }
